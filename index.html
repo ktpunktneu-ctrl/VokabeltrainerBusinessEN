@@ -14,8 +14,8 @@
 :root {
   --green:#16213E; --white:#fff; --red:#B23B3B; --gold:#C6A15B;
   --bg:#F3F1EA; --card:#fff; --text:#1C2333; --text-light:#6B7280;
-  --border:#E6E2D6; --success:#16a34a; --danger:#b3401f;
-  --radius:16px; --shadow:0 4px 18px rgba(22,33,62,0.09);
+  --border:#DEDACC; --success:#16a34a; --danger:#b3401f;
+  --radius:6px; --shadow:0 1px 2px rgba(22,33,62,0.06);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{
@@ -32,46 +32,46 @@ header .flag{display:inline-flex;align-items:center;justify-content:center;width
 header .flag::before{content:'BE'}
 .icon-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-light);padding:6px}
 .menu-wrap{position:relative;display:inline-block}
-.dropdown-menu{display:none;position:absolute;right:0;top:38px;background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:6px;min-width:150px;z-index:50}
+.dropdown-menu{display:none;position:absolute;right:0;top:38px;background:var(--card);border:1px solid var(--border);border-radius:4px;box-shadow:0 4px 16px rgba(22,33,62,0.12);padding:6px;min-width:150px;z-index:50}
 .dropdown-menu.open{display:block}
-.dropdown-item{padding:9px 12px;font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;white-space:nowrap;color:var(--text)}
+.dropdown-item{padding:9px 12px;font-size:13px;font-weight:600;border-radius:2px;cursor:pointer;white-space:nowrap;color:var(--text)}
 .dropdown-item:hover{background:var(--bg)}
 
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
-.card-title{font-size:12px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:18px;margin-bottom:14px}
+.card-title{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 
 .chip-grid{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light);transition:.15s}
-.chip.active{background:var(--green);border-color:var(--green);color:#fff}
+.chip{padding:7px 13px;border-radius:3px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;letter-spacing:.2px;cursor:pointer;color:var(--text-light);transition:.15s}
+.chip.active{background:var(--green);border-color:var(--green);color:var(--gold)}
 
 .radio-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.radio-opt{padding:12px;border-radius:10px;border:1.5px solid var(--border);text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light)}
-.radio-opt.active{background:var(--green);border-color:var(--green);color:#fff}
+.radio-opt{padding:12px;border-radius:3px;border:1px solid var(--border);text-align:center;font-size:12px;font-weight:600;letter-spacing:.3px;cursor:pointer;color:var(--text-light)}
+.radio-opt.active{background:var(--green);border-color:var(--green);color:var(--gold)}
 .radio-opt.disabled{opacity:.4;cursor:not-allowed}
 
-.btn{padding:14px;border-radius:12px;border:none;cursor:pointer;font-size:16px;font-weight:700;width:100%;transition:.15s}
-.btn-primary{background:var(--green);color:#fff}
+.btn{padding:13px;border-radius:3px;border:none;cursor:pointer;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;width:100%;transition:.15s}
+.btn-primary{background:var(--green);color:var(--gold)}
 .btn-primary:active{background:#0c1428}
-.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.btn-secondary{background:#fff;color:var(--text);border:1px solid var(--border)}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-sm{padding:8px 14px;font-size:13px;width:auto}
+.btn-sm{padding:8px 14px;font-size:11px;width:auto}
 
 .slider-row{display:flex;align-items:center;gap:12px}
 .slider-row input[type=range]{flex:1}
 .slider-val{font-weight:800;color:var(--green);min-width:28px;text-align:center}
 
 /* Quiz */
-#quiz-progress{font-size:12px;color:var(--text-light);text-align:center;margin-bottom:8px}
-#quiz-progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:24px}
-#quiz-progress-fill{height:100%;background:var(--green);transition:width .2s}
-.quiz-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:40px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px}
-.quiz-lang-badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gold);background:var(--green);padding:4px 12px;border-radius:10px;align-self:center}
+#quiz-progress{font-size:11px;color:var(--text-light);text-align:center;margin-bottom:8px;letter-spacing:.3px}
+#quiz-progress-bar{height:3px;background:var(--border);border-radius:0;overflow:hidden;margin-bottom:24px}
+#quiz-progress-fill{height:100%;background:var(--gold);transition:width .2s}
+.quiz-card{background:#fff;border-radius:var(--radius);border:1px solid var(--border);border-top:3px solid var(--gold);box-shadow:var(--shadow);padding:36px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.quiz-lang-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);background:var(--green);padding:4px 12px;border-radius:2px;align-self:center}
 .quiz-word-row{display:flex;align-items:center;justify-content:center;gap:8px}
-.quiz-word{font-size:32px;font-weight:800;color:var(--text)}
+.quiz-word{font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:700;color:var(--text)}
 .speak-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--green);padding:4px;line-height:1;flex-shrink:0}
 .speak-btn:disabled{opacity:.35;cursor:default}
 .ll-speak-btn{background:none;border:none;font-size:15px;cursor:pointer;color:var(--green);padding:0 0 0 6px;line-height:1;flex-shrink:0}
-.quiz-input{padding:14px;font-size:18px;border:2px solid var(--border);border-radius:12px;text-align:center;outline:none;font-family:inherit;width:100%}
+.quiz-input{padding:14px;font-size:17px;border:1.5px solid var(--border);border-radius:3px;text-align:center;outline:none;font-family:inherit;width:100%}
 .quiz-input:focus{border-color:var(--green)}
 .quiz-input.correct{border-color:var(--success);background:#f0fdf4}
 .quiz-input.wrong{border-color:var(--danger);background:#fef2f2}
@@ -80,12 +80,12 @@ header .flag::before{content:'BE'}
 .quiz-feedback.wrong{color:var(--danger)}
 .quiz-forms{display:none;flex-wrap:wrap;justify-content:center;gap:6px;font-size:12px}
 .quiz-forms.show{display:flex}
-.quiz-forms span{background:var(--bg);padding:4px 9px;border-radius:8px;color:var(--text-light)}
+.quiz-forms span{background:var(--bg);padding:4px 9px;border-radius:2px;color:var(--text-light)}
 .quiz-forms span b{color:var(--text)}
 .quiz-actions{display:flex;gap:10px}
 
 /* Ergebnis */
-.result-score{font-size:52px;font-weight:800;text-align:center;color:var(--green);margin:20px 0 6px}
+.result-score{font-family:Georgia,'Times New Roman',serif;font-size:48px;font-weight:700;text-align:center;color:var(--green);margin:20px 0 6px}
 .result-sub{text-align:center;color:var(--text-light);font-size:14px;margin-bottom:20px}
 .result-list{max-height:240px;overflow-y:auto;margin-bottom:16px}
 .result-item{display:flex;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--border);font-size:13px}
@@ -93,8 +93,8 @@ header .flag::before{content:'BE'}
 
 /* Verwaltung */
 .vk-item{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
-.vk-item .vk-kat{font-size:10px;font-weight:700;color:#fff;background:var(--green);padding:2px 7px;border-radius:8px;white-space:nowrap}
-.vk-kat-select{font-size:10px;font-weight:700;color:#fff;background:var(--green);padding:2px 4px;border-radius:8px;border:none;white-space:nowrap;cursor:pointer;max-width:110px}
+.vk-item .vk-kat{font-size:10px;font-weight:700;color:var(--gold);background:var(--green);padding:2px 7px;border-radius:2px;white-space:nowrap}
+.vk-kat-select{font-size:10px;font-weight:700;color:var(--gold);background:var(--green);padding:2px 4px;border-radius:2px;border:none;white-space:nowrap;cursor:pointer;max-width:110px}
 .kat-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
 .kat-row:last-child{border-bottom:none}
 .kat-row .kat-name{flex:1;font-weight:600}
@@ -105,51 +105,51 @@ header .flag::before{content:'BE'}
 .vk-item .vk-de{color:var(--text-light);flex:1}
 .vk-del{background:none;border:none;color:var(--danger);font-size:16px;cursor:pointer}
 .form-row{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-.form-row input,.form-row select{padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;outline:none;font-family:inherit;background:#fff;width:100%}
+.form-row input,.form-row select{padding:10px;border:1.5px solid var(--border);border-radius:3px;font-size:14px;outline:none;font-family:inherit;background:#fff;width:100%}
 .form-row input:focus,.form-row select:focus{border-color:var(--green)}
 
 /* FAB */
-.fab{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 20px);right:calc(50% - 240px + 20px);width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;border:none;box-shadow:0 4px 14px rgba(22,33,62,0.4);cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center}
+.fab{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 20px);right:calc(50% - 240px + 20px);width:50px;height:50px;border-radius:8px;background:var(--green);color:var(--gold);font-size:24px;font-weight:400;border:1px solid var(--gold);box-shadow:0 2px 8px rgba(22,33,62,0.3);cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center}
 @media (max-width:520px){.fab{right:20px}}
 
 /* Add-Modal */
-dialog{border:none;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.25);padding:0;width:340px;max-width:90vw;margin:14vh auto auto auto}
+dialog{border:none;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.25);padding:0;width:340px;max-width:90vw;margin:14vh auto auto auto}
 dialog::backdrop{background:rgba(0,0,0,0.4)}
 .modal-body{padding:20px}
-.modal-title{font-size:15px;font-weight:800;margin-bottom:14px;color:var(--text)}
+.modal-title{font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:700;margin-bottom:14px;color:var(--text)}
 .m-err{color:var(--danger);font-size:12px;min-height:16px;margin-top:6px;font-weight:600}
-.m-trial-hint{background:var(--bg);color:var(--text-light);font-size:12px;font-weight:600;padding:8px 10px;border-radius:8px;margin-bottom:12px}
+.m-trial-hint{background:var(--bg);color:var(--text-light);font-size:12px;font-weight:600;padding:8px 10px;border-radius:3px;margin-bottom:12px;border-left:2px solid var(--gold)}
 .ocr-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
-.ocr-row input{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;min-width:0}
+.ocr-row input{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:3px;font-size:13px;font-family:inherit;min-width:0}
 .ocr-row button{background:none;border:none;color:var(--danger);font-size:16px;cursor:pointer;padding:4px 6px}
 .modal-actions{display:flex;gap:8px;margin-top:6px}
 
 .page-hdr{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .page-hdr .back-btn{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text);padding:0 4px 0 0;line-height:1}
-.page-hdr h2{font-size:18px;font-weight:800;color:var(--text)}
+.page-hdr h2{font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:var(--text)}
 
 nav{display:flex;gap:6px;margin-top:14px}
-nav button{flex:1;padding:10px;border-radius:10px;border:none;background:#fff;box-shadow:var(--shadow);font-size:12px;font-weight:700;color:var(--text-light);cursor:pointer}
-nav button.active{background:var(--green);color:#fff}
+nav button{flex:1;padding:10px;border-radius:3px;border:1px solid var(--border);background:#fff;box-shadow:none;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--text-light);cursor:pointer}
+nav button.active{background:var(--green);border-color:var(--green);color:var(--gold)}
 
 /* Lernliste */
 .ll-tabs{display:flex;gap:8px;margin-bottom:14px}
-.ll-tab{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);text-align:center;font-size:13px;font-weight:700;cursor:pointer;color:var(--text-light);background:#fff}
-.ll-tab.active{background:var(--green);border-color:var(--green);color:#fff}
-.ll-kat-title{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.ll-tab{flex:1;padding:10px;border-radius:3px;border:1px solid var(--border);text-align:center;font-size:12px;font-weight:700;letter-spacing:.3px;cursor:pointer;color:var(--text-light);background:#fff}
+.ll-tab.active{background:var(--green);border-color:var(--green);color:var(--gold)}
+.ll-kat-title{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:1px;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .ll-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:13px}
 .ll-row .ll-it{font-weight:700;flex:1}
 .ll-row .ll-de{color:var(--text-light);flex:1;text-align:right}
-.ll-verb-card{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+.ll-verb-card{border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px}
 .ll-verb-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
-.ll-verb-hdr .ll-inf{font-size:16px;font-weight:800;color:var(--text)}
+.ll-verb-hdr .ll-inf{font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:700;color:var(--text)}
 .ll-verb-hdr .ll-mean{font-size:12px;color:var(--text-light);font-style:italic}
 .ll-forms{display:flex;flex-wrap:wrap;gap:6px}
-.ll-forms span{background:var(--bg);padding:4px 9px;border-radius:8px;font-size:12px;color:var(--text-light)}
+.ll-forms span{background:var(--bg);padding:4px 9px;border-radius:2px;font-size:12px;color:var(--text-light)}
 .ll-forms span b{color:var(--text)}
 
 #toast-container{position:fixed;top:calc(env(safe-area-inset-top) + 10px);left:50%;transform:translateX(-50%);z-index:9999}
-.toast{padding:10px 18px;border-radius:20px;color:#fff;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);margin-bottom:6px;background:var(--danger)}
+.toast{padding:10px 18px;border-radius:3px;color:#fff;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);margin-bottom:6px;background:var(--danger)}
 .toast.ok{background:var(--success)}
 .app-version{font-size:11px;font-weight:400;color:var(--text-light);vertical-align:middle;margin-left:4px}
 </style>
@@ -309,7 +309,7 @@ nav button.active{background:var(--green);color:#fff}
       Du kannst die Antwort auch per Spracheingabe eintippen — einfach den Mikrofon-Button auf der Tastatur deines Handys drücken. Dabei findet allerdings keine Schreibprüfung statt.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🎯 Training starten</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Training starten</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       <b>Kategorien:</b> Auf eine Kategorie tippen wählt <i>nur diese eine</i> aus (alle anderen werden abgewählt). Nochmal draufhalten zeigt wieder alle Kategorien zusammen. So lernst du gezielt einen Themenbereich (z.B. nur "Essen") oder alles gemischt.
     </p>
@@ -324,37 +324,37 @@ nav button.active{background:var(--green);color:#fff}
       <b>Anzahl Fragen:</b> Regler zwischen 5 und 50 Fragen pro Durchgang — je nachdem wie viel Zeit du hast.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">✏️ Während der Abfrage</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Während der Abfrage</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       Antwort eintippen und mit <b>Enter</b> oder dem "Prüfen"-Button bestätigen. Groß-/Kleinschreibung spielt keine Rolle. Manche Vokabeln haben mehrere richtige Antworten (z.B. Synonyme) — jede davon wird als richtig erkannt. Nach jeder Antwort siehst du sofort, ob sie stimmt, und bei Verben mit hinterlegten Formen zusätzlich alle anderen Formen als Merkhilfe.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🏁 Ergebnis</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Ergebnis</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       Am Ende siehst du deine Trefferquote und eine Liste aller falsch beantworteten Vokabeln. Über <b>"Falsche nochmal üben"</b> startest du direkt eine neue Runde nur mit genau diesen Wörtern — ideal, um Lücken gezielt zu schließen.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">📖 Lernliste</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Lernliste</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       Alle Vokabeln zum reinen Durchlesen (ohne Abfrage), gruppiert nach Kategorie, mit demselben Kategorie-Filter und einem Richtungsumschalter wie beim Training. Der zweite Reiter "Verbformen" zeigt alle Verbformen als Übersicht. Über das <b>Suchfeld</b> oben findest du sofort jede Vokabel, egal in welcher Kategorie — die Suche hat Vorrang vor dem Kategorie-Filter.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🔊 Aussprache</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Aussprache</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       Lautsprecher-Symbol antippen, um das Wort laut vorlesen zu lassen — nutzt die eingebauten Stimmen deines Handys, funktioniert auch offline.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">⚙ Verwaltung</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Verwaltung</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       Eigene Vokabeln über den <b>+</b>-Button hinzufügen (die App warnt schon beim Eintippen, falls das Wort bereits existiert). Über <b>"+ Neue Kategorie anlegen"</b> legst du eine leere Kategorie ganz ohne Vokabel an. Mit <b>"📷 Vokabeln aus Foto (OCR)"</b> fotografierst du eine Vokabelseite — die App erkennt den Text automatisch, du korrigierst bei Bedarf und übernimmst alle Wortpaare auf einmal in eine Kategorie. Jede Vokabel lässt sich per Dropdown einer anderen Kategorie zuordnen. Kategorien selbst lassen sich nur löschen, wenn sie leer sind (keine Vokabeln mehr enthalten) — so geht nichts versehentlich verloren.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🔒 Testversion</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Testversion</p>
     <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
       In der Testversion kannst du dir alle Vokabeln in der Lernliste ansehen, aber im Training werden nur die ersten 10 Vokabeln je Kategorie abgefragt. Verbformen-Training sowie das Speichern eigener Vokabeln und Kategorien sind ebenfalls Teil der Vollversion (einmalig 9,95&nbsp;€, kein Abo) — den Freischalt-Code erhältst du beim Kauf.
     </p>
 
-    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">📴 Offline nutzen / installieren</p>
+    <p style="font-weight:700;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.8px;font-size:12px;color:var(--text-light)">Offline nutzen / installieren</p>
     <p style="font-size:13px;line-height:1.6;margin:0">
       Am besten installierst du die App auf dem Homescreen: in Safari auf das Teilen-Symbol tippen, dann <b>"Zum Home-Bildschirm"</b> auswählen. Danach öffnet sie sich wie eine echte App — ganz ohne Browserleiste — und funktioniert komplett offline, auch unterwegs ohne Internet. Deine Vokabeln und dein Fortschritt bleiben dabei immer auf diesem Gerät gespeichert.
     </p>
