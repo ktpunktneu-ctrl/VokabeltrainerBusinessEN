@@ -1,4 +1,4 @@
-const CACHE = 'vokabelbiz-v2';
+const CACHE = 'vokabelbiz-v3';
 const ASSETS = ['/', '/static/icon-192.png', '/static/icon-512.png', '/manifest.json'];
 
 self.addEventListener('install', e => {

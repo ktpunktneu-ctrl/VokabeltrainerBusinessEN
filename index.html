@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-<title>Vokabeltrainer Business English</title>
+<title>Vokabeltrainer – English for your business</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="static/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,9 +27,9 @@ body{
 .page.active{display:flex}
 
 header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.header-title{display:flex;flex-direction:column}
 header h1{font-family:Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:var(--green);letter-spacing:.2px}
-header .flag{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--green);border-radius:6px;border:1px solid var(--gold);vertical-align:middle;margin-right:8px;color:var(--gold);font-family:Georgia,serif;font-size:11px;font-weight:700}
-header .flag::before{content:'BE'}
+.header-tagline{font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-top:1px}
 .icon-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-light);padding:6px}
 .menu-wrap{position:relative;display:inline-block}
 .dropdown-menu{display:none;position:absolute;right:0;top:38px;background:var(--card);border:1px solid var(--border);border-radius:4px;box-shadow:0 4px 16px rgba(22,33,62,0.12);padding:6px;min-width:150px;z-index:50}
@@ -160,7 +160,10 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
 <div id="app">
 
   <header>
-    <h1><span class="flag"></span>Vokabeltrainer <span id="app-version" class="app-version"></span></h1>
+    <div class="header-title">
+      <h1>Vokabeltrainer <span id="app-version" class="app-version"></span></h1>
+      <div class="header-tagline">English for your business</div>
+    </div>
     <div>
       <button class="icon-btn" onclick="gotoPage('liste')" title="Lernliste">&#128214;</button>
       <button class="icon-btn" onclick="gotoPage('verwaltung')" title="Verwaltung">&#9881;</button>
