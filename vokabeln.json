@@ -1,0 +1,2621 @@
+[
+  {
+    "id": 1,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "nice to meet you",
+    "de": "freut mich (geschäftlich)"
+  },
+  {
+    "id": 2,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "pleasure doing business with you",
+    "de": "ein Vergnügen, mit Ihnen Geschäfte zu machen"
+  },
+  {
+    "id": 3,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "let me introduce myself",
+    "de": "darf ich mich vorstellen"
+  },
+  {
+    "id": 4,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "here's my business card",
+    "de": "hier ist meine Visitenkarte"
+  },
+  {
+    "id": 5,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "how can I help you?",
+    "de": "wie kann ich Ihnen helfen?"
+  },
+  {
+    "id": 6,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "I appreciate your time",
+    "de": "ich schätze Ihre Zeit"
+  },
+  {
+    "id": 7,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "thank you for your patience",
+    "de": "danke für Ihre Geduld"
+  },
+  {
+    "id": 8,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "I look forward to working with you",
+    "de": "ich freue mich auf die Zusammenarbeit"
+  },
+  {
+    "id": 9,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "could we schedule a call?",
+    "de": "könnten wir ein Telefonat vereinbaren?"
+  },
+  {
+    "id": 10,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "are you available on...?",
+    "de": "haben Sie am ... Zeit?"
+  },
+  {
+    "id": 11,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "I'm afraid that doesn't work for me",
+    "de": "das passt mir leider nicht"
+  },
+  {
+    "id": 12,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "let's touch base next week",
+    "de": "lassen Sie uns nächste Woche abstimmen"
+  },
+  {
+    "id": 13,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "keep me in the loop",
+    "de": "halten Sie mich auf dem Laufenden"
+  },
+  {
+    "id": 14,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "I'll get back to you",
+    "de": "ich melde mich bei Ihnen"
+  },
+  {
+    "id": 15,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "as per our conversation",
+    "de": "wie besprochen"
+  },
+  {
+    "id": 16,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "to the best of my knowledge",
+    "de": "meines Wissens nach"
+  },
+  {
+    "id": 17,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "I'll follow up on this",
+    "de": "ich werde das nachverfolgen"
+  },
+  {
+    "id": 18,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "please find attached",
+    "de": "im Anhang finden Sie"
+  },
+  {
+    "id": 19,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "on short notice",
+    "de": "kurzfristig"
+  },
+  {
+    "id": 20,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "out of office",
+    "de": "außer Haus / abwesend"
+  },
+  {
+    "id": 21,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "point of contact",
+    "de": "Ansprechpartner"
+  },
+  {
+    "id": 22,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "stakeholder",
+    "de": "Interessenvertreter / Stakeholder"
+  },
+  {
+    "id": 23,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "corporate culture",
+    "de": "Unternehmenskultur"
+  },
+  {
+    "id": 24,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "code of conduct",
+    "de": "Verhaltenskodex"
+  },
+  {
+    "id": 25,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "networking",
+    "de": "Networking / Kontaktpflege"
+  },
+  {
+    "id": 26,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "elevator pitch",
+    "de": "Kurzpräsentation / Elevator Pitch"
+  },
+  {
+    "id": 27,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "work-life balance",
+    "de": "Work-Life-Balance"
+  },
+  {
+    "id": 28,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "headquarters",
+    "de": "Hauptsitz"
+  },
+  {
+    "id": 29,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "branch office",
+    "de": "Zweigstelle"
+  },
+  {
+    "id": 30,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "subsidiary",
+    "de": "Tochtergesellschaft"
+  },
+  {
+    "id": 31,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "headcount",
+    "de": "Personalstärke / Mitarbeiterzahl"
+  },
+  {
+    "id": 32,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "onboarding",
+    "de": "Einarbeitung"
+  },
+  {
+    "id": 33,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "business trip",
+    "de": "Geschäftsreise"
+  },
+  {
+    "id": 34,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "conference",
+    "de": "Konferenz"
+  },
+  {
+    "id": 35,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "trade fair",
+    "de": "Messe"
+  },
+  {
+    "id": 36,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "client",
+    "de": "Kunde (B2B)"
+  },
+  {
+    "id": 37,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "vendor",
+    "de": "Lieferant / Anbieter"
+  },
+  {
+    "id": 38,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "competitor",
+    "de": "Wettbewerber"
+  },
+  {
+    "id": 39,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "industry",
+    "de": "Branche"
+  },
+  {
+    "id": 40,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "market share",
+    "de": "Marktanteil"
+  },
+  {
+    "id": 41,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "corporate policy",
+    "de": "Unternehmensrichtlinie"
+  },
+  {
+    "id": 42,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "confidentiality agreement",
+    "de": "Vertraulichkeitsvereinbarung"
+  },
+  {
+    "id": 43,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "due diligence",
+    "de": "Sorgfaltsprüfung"
+  },
+  {
+    "id": 44,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "work ethic",
+    "de": "Arbeitsmoral"
+  },
+  {
+    "id": 45,
+    "kategorie": "Grundlagen & Umgangsformen",
+    "it": "professional development",
+    "de": "berufliche Weiterentwicklung"
+  },
+  {
+    "id": 46,
+    "kategorie": "Meetings",
+    "it": "agenda",
+    "de": "Tagesordnung"
+  },
+  {
+    "id": 47,
+    "kategorie": "Meetings",
+    "it": "minutes (of the meeting)",
+    "de": "Protokoll"
+  },
+  {
+    "id": 48,
+    "kategorie": "Meetings",
+    "it": "to chair a meeting",
+    "de": "eine Besprechung leiten"
+  },
+  {
+    "id": 49,
+    "kategorie": "Meetings",
+    "it": "action items",
+    "de": "Maßnahmenliste / To-dos"
+  },
+  {
+    "id": 50,
+    "kategorie": "Meetings",
+    "it": "to table an issue",
+    "de": "ein Thema vertagen"
+  },
+  {
+    "id": 51,
+    "kategorie": "Meetings",
+    "it": "follow-up meeting",
+    "de": "Folgetermin"
+  },
+  {
+    "id": 52,
+    "kategorie": "Meetings",
+    "it": "to reschedule",
+    "de": "verschieben"
+  },
+  {
+    "id": 53,
+    "kategorie": "Meetings",
+    "it": "conference call",
+    "de": "Telefonkonferenz"
+  },
+  {
+    "id": 54,
+    "kategorie": "Meetings",
+    "it": "video call",
+    "de": "Videoanruf"
+  },
+  {
+    "id": 55,
+    "kategorie": "Meetings",
+    "it": "to dial in",
+    "de": "sich einwählen"
+  },
+  {
+    "id": 56,
+    "kategorie": "Meetings",
+    "it": "breakout session",
+    "de": "Kleingruppensitzung"
+  },
+  {
+    "id": 57,
+    "kategorie": "Meetings",
+    "it": "to brainstorm",
+    "de": "brainstormen"
+  },
+  {
+    "id": 58,
+    "kategorie": "Meetings",
+    "it": "to reach a consensus",
+    "de": "einen Konsens erzielen"
+  },
+  {
+    "id": 59,
+    "kategorie": "Meetings",
+    "it": "to table a motion",
+    "de": "einen Antrag stellen"
+  },
+  {
+    "id": 60,
+    "kategorie": "Meetings",
+    "it": "quorum",
+    "de": "Beschlussfähigkeit"
+  },
+  {
+    "id": 61,
+    "kategorie": "Meetings",
+    "it": "to adjourn",
+    "de": "vertagen / beenden"
+  },
+  {
+    "id": 62,
+    "kategorie": "Meetings",
+    "it": "stand-up meeting",
+    "de": "Stehmeeting"
+  },
+  {
+    "id": 63,
+    "kategorie": "Meetings",
+    "it": "kick-off meeting",
+    "de": "Auftakttreffen"
+  },
+  {
+    "id": 64,
+    "kategorie": "Meetings",
+    "it": "to circulate the agenda",
+    "de": "die Tagesordnung verteilen"
+  },
+  {
+    "id": 65,
+    "kategorie": "Meetings",
+    "it": "to take the floor",
+    "de": "das Wort ergreifen"
+  },
+  {
+    "id": 66,
+    "kategorie": "Meetings",
+    "it": "to interrupt",
+    "de": "unterbrechen"
+  },
+  {
+    "id": 67,
+    "kategorie": "Meetings",
+    "it": "to second a motion",
+    "de": "einen Antrag unterstützen"
+  },
+  {
+    "id": 68,
+    "kategorie": "Meetings",
+    "it": "to vote on",
+    "de": "abstimmen über"
+  },
+  {
+    "id": 69,
+    "kategorie": "Meetings",
+    "it": "unanimous decision",
+    "de": "einstimmige Entscheidung"
+  },
+  {
+    "id": 70,
+    "kategorie": "Meetings",
+    "it": "to postpone",
+    "de": "verschieben"
+  },
+  {
+    "id": 71,
+    "kategorie": "Meetings",
+    "it": "attendee",
+    "de": "Teilnehmer"
+  },
+  {
+    "id": 72,
+    "kategorie": "Meetings",
+    "it": "to chime in",
+    "de": "sich einbringen"
+  },
+  {
+    "id": 73,
+    "kategorie": "Meetings",
+    "it": "off the record",
+    "de": "inoffiziell / nicht protokolliert"
+  },
+  {
+    "id": 74,
+    "kategorie": "Meetings",
+    "it": "to wrap up",
+    "de": "abschließen"
+  },
+  {
+    "id": 75,
+    "kategorie": "Meetings",
+    "it": "recap",
+    "de": "Zusammenfassung"
+  },
+  {
+    "id": 76,
+    "kategorie": "Meetings",
+    "it": "to bring up a point",
+    "de": "einen Punkt ansprechen"
+  },
+  {
+    "id": 77,
+    "kategorie": "Meetings",
+    "it": "to get sidetracked",
+    "de": "vom Thema abkommen"
+  },
+  {
+    "id": 78,
+    "kategorie": "Meetings",
+    "it": "time slot",
+    "de": "Zeitfenster"
+  },
+  {
+    "id": 79,
+    "kategorie": "Meetings",
+    "it": "to run over time",
+    "de": "die Zeit überziehen"
+  },
+  {
+    "id": 80,
+    "kategorie": "Meetings",
+    "it": "conference room",
+    "de": "Konferenzraum"
+  },
+  {
+    "id": 81,
+    "kategorie": "Meetings",
+    "it": "remote meeting",
+    "de": "Meeting aus der Ferne"
+  },
+  {
+    "id": 82,
+    "kategorie": "Meetings",
+    "it": "in-person meeting",
+    "de": "Präsenztreffen"
+  },
+  {
+    "id": 83,
+    "kategorie": "Meetings",
+    "it": "to loop someone in",
+    "de": "jemanden hinzuziehen"
+  },
+  {
+    "id": 84,
+    "kategorie": "Meetings",
+    "it": "briefing",
+    "de": "Kurzbesprechung"
+  },
+  {
+    "id": 85,
+    "kategorie": "Meetings",
+    "it": "debriefing",
+    "de": "Nachbesprechung"
+  },
+  {
+    "id": 86,
+    "kategorie": "Meetings",
+    "it": "minutes taker",
+    "de": "Protokollant"
+  },
+  {
+    "id": 87,
+    "kategorie": "Meetings",
+    "it": "open floor",
+    "de": "offene Diskussionsrunde"
+  },
+  {
+    "id": 88,
+    "kategorie": "Meetings",
+    "it": "sidebar conversation",
+    "de": "Nebengespräch"
+  },
+  {
+    "id": 89,
+    "kategorie": "Meetings",
+    "it": "to convene",
+    "de": "einberufen"
+  },
+  {
+    "id": 90,
+    "kategorie": "Verhandlungen",
+    "it": "to negotiate",
+    "de": "verhandeln"
+  },
+  {
+    "id": 91,
+    "kategorie": "Verhandlungen",
+    "it": "counteroffer",
+    "de": "Gegenangebot"
+  },
+  {
+    "id": 92,
+    "kategorie": "Verhandlungen",
+    "it": "to reach a deal",
+    "de": "eine Einigung erzielen"
+  },
+  {
+    "id": 93,
+    "kategorie": "Verhandlungen",
+    "it": "to make a concession",
+    "de": "ein Zugeständnis machen"
+  },
+  {
+    "id": 94,
+    "kategorie": "Verhandlungen",
+    "it": "bottom line",
+    "de": "unterste Grenze / Kernaussage"
+  },
+  {
+    "id": 95,
+    "kategorie": "Verhandlungen",
+    "it": "win-win situation",
+    "de": "Win-Win-Situation"
+  },
+  {
+    "id": 96,
+    "kategorie": "Verhandlungen",
+    "it": "to bargain",
+    "de": "feilschen"
+  },
+  {
+    "id": 97,
+    "kategorie": "Verhandlungen",
+    "it": "leverage",
+    "de": "Verhandlungsmacht"
+  },
+  {
+    "id": 98,
+    "kategorie": "Verhandlungen",
+    "it": "to close the deal",
+    "de": "den Deal abschließen"
+  },
+  {
+    "id": 99,
+    "kategorie": "Verhandlungen",
+    "it": "to walk away from the table",
+    "de": "vom Verhandlungstisch aufstehen"
+  },
+  {
+    "id": 100,
+    "kategorie": "Verhandlungen",
+    "it": "terms and conditions",
+    "de": "Geschäftsbedingungen"
+  },
+  {
+    "id": 101,
+    "kategorie": "Verhandlungen",
+    "it": "to sign off on",
+    "de": "absegnen"
+  },
+  {
+    "id": 102,
+    "kategorie": "Verhandlungen",
+    "it": "non-disclosure agreement",
+    "de": "Verschwiegenheitsvereinbarung"
+  },
+  {
+    "id": 103,
+    "kategorie": "Verhandlungen",
+    "it": "to draft a contract",
+    "de": "einen Vertrag entwerfen"
+  },
+  {
+    "id": 104,
+    "kategorie": "Verhandlungen",
+    "it": "binding agreement",
+    "de": "verbindliche Vereinbarung"
+  },
+  {
+    "id": 105,
+    "kategorie": "Verhandlungen",
+    "it": "to breach a contract",
+    "de": "einen Vertrag brechen"
+  },
+  {
+    "id": 106,
+    "kategorie": "Verhandlungen",
+    "it": "to renegotiate",
+    "de": "nachverhandeln"
+  },
+  {
+    "id": 107,
+    "kategorie": "Verhandlungen",
+    "it": "deadlock",
+    "de": "Sackgasse (Verhandlung)"
+  },
+  {
+    "id": 108,
+    "kategorie": "Verhandlungen",
+    "it": "to compromise",
+    "de": "einen Kompromiss finden"
+  },
+  {
+    "id": 109,
+    "kategorie": "Verhandlungen",
+    "it": "to haggle over price",
+    "de": "über den Preis feilschen"
+  },
+  {
+    "id": 110,
+    "kategorie": "Verhandlungen",
+    "it": "fine print",
+    "de": "Kleingedrucktes"
+  },
+  {
+    "id": 111,
+    "kategorie": "Verhandlungen",
+    "it": "to sweeten the deal",
+    "de": "das Angebot attraktiver machen"
+  },
+  {
+    "id": 112,
+    "kategorie": "Verhandlungen",
+    "it": "opening offer",
+    "de": "Eröffnungsangebot"
+  },
+  {
+    "id": 113,
+    "kategorie": "Verhandlungen",
+    "it": "to stall negotiations",
+    "de": "Verhandlungen verzögern"
+  },
+  {
+    "id": 114,
+    "kategorie": "Verhandlungen",
+    "it": "mutual agreement",
+    "de": "gegenseitiges Einverständnis"
+  },
+  {
+    "id": 115,
+    "kategorie": "Verhandlungen",
+    "it": "arbitration",
+    "de": "Schiedsverfahren"
+  },
+  {
+    "id": 116,
+    "kategorie": "Verhandlungen",
+    "it": "mediator",
+    "de": "Vermittler"
+  },
+  {
+    "id": 117,
+    "kategorie": "Verhandlungen",
+    "it": "to lock in a price",
+    "de": "einen Preis fixieren"
+  },
+  {
+    "id": 118,
+    "kategorie": "Verhandlungen",
+    "it": "exclusivity clause",
+    "de": "Exklusivitätsklausel"
+  },
+  {
+    "id": 119,
+    "kategorie": "Verhandlungen",
+    "it": "escrow",
+    "de": "Treuhandkonto"
+  },
+  {
+    "id": 120,
+    "kategorie": "Verhandlungen",
+    "it": "to finalize the contract",
+    "de": "den Vertrag finalisieren"
+  },
+  {
+    "id": 121,
+    "kategorie": "Verhandlungen",
+    "it": "letter of intent",
+    "de": "Absichtserklärung"
+  },
+  {
+    "id": 122,
+    "kategorie": "Verhandlungen",
+    "it": "to sign on the dotted line",
+    "de": "unterschreiben"
+  },
+  {
+    "id": 123,
+    "kategorie": "Verhandlungen",
+    "it": "handshake deal",
+    "de": "Handschlag-Abkommen"
+  },
+  {
+    "id": 124,
+    "kategorie": "Verhandlungen",
+    "it": "to hammer out details",
+    "de": "Details ausarbeiten"
+  },
+  {
+    "id": 125,
+    "kategorie": "Verhandlungen",
+    "it": "stalemate",
+    "de": "Patt-Situation"
+  },
+  {
+    "id": 126,
+    "kategorie": "Verhandlungen",
+    "it": "negotiating table",
+    "de": "Verhandlungstisch"
+  },
+  {
+    "id": 127,
+    "kategorie": "Verhandlungen",
+    "it": "leverage point",
+    "de": "Verhandlungshebel"
+  },
+  {
+    "id": 128,
+    "kategorie": "Verhandlungen",
+    "it": "to give ground",
+    "de": "nachgeben"
+  },
+  {
+    "id": 129,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "revenue",
+    "de": "Umsatz"
+  },
+  {
+    "id": 130,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "profit margin",
+    "de": "Gewinnmarge"
+  },
+  {
+    "id": 131,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "expenses",
+    "de": "Ausgaben"
+  },
+  {
+    "id": 132,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "net income",
+    "de": "Reingewinn"
+  },
+  {
+    "id": 133,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "gross income",
+    "de": "Bruttoeinkommen"
+  },
+  {
+    "id": 134,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "balance sheet",
+    "de": "Bilanz"
+  },
+  {
+    "id": 135,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "cash flow",
+    "de": "Cashflow / Zahlungsfluss"
+  },
+  {
+    "id": 136,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "budget",
+    "de": "Budget"
+  },
+  {
+    "id": 137,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "forecast",
+    "de": "Prognose"
+  },
+  {
+    "id": 138,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "fiscal year",
+    "de": "Geschäftsjahr"
+  },
+  {
+    "id": 139,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "quarterly report",
+    "de": "Quartalsbericht"
+  },
+  {
+    "id": 140,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "return on investment",
+    "de": "Kapitalrendite"
+  },
+  {
+    "id": 141,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "break-even point",
+    "de": "Gewinnschwelle"
+  },
+  {
+    "id": 142,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "overhead costs",
+    "de": "Gemeinkosten"
+  },
+  {
+    "id": 143,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "depreciation",
+    "de": "Abschreibung"
+  },
+  {
+    "id": 144,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "liabilities",
+    "de": "Verbindlichkeiten"
+  },
+  {
+    "id": 145,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "assets",
+    "de": "Vermögenswerte"
+  },
+  {
+    "id": 146,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "equity",
+    "de": "Eigenkapital"
+  },
+  {
+    "id": 147,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "shareholder",
+    "de": "Aktionär"
+  },
+  {
+    "id": 148,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "dividend",
+    "de": "Dividende"
+  },
+  {
+    "id": 149,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "stock price",
+    "de": "Aktienkurs"
+  },
+  {
+    "id": 150,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "market capitalization",
+    "de": "Marktkapitalisierung"
+  },
+  {
+    "id": 151,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "audit",
+    "de": "Prüfung / Audit"
+  },
+  {
+    "id": 152,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "tax deduction",
+    "de": "Steuerabzug"
+  },
+  {
+    "id": 153,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "invoice",
+    "de": "Rechnung"
+  },
+  {
+    "id": 154,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "accounts payable",
+    "de": "Verbindlichkeiten aus Lieferungen"
+  },
+  {
+    "id": 155,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "accounts receivable",
+    "de": "Forderungen"
+  },
+  {
+    "id": 156,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "to cut costs",
+    "de": "Kosten senken"
+  },
+  {
+    "id": 157,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "to break even",
+    "de": "die Gewinnschwelle erreichen"
+  },
+  {
+    "id": 158,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "KPI (key performance indicator)",
+    "de": "Kennzahl / KPI"
+  },
+  {
+    "id": 159,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "to underperform",
+    "de": "die Erwartungen nicht erfüllen"
+  },
+  {
+    "id": 160,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "to outperform",
+    "de": "die Erwartungen übertreffen"
+  },
+  {
+    "id": 161,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "write-off",
+    "de": "Abschreibung (Verlust)"
+  },
+  {
+    "id": 162,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "capital expenditure",
+    "de": "Investitionsausgaben"
+  },
+  {
+    "id": 163,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "loan",
+    "de": "Darlehen"
+  },
+  {
+    "id": 164,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "interest rate",
+    "de": "Zinssatz"
+  },
+  {
+    "id": 165,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "credit line",
+    "de": "Kreditlinie"
+  },
+  {
+    "id": 166,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "solvency",
+    "de": "Zahlungsfähigkeit"
+  },
+  {
+    "id": 167,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "bankruptcy",
+    "de": "Insolvenz"
+  },
+  {
+    "id": 168,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "merger",
+    "de": "Fusion"
+  },
+  {
+    "id": 169,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "acquisition",
+    "de": "Übernahme"
+  },
+  {
+    "id": 170,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "valuation",
+    "de": "Bewertung"
+  },
+  {
+    "id": 171,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "venture capital",
+    "de": "Risikokapital"
+  },
+  {
+    "id": 172,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "cost-benefit analysis",
+    "de": "Kosten-Nutzen-Analyse"
+  },
+  {
+    "id": 173,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "procurement",
+    "de": "Beschaffung"
+  },
+  {
+    "id": 174,
+    "kategorie": "Finanzen & Kennzahlen",
+    "it": "supply chain",
+    "de": "Lieferkette"
+  },
+  {
+    "id": 175,
+    "kategorie": "Präsentationen",
+    "it": "slide deck",
+    "de": "Foliensatz"
+  },
+  {
+    "id": 176,
+    "kategorie": "Präsentationen",
+    "it": "to give a presentation",
+    "de": "eine Präsentation halten"
+  },
+  {
+    "id": 177,
+    "kategorie": "Präsentationen",
+    "it": "key takeaway",
+    "de": "wichtigste Erkenntnis"
+  },
+  {
+    "id": 178,
+    "kategorie": "Präsentationen",
+    "it": "to make a point",
+    "de": "einen Punkt verdeutlichen"
+  },
+  {
+    "id": 179,
+    "kategorie": "Präsentationen",
+    "it": "handout",
+    "de": "Handout / Unterlage"
+  },
+  {
+    "id": 180,
+    "kategorie": "Präsentationen",
+    "it": "visual aid",
+    "de": "visuelles Hilfsmittel"
+  },
+  {
+    "id": 181,
+    "kategorie": "Präsentationen",
+    "it": "to pitch an idea",
+    "de": "eine Idee präsentieren"
+  },
+  {
+    "id": 182,
+    "kategorie": "Präsentationen",
+    "it": "audience",
+    "de": "Publikum"
+  },
+  {
+    "id": 183,
+    "kategorie": "Präsentationen",
+    "it": "Q&A session",
+    "de": "Fragerunde"
+  },
+  {
+    "id": 184,
+    "kategorie": "Präsentationen",
+    "it": "to rehearse",
+    "de": "proben"
+  },
+  {
+    "id": 185,
+    "kategorie": "Präsentationen",
+    "it": "bullet point",
+    "de": "Stichpunkt"
+  },
+  {
+    "id": 186,
+    "kategorie": "Präsentationen",
+    "it": "executive summary",
+    "de": "Zusammenfassung für die Führungsebene"
+  },
+  {
+    "id": 187,
+    "kategorie": "Präsentationen",
+    "it": "to walk through",
+    "de": "durchgehen (erklären)"
+  },
+  {
+    "id": 188,
+    "kategorie": "Präsentationen",
+    "it": "to highlight",
+    "de": "hervorheben"
+  },
+  {
+    "id": 189,
+    "kategorie": "Präsentationen",
+    "it": "body language",
+    "de": "Körpersprache"
+  },
+  {
+    "id": 190,
+    "kategorie": "Präsentationen",
+    "it": "to engage the audience",
+    "de": "das Publikum einbeziehen"
+  },
+  {
+    "id": 191,
+    "kategorie": "Präsentationen",
+    "it": "to wrap up a presentation",
+    "de": "eine Präsentation abschließen"
+  },
+  {
+    "id": 192,
+    "kategorie": "Präsentationen",
+    "it": "talking points",
+    "de": "Gesprächspunkte"
+  },
+  {
+    "id": 193,
+    "kategorie": "Präsentationen",
+    "it": "to keep it concise",
+    "de": "sich kurz fassen"
+  },
+  {
+    "id": 194,
+    "kategorie": "Präsentationen",
+    "it": "opening statement",
+    "de": "Eröffnungsstatement"
+  },
+  {
+    "id": 195,
+    "kategorie": "Präsentationen",
+    "it": "closing remarks",
+    "de": "Schlussbemerkungen"
+  },
+  {
+    "id": 196,
+    "kategorie": "Präsentationen",
+    "it": "to field questions",
+    "de": "Fragen beantworten"
+  },
+  {
+    "id": 197,
+    "kategorie": "Präsentationen",
+    "it": "flip chart",
+    "de": "Flipchart"
+  },
+  {
+    "id": 198,
+    "kategorie": "Präsentationen",
+    "it": "to project confidence",
+    "de": "Selbstsicherheit ausstrahlen"
+  },
+  {
+    "id": 199,
+    "kategorie": "Präsentationen",
+    "it": "rehearsal",
+    "de": "Probe"
+  },
+  {
+    "id": 200,
+    "kategorie": "Präsentationen",
+    "it": "to lose one's train of thought",
+    "de": "den Faden verlieren"
+  },
+  {
+    "id": 201,
+    "kategorie": "Präsentationen",
+    "it": "to read the room",
+    "de": "die Stimmung erfassen"
+  },
+  {
+    "id": 202,
+    "kategorie": "Präsentationen",
+    "it": "storyboard",
+    "de": "Storyboard"
+  },
+  {
+    "id": 203,
+    "kategorie": "Präsentationen",
+    "it": "dry run",
+    "de": "Generalprobe"
+  },
+  {
+    "id": 204,
+    "kategorie": "Präsentationen",
+    "it": "to fine-tune",
+    "de": "feinabstimmen"
+  },
+  {
+    "id": 205,
+    "kategorie": "Präsentationen",
+    "it": "pitch deck",
+    "de": "Pitch-Unterlagen"
+  },
+  {
+    "id": 206,
+    "kategorie": "Präsentationen",
+    "it": "to captivate the audience",
+    "de": "das Publikum fesseln"
+  },
+  {
+    "id": 207,
+    "kategorie": "Präsentationen",
+    "it": "visual clutter",
+    "de": "visuelle Unordnung"
+  },
+  {
+    "id": 208,
+    "kategorie": "Präsentationen",
+    "it": "takeaway message",
+    "de": "Kernbotschaft"
+  },
+  {
+    "id": 209,
+    "kategorie": "Präsentationen",
+    "it": "to summarize",
+    "de": "zusammenfassen"
+  },
+  {
+    "id": 210,
+    "kategorie": "Präsentationen",
+    "it": "supporting data",
+    "de": "unterstützende Daten"
+  },
+  {
+    "id": 211,
+    "kategorie": "Präsentationen",
+    "it": "to back up a claim",
+    "de": "eine Aussage belegen"
+  },
+  {
+    "id": 212,
+    "kategorie": "Präsentationen",
+    "it": "rebuttal",
+    "de": "Widerlegung"
+  },
+  {
+    "id": 213,
+    "kategorie": "Präsentationen",
+    "it": "to field a tough question",
+    "de": "eine schwierige Frage beantworten"
+  },
+  {
+    "id": 214,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "dear Sir or Madam",
+    "de": "Sehr geehrte Damen und Herren"
+  },
+  {
+    "id": 215,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "best regards",
+    "de": "mit freundlichen Grüßen"
+  },
+  {
+    "id": 216,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "kind regards",
+    "de": "freundliche Grüße"
+  },
+  {
+    "id": 217,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to reply all",
+    "de": "allen antworten"
+  },
+  {
+    "id": 218,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to cc someone",
+    "de": "jemanden in Kopie setzen"
+  },
+  {
+    "id": 219,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to bcc someone",
+    "de": "jemanden in Blindkopie setzen"
+  },
+  {
+    "id": 220,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "subject line",
+    "de": "Betreffzeile"
+  },
+  {
+    "id": 221,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "attachment",
+    "de": "Anhang"
+  },
+  {
+    "id": 222,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to forward an email",
+    "de": "eine E-Mail weiterleiten"
+  },
+  {
+    "id": 223,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "out-of-office reply",
+    "de": "Abwesenheitsnachricht"
+  },
+  {
+    "id": 224,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "as discussed",
+    "de": "wie besprochen"
+  },
+  {
+    "id": 225,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "please advise",
+    "de": "bitte um Rückmeldung"
+  },
+  {
+    "id": 226,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "at your earliest convenience",
+    "de": "so bald wie möglich"
+  },
+  {
+    "id": 227,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to follow up",
+    "de": "nachfassen"
+  },
+  {
+    "id": 228,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to circle back",
+    "de": "später darauf zurückkommen"
+  },
+  {
+    "id": 229,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "I hope this email finds you well",
+    "de": "ich hoffe, es geht Ihnen gut"
+  },
+  {
+    "id": 230,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "further to my last email",
+    "de": "anknüpfend an meine letzte E-Mail"
+  },
+  {
+    "id": 231,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to loop in",
+    "de": "hinzuziehen (per Mail)"
+  },
+  {
+    "id": 232,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "disclaimer",
+    "de": "Haftungsausschluss"
+  },
+  {
+    "id": 233,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "signature block",
+    "de": "Signatur"
+  },
+  {
+    "id": 234,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "read receipt",
+    "de": "Lesebestätigung"
+  },
+  {
+    "id": 235,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to draft an email",
+    "de": "eine E-Mail entwerfen"
+  },
+  {
+    "id": 236,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to proofread",
+    "de": "Korrektur lesen"
+  },
+  {
+    "id": 237,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "formal tone",
+    "de": "formeller Ton"
+  },
+  {
+    "id": 238,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "informal tone",
+    "de": "informeller Ton"
+  },
+  {
+    "id": 239,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to escalate an issue",
+    "de": "ein Problem eskalieren"
+  },
+  {
+    "id": 240,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "memo",
+    "de": "Mitteilung / Memo"
+  },
+  {
+    "id": 241,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to flag an issue",
+    "de": "ein Problem markieren"
+  },
+  {
+    "id": 242,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "courtesy copy",
+    "de": "Höflichkeitskopie"
+  },
+  {
+    "id": 243,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "email thread",
+    "de": "E-Mail-Verlauf"
+  },
+  {
+    "id": 244,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to archive an email",
+    "de": "eine E-Mail archivieren"
+  },
+  {
+    "id": 245,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "spam filter",
+    "de": "Spamfilter"
+  },
+  {
+    "id": 246,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "auto-reply",
+    "de": "automatische Antwort"
+  },
+  {
+    "id": 247,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to clarify",
+    "de": "klären / präzisieren"
+  },
+  {
+    "id": 248,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "as per your request",
+    "de": "wie von Ihnen gewünscht"
+  },
+  {
+    "id": 249,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "please find enclosed",
+    "de": "anbei finden Sie"
+  },
+  {
+    "id": 250,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "I would like to confirm",
+    "de": "ich möchte bestätigen"
+  },
+  {
+    "id": 251,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to acknowledge receipt",
+    "de": "den Empfang bestätigen"
+  },
+  {
+    "id": 252,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "pending your approval",
+    "de": "vorbehaltlich Ihrer Zustimmung"
+  },
+  {
+    "id": 253,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "to touch base",
+    "de": "sich kurz austauschen"
+  },
+  {
+    "id": 254,
+    "kategorie": "E-Mail & Korrespondenz",
+    "it": "correspondence",
+    "de": "Schriftverkehr"
+  },
+  {
+    "id": 255,
+    "kategorie": "Management & Führung",
+    "it": "line manager",
+    "de": "direkter Vorgesetzter"
+  },
+  {
+    "id": 256,
+    "kategorie": "Management & Führung",
+    "it": "direct report",
+    "de": "unterstellter Mitarbeiter"
+  },
+  {
+    "id": 257,
+    "kategorie": "Management & Führung",
+    "it": "to delegate",
+    "de": "delegieren"
+  },
+  {
+    "id": 258,
+    "kategorie": "Management & Führung",
+    "it": "to empower",
+    "de": "befähigen / stärken"
+  },
+  {
+    "id": 259,
+    "kategorie": "Management & Führung",
+    "it": "leadership style",
+    "de": "Führungsstil"
+  },
+  {
+    "id": 260,
+    "kategorie": "Management & Führung",
+    "it": "performance review",
+    "de": "Leistungsbeurteilung"
+  },
+  {
+    "id": 261,
+    "kategorie": "Management & Führung",
+    "it": "feedback loop",
+    "de": "Feedback-Schleife"
+  },
+  {
+    "id": 262,
+    "kategorie": "Management & Führung",
+    "it": "to mentor",
+    "de": "mentorieren / anleiten"
+  },
+  {
+    "id": 263,
+    "kategorie": "Management & Führung",
+    "it": "succession planning",
+    "de": "Nachfolgeplanung"
+  },
+  {
+    "id": 264,
+    "kategorie": "Management & Führung",
+    "it": "to onboard",
+    "de": "einarbeiten"
+  },
+  {
+    "id": 265,
+    "kategorie": "Management & Führung",
+    "it": "team building",
+    "de": "Teambildung"
+  },
+  {
+    "id": 266,
+    "kategorie": "Management & Führung",
+    "it": "to micromanage",
+    "de": "kleinlich führen"
+  },
+  {
+    "id": 267,
+    "kategorie": "Management & Führung",
+    "it": "accountability",
+    "de": "Verantwortlichkeit"
+  },
+  {
+    "id": 268,
+    "kategorie": "Management & Führung",
+    "it": "to hold accountable",
+    "de": "zur Rechenschaft ziehen"
+  },
+  {
+    "id": 269,
+    "kategorie": "Management & Führung",
+    "it": "chain of command",
+    "de": "Befehlskette / Hierarchie"
+  },
+  {
+    "id": 270,
+    "kategorie": "Management & Führung",
+    "it": "organizational chart",
+    "de": "Organigramm"
+  },
+  {
+    "id": 271,
+    "kategorie": "Management & Führung",
+    "it": "to streamline processes",
+    "de": "Prozesse straffen"
+  },
+  {
+    "id": 272,
+    "kategorie": "Management & Führung",
+    "it": "change management",
+    "de": "Veränderungsmanagement"
+  },
+  {
+    "id": 273,
+    "kategorie": "Management & Führung",
+    "it": "to foster collaboration",
+    "de": "Zusammenarbeit fördern"
+  },
+  {
+    "id": 274,
+    "kategorie": "Management & Führung",
+    "it": "talent acquisition",
+    "de": "Talentgewinnung"
+  },
+  {
+    "id": 275,
+    "kategorie": "Management & Führung",
+    "it": "employee retention",
+    "de": "Mitarbeiterbindung"
+  },
+  {
+    "id": 276,
+    "kategorie": "Management & Führung",
+    "it": "to set expectations",
+    "de": "Erwartungen festlegen"
+  },
+  {
+    "id": 277,
+    "kategorie": "Management & Führung",
+    "it": "to give constructive feedback",
+    "de": "konstruktives Feedback geben"
+  },
+  {
+    "id": 278,
+    "kategorie": "Management & Führung",
+    "it": "middle management",
+    "de": "mittleres Management"
+  },
+  {
+    "id": 279,
+    "kategorie": "Management & Führung",
+    "it": "C-suite",
+    "de": "Geschäftsführungsebene"
+  },
+  {
+    "id": 280,
+    "kategorie": "Management & Führung",
+    "it": "to lead by example",
+    "de": "mit gutem Beispiel vorangehen"
+  },
+  {
+    "id": 281,
+    "kategorie": "Management & Führung",
+    "it": "corporate governance",
+    "de": "Unternehmensführung"
+  },
+  {
+    "id": 282,
+    "kategorie": "Management & Führung",
+    "it": "to drive results",
+    "de": "Ergebnisse erzielen"
+  },
+  {
+    "id": 283,
+    "kategorie": "Management & Führung",
+    "it": "to align on goals",
+    "de": "sich auf Ziele einigen"
+  },
+  {
+    "id": 284,
+    "kategorie": "Management & Führung",
+    "it": "performance metrics",
+    "de": "Leistungskennzahlen"
+  },
+  {
+    "id": 285,
+    "kategorie": "Management & Führung",
+    "it": "to coach an employee",
+    "de": "einen Mitarbeiter coachen"
+  },
+  {
+    "id": 286,
+    "kategorie": "Management & Führung",
+    "it": "to conduct a review",
+    "de": "eine Bewertung durchführen"
+  },
+  {
+    "id": 287,
+    "kategorie": "Management & Führung",
+    "it": "promotion",
+    "de": "Beförderung"
+  },
+  {
+    "id": 288,
+    "kategorie": "Management & Führung",
+    "it": "demotion",
+    "de": "Degradierung"
+  },
+  {
+    "id": 289,
+    "kategorie": "Management & Führung",
+    "it": "to restructure",
+    "de": "umstrukturieren"
+  },
+  {
+    "id": 290,
+    "kategorie": "Management & Führung",
+    "it": "layoff",
+    "de": "Entlassung (betriebsbedingt)"
+  },
+  {
+    "id": 291,
+    "kategorie": "Management & Führung",
+    "it": "severance package",
+    "de": "Abfindungspaket"
+  },
+  {
+    "id": 292,
+    "kategorie": "Management & Führung",
+    "it": "to upskill",
+    "de": "weiterqualifizieren"
+  },
+  {
+    "id": 293,
+    "kategorie": "Management & Führung",
+    "it": "to reskill",
+    "de": "umschulen"
+  },
+  {
+    "id": 294,
+    "kategorie": "Management & Führung",
+    "it": "talent pipeline",
+    "de": "Talentpool"
+  },
+  {
+    "id": 295,
+    "kategorie": "Management & Führung",
+    "it": "to champion an initiative",
+    "de": "eine Initiative vorantreiben"
+  },
+  {
+    "id": 296,
+    "kategorie": "Management & Führung",
+    "it": "executive sponsor",
+    "de": "verantwortlicher Entscheidungsträger"
+  },
+  {
+    "id": 297,
+    "kategorie": "Management & Führung",
+    "it": "to build consensus",
+    "de": "Konsens schaffen"
+  },
+  {
+    "id": 298,
+    "kategorie": "Management & Führung",
+    "it": "top-down approach",
+    "de": "Top-Down-Ansatz"
+  },
+  {
+    "id": 299,
+    "kategorie": "Management & Führung",
+    "it": "bottom-up approach",
+    "de": "Bottom-Up-Ansatz"
+  },
+  {
+    "id": 300,
+    "kategorie": "Projektmanagement",
+    "it": "milestone",
+    "de": "Meilenstein"
+  },
+  {
+    "id": 301,
+    "kategorie": "Projektmanagement",
+    "it": "deliverable",
+    "de": "Arbeitsergebnis / Liefergegenstand"
+  },
+  {
+    "id": 302,
+    "kategorie": "Projektmanagement",
+    "it": "scope",
+    "de": "Umfang"
+  },
+  {
+    "id": 303,
+    "kategorie": "Projektmanagement",
+    "it": "scope creep",
+    "de": "Umfangsausweitung"
+  },
+  {
+    "id": 304,
+    "kategorie": "Projektmanagement",
+    "it": "stakeholder buy-in",
+    "de": "Zustimmung der Beteiligten"
+  },
+  {
+    "id": 305,
+    "kategorie": "Projektmanagement",
+    "it": "project charter",
+    "de": "Projektauftrag"
+  },
+  {
+    "id": 306,
+    "kategorie": "Projektmanagement",
+    "it": "timeline",
+    "de": "Zeitplan"
+  },
+  {
+    "id": 307,
+    "kategorie": "Projektmanagement",
+    "it": "critical path",
+    "de": "kritischer Pfad"
+  },
+  {
+    "id": 308,
+    "kategorie": "Projektmanagement",
+    "it": "risk assessment",
+    "de": "Risikobewertung"
+  },
+  {
+    "id": 309,
+    "kategorie": "Projektmanagement",
+    "it": "contingency plan",
+    "de": "Notfallplan"
+  },
+  {
+    "id": 310,
+    "kategorie": "Projektmanagement",
+    "it": "to allocate tasks",
+    "de": "Aufgaben zuweisen"
+  },
+  {
+    "id": 311,
+    "kategorie": "Projektmanagement",
+    "it": "dependencies",
+    "de": "Abhängigkeiten"
+  },
+  {
+    "id": 312,
+    "kategorie": "Projektmanagement",
+    "it": "sprint",
+    "de": "Sprint (agil)"
+  },
+  {
+    "id": 313,
+    "kategorie": "Projektmanagement",
+    "it": "backlog",
+    "de": "Rückstand / Backlog"
+  },
+  {
+    "id": 314,
+    "kategorie": "Projektmanagement",
+    "it": "to prioritize",
+    "de": "priorisieren"
+  },
+  {
+    "id": 315,
+    "kategorie": "Projektmanagement",
+    "it": "kanban board",
+    "de": "Kanban-Board"
+  },
+  {
+    "id": 316,
+    "kategorie": "Projektmanagement",
+    "it": "status update",
+    "de": "Statusbericht"
+  },
+  {
+    "id": 317,
+    "kategorie": "Projektmanagement",
+    "it": "to fall behind schedule",
+    "de": "in Verzug geraten"
+  },
+  {
+    "id": 318,
+    "kategorie": "Projektmanagement",
+    "it": "to be on track",
+    "de": "im Zeitplan liegen"
+  },
+  {
+    "id": 319,
+    "kategorie": "Projektmanagement",
+    "it": "resource allocation",
+    "de": "Ressourcenzuteilung"
+  },
+  {
+    "id": 320,
+    "kategorie": "Projektmanagement",
+    "it": "project lead",
+    "de": "Projektleiter"
+  },
+  {
+    "id": 321,
+    "kategorie": "Projektmanagement",
+    "it": "cross-functional team",
+    "de": "funktionsübergreifendes Team"
+  },
+  {
+    "id": 322,
+    "kategorie": "Projektmanagement",
+    "it": "gantt chart",
+    "de": "Gantt-Diagramm"
+  },
+  {
+    "id": 323,
+    "kategorie": "Projektmanagement",
+    "it": "project scope statement",
+    "de": "Leistungsbeschreibung"
+  },
+  {
+    "id": 324,
+    "kategorie": "Projektmanagement",
+    "it": "change request",
+    "de": "Änderungsantrag"
+  },
+  {
+    "id": 325,
+    "kategorie": "Projektmanagement",
+    "it": "quality assurance",
+    "de": "Qualitätssicherung"
+  },
+  {
+    "id": 326,
+    "kategorie": "Projektmanagement",
+    "it": "to finalize deliverables",
+    "de": "Ergebnisse fertigstellen"
+  },
+  {
+    "id": 327,
+    "kategorie": "Projektmanagement",
+    "it": "project closure",
+    "de": "Projektabschluss"
+  },
+  {
+    "id": 328,
+    "kategorie": "Projektmanagement",
+    "it": "lessons learned",
+    "de": "gewonnene Erkenntnisse"
+  },
+  {
+    "id": 329,
+    "kategorie": "Projektmanagement",
+    "it": "iteration",
+    "de": "Iteration"
+  },
+  {
+    "id": 330,
+    "kategorie": "Projektmanagement",
+    "it": "minimum viable product",
+    "de": "minimal funktionsfähiges Produkt"
+  },
+  {
+    "id": 331,
+    "kategorie": "Projektmanagement",
+    "it": "agile methodology",
+    "de": "agile Methodik"
+  },
+  {
+    "id": 332,
+    "kategorie": "Projektmanagement",
+    "it": "waterfall methodology",
+    "de": "Wasserfallmethode"
+  },
+  {
+    "id": 333,
+    "kategorie": "Projektmanagement",
+    "it": "retrospective",
+    "de": "Retrospektive"
+  },
+  {
+    "id": 334,
+    "kategorie": "Projektmanagement",
+    "it": "burn rate",
+    "de": "Verbrauchsrate"
+  },
+  {
+    "id": 335,
+    "kategorie": "Projektmanagement",
+    "it": "to escalate a risk",
+    "de": "ein Risiko eskalieren"
+  },
+  {
+    "id": 336,
+    "kategorie": "Projektmanagement",
+    "it": "to greenlight a project",
+    "de": "ein Projekt freigeben"
+  },
+  {
+    "id": 337,
+    "kategorie": "Projektmanagement",
+    "it": "project kickoff",
+    "de": "Projektstart"
+  },
+  {
+    "id": 338,
+    "kategorie": "Projektmanagement",
+    "it": "handover",
+    "de": "Übergabe"
+  },
+  {
+    "id": 339,
+    "kategorie": "Projektmanagement",
+    "it": "to sign off on deliverables",
+    "de": "Ergebnisse abnehmen"
+  },
+  {
+    "id": 340,
+    "kategorie": "Projektmanagement",
+    "it": "bottleneck",
+    "de": "Engpass"
+  },
+  {
+    "id": 341,
+    "kategorie": "Projektmanagement",
+    "it": "workaround",
+    "de": "Notlösung / Workaround"
+  },
+  {
+    "id": 342,
+    "kategorie": "Projektmanagement",
+    "it": "roadmap",
+    "de": "Fahrplan / Roadmap"
+  },
+  {
+    "id": 343,
+    "kategorie": "Projektmanagement",
+    "it": "buffer time",
+    "de": "Pufferzeit"
+  },
+  {
+    "id": 344,
+    "kategorie": "Verben",
+    "it": "negotiate",
+    "de": "verhandeln",
+    "formen": {
+      "base": "negotiate",
+      "past": "negotiated",
+      "participle": "negotiated"
+    }
+  },
+  {
+    "id": 345,
+    "kategorie": "Verben",
+    "it": "delegate",
+    "de": "delegieren",
+    "formen": {
+      "base": "delegate",
+      "past": "delegated",
+      "participle": "delegated"
+    }
+  },
+  {
+    "id": 346,
+    "kategorie": "Verben",
+    "it": "implement",
+    "de": "umsetzen",
+    "formen": {
+      "base": "implement",
+      "past": "implemented",
+      "participle": "implemented"
+    }
+  },
+  {
+    "id": 347,
+    "kategorie": "Verben",
+    "it": "allocate",
+    "de": "zuteilen",
+    "formen": {
+      "base": "allocate",
+      "past": "allocated",
+      "participle": "allocated"
+    }
+  },
+  {
+    "id": 348,
+    "kategorie": "Verben",
+    "it": "streamline",
+    "de": "straffen",
+    "formen": {
+      "base": "streamline",
+      "past": "streamlined",
+      "participle": "streamlined"
+    }
+  },
+  {
+    "id": 349,
+    "kategorie": "Verben",
+    "it": "outsource",
+    "de": "auslagern",
+    "formen": {
+      "base": "outsource",
+      "past": "outsourced",
+      "participle": "outsourced"
+    }
+  },
+  {
+    "id": 350,
+    "kategorie": "Verben",
+    "it": "forecast",
+    "de": "prognostizieren",
+    "formen": {
+      "base": "forecast",
+      "past": "forecast",
+      "participle": "forecast"
+    }
+  },
+  {
+    "id": 351,
+    "kategorie": "Verben",
+    "it": "leverage",
+    "de": "nutzen (Ressourcen)",
+    "formen": {
+      "base": "leverage",
+      "past": "leveraged",
+      "participle": "leveraged"
+    }
+  },
+  {
+    "id": 352,
+    "kategorie": "Verben",
+    "it": "optimize",
+    "de": "optimieren",
+    "formen": {
+      "base": "optimize",
+      "past": "optimized",
+      "participle": "optimized"
+    }
+  },
+  {
+    "id": 353,
+    "kategorie": "Verben",
+    "it": "escalate",
+    "de": "eskalieren",
+    "formen": {
+      "base": "escalate",
+      "past": "escalated",
+      "participle": "escalated"
+    }
+  },
+  {
+    "id": 354,
+    "kategorie": "Verben",
+    "it": "finalize",
+    "de": "finalisieren",
+    "formen": {
+      "base": "finalize",
+      "past": "finalized",
+      "participle": "finalized"
+    }
+  },
+  {
+    "id": 355,
+    "kategorie": "Verben",
+    "it": "draft",
+    "de": "entwerfen",
+    "formen": {
+      "base": "draft",
+      "past": "drafted",
+      "participle": "drafted"
+    }
+  },
+  {
+    "id": 356,
+    "kategorie": "Verben",
+    "it": "approve",
+    "de": "genehmigen",
+    "formen": {
+      "base": "approve",
+      "past": "approved",
+      "participle": "approved"
+    }
+  },
+  {
+    "id": 357,
+    "kategorie": "Verben",
+    "it": "postpone",
+    "de": "verschieben",
+    "formen": {
+      "base": "postpone",
+      "past": "postponed",
+      "participle": "postponed"
+    }
+  },
+  {
+    "id": 358,
+    "kategorie": "Verben",
+    "it": "prioritize",
+    "de": "priorisieren",
+    "formen": {
+      "base": "prioritize",
+      "past": "prioritized",
+      "participle": "prioritized"
+    }
+  },
+  {
+    "id": 359,
+    "kategorie": "Verben",
+    "it": "collaborate",
+    "de": "zusammenarbeiten",
+    "formen": {
+      "base": "collaborate",
+      "past": "collaborated",
+      "participle": "collaborated"
+    }
+  },
+  {
+    "id": 360,
+    "kategorie": "Verben",
+    "it": "acquire",
+    "de": "erwerben",
+    "formen": {
+      "base": "acquire",
+      "past": "acquired",
+      "participle": "acquired"
+    }
+  },
+  {
+    "id": 361,
+    "kategorie": "Verben",
+    "it": "merge",
+    "de": "fusionieren",
+    "formen": {
+      "base": "merge",
+      "past": "merged",
+      "participle": "merged"
+    }
+  },
+  {
+    "id": 362,
+    "kategorie": "Verben",
+    "it": "restructure",
+    "de": "umstrukturieren",
+    "formen": {
+      "base": "restructure",
+      "past": "restructured",
+      "participle": "restructured"
+    }
+  },
+  {
+    "id": 363,
+    "kategorie": "Verben",
+    "it": "downsize",
+    "de": "verkleinern (Personal)",
+    "formen": {
+      "base": "downsize",
+      "past": "downsized",
+      "participle": "downsized"
+    }
+  },
+  {
+    "id": 364,
+    "kategorie": "Verben",
+    "it": "comply (with)",
+    "de": "einhalten",
+    "formen": {
+      "base": "comply",
+      "past": "complied",
+      "participle": "complied"
+    }
+  },
+  {
+    "id": 365,
+    "kategorie": "Verben",
+    "it": "audit",
+    "de": "prüfen",
+    "formen": {
+      "base": "audit",
+      "past": "audited",
+      "participle": "audited"
+    }
+  },
+  {
+    "id": 366,
+    "kategorie": "Verben",
+    "it": "invest",
+    "de": "investieren",
+    "formen": {
+      "base": "invest",
+      "past": "invested",
+      "participle": "invested"
+    }
+  },
+  {
+    "id": 367,
+    "kategorie": "Verben",
+    "it": "divest",
+    "de": "veräußern",
+    "formen": {
+      "base": "divest",
+      "past": "divested",
+      "participle": "divested"
+    }
+  },
+  {
+    "id": 368,
+    "kategorie": "Verben",
+    "it": "launch",
+    "de": "einführen (Produkt)",
+    "formen": {
+      "base": "launch",
+      "past": "launched",
+      "participle": "launched"
+    }
+  },
+  {
+    "id": 369,
+    "kategorie": "Verben",
+    "it": "pitch",
+    "de": "präsentieren (Idee)",
+    "formen": {
+      "base": "pitch",
+      "past": "pitched",
+      "participle": "pitched"
+    }
+  },
+  {
+    "id": 370,
+    "kategorie": "Verben",
+    "it": "close (a deal)",
+    "de": "abschließen",
+    "formen": {
+      "base": "close",
+      "past": "closed",
+      "participle": "closed"
+    }
+  },
+  {
+    "id": 371,
+    "kategorie": "Verben",
+    "it": "renew (a contract)",
+    "de": "verlängern",
+    "formen": {
+      "base": "renew",
+      "past": "renewed",
+      "participle": "renewed"
+    }
+  },
+  {
+    "id": 372,
+    "kategorie": "Verben",
+    "it": "terminate",
+    "de": "kündigen (Vertrag)",
+    "formen": {
+      "base": "terminate",
+      "past": "terminated",
+      "participle": "terminated"
+    }
+  },
+  {
+    "id": 373,
+    "kategorie": "Verben",
+    "it": "onboard",
+    "de": "einarbeiten",
+    "formen": {
+      "base": "onboard",
+      "past": "onboarded",
+      "participle": "onboarded"
+    }
+  },
+  {
+    "id": 374,
+    "kategorie": "Verben",
+    "it": "mentor",
+    "de": "mentorieren",
+    "formen": {
+      "base": "mentor",
+      "past": "mentored",
+      "participle": "mentored"
+    }
+  },
+  {
+    "id": 375,
+    "kategorie": "Verben",
+    "it": "supervise",
+    "de": "beaufsichtigen",
+    "formen": {
+      "base": "supervise",
+      "past": "supervised",
+      "participle": "supervised"
+    }
+  },
+  {
+    "id": 376,
+    "kategorie": "Verben",
+    "it": "oversee",
+    "de": "überwachen",
+    "formen": {
+      "base": "oversee",
+      "past": "oversaw",
+      "participle": "overseen"
+    }
+  },
+  {
+    "id": 377,
+    "kategorie": "Verben",
+    "it": "monitor",
+    "de": "überwachen (laufend)",
+    "formen": {
+      "base": "monitor",
+      "past": "monitored",
+      "participle": "monitored"
+    }
+  },
+  {
+    "id": 378,
+    "kategorie": "Verben",
+    "it": "evaluate",
+    "de": "bewerten",
+    "formen": {
+      "base": "evaluate",
+      "past": "evaluated",
+      "participle": "evaluated"
+    }
+  },
+  {
+    "id": 379,
+    "kategorie": "Verben",
+    "it": "analyze",
+    "de": "analysieren",
+    "formen": {
+      "base": "analyze",
+      "past": "analyzed",
+      "participle": "analyzed"
+    }
+  },
+  {
+    "id": 380,
+    "kategorie": "Verben",
+    "it": "budget",
+    "de": "budgetieren",
+    "formen": {
+      "base": "budget",
+      "past": "budgeted",
+      "participle": "budgeted"
+    }
+  },
+  {
+    "id": 381,
+    "kategorie": "Verben",
+    "it": "network",
+    "de": "netzwerken",
+    "formen": {
+      "base": "network",
+      "past": "networked",
+      "participle": "networked"
+    }
+  },
+  {
+    "id": 382,
+    "kategorie": "Verben",
+    "it": "brief (someone)",
+    "de": "briefen",
+    "formen": {
+      "base": "brief",
+      "past": "briefed",
+      "participle": "briefed"
+    }
+  },
+  {
+    "id": 383,
+    "kategorie": "Verben",
+    "it": "debrief",
+    "de": "nachbesprechen",
+    "formen": {
+      "base": "debrief",
+      "past": "debriefed",
+      "participle": "debriefed"
+    }
+  },
+  {
+    "id": 384,
+    "kategorie": "Verben",
+    "it": "liaise",
+    "de": "Kontakt halten",
+    "formen": {
+      "base": "liaise",
+      "past": "liaised",
+      "participle": "liaised"
+    }
+  },
+  {
+    "id": 385,
+    "kategorie": "Verben",
+    "it": "coordinate",
+    "de": "koordinieren",
+    "formen": {
+      "base": "coordinate",
+      "past": "coordinated",
+      "participle": "coordinated"
+    }
+  },
+  {
+    "id": 386,
+    "kategorie": "Verben",
+    "it": "facilitate",
+    "de": "moderieren / erleichtern",
+    "formen": {
+      "base": "facilitate",
+      "past": "facilitated",
+      "participle": "facilitated"
+    }
+  },
+  {
+    "id": 387,
+    "kategorie": "Verben",
+    "it": "spearhead",
+    "de": "vorantreiben (Projekt)",
+    "formen": {
+      "base": "spearhead",
+      "past": "spearheaded",
+      "participle": "spearheaded"
+    }
+  },
+  {
+    "id": 388,
+    "kategorie": "Verben",
+    "it": "undertake",
+    "de": "übernehmen (Aufgabe)",
+    "formen": {
+      "base": "undertake",
+      "past": "undertook",
+      "participle": "undertaken"
+    }
+  },
+  {
+    "id": 389,
+    "kategorie": "Verben",
+    "it": "execute",
+    "de": "ausführen",
+    "formen": {
+      "base": "execute",
+      "past": "executed",
+      "participle": "executed"
+    }
+  },
+  {
+    "id": 390,
+    "kategorie": "Verben",
+    "it": "formalize",
+    "de": "formalisieren",
+    "formen": {
+      "base": "formalize",
+      "past": "formalized",
+      "participle": "formalized"
+    }
+  },
+  {
+    "id": 391,
+    "kategorie": "Verben",
+    "it": "authorize",
+    "de": "autorisieren",
+    "formen": {
+      "base": "authorize",
+      "past": "authorized",
+      "participle": "authorized"
+    }
+  },
+  {
+    "id": 392,
+    "kategorie": "Verben",
+    "it": "endorse",
+    "de": "befürworten",
+    "formen": {
+      "base": "endorse",
+      "past": "endorsed",
+      "participle": "endorsed"
+    }
+  },
+  {
+    "id": 393,
+    "kategorie": "Verben",
+    "it": "consolidate",
+    "de": "konsolidieren",
+    "formen": {
+      "base": "consolidate",
+      "past": "consolidated",
+      "participle": "consolidated"
+    }
+  },
+  {
+    "id": 394,
+    "kategorie": "Verben",
+    "it": "diversify",
+    "de": "diversifizieren",
+    "formen": {
+      "base": "diversify",
+      "past": "diversified",
+      "participle": "diversified"
+    }
+  }
+]

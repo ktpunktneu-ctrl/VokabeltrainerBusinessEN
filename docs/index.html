@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<title>Vokabeltrainer Business English</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="static/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VokabelBE">
+<meta name="theme-color" content="#16213E">
+<style>
+:root {
+  --green:#16213E; --white:#fff; --red:#B23B3B; --gold:#C6A15B;
+  --bg:#F3F1EA; --card:#fff; --text:#1C2333; --text-light:#6B7280;
+  --border:#E6E2D6; --success:#16a34a; --danger:#b3401f;
+  --radius:16px; --shadow:0 4px 18px rgba(22,33,62,0.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:-apple-system,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh; padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom);
+}
+#app{max-width:480px;margin:0 auto;padding:16px;min-height:100vh;display:flex;flex-direction:column}
+.page{display:none;flex:1;flex-direction:column}
+.page.active{display:flex}
+
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+header h1{font-family:Georgia,'Times New Roman',serif;font-size:19px;font-weight:700;color:var(--green);letter-spacing:.2px}
+header .flag{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--green);border-radius:6px;border:1px solid var(--gold);vertical-align:middle;margin-right:8px;color:var(--gold);font-family:Georgia,serif;font-size:11px;font-weight:700}
+header .flag::before{content:'BE'}
+.icon-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-light);padding:6px}
+.menu-wrap{position:relative;display:inline-block}
+.dropdown-menu{display:none;position:absolute;right:0;top:38px;background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:6px;min-width:150px;z-index:50}
+.dropdown-menu.open{display:block}
+.dropdown-item{padding:9px 12px;font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;white-space:nowrap;color:var(--text)}
+.dropdown-item:hover{background:var(--bg)}
+
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+.card-title{font-size:12px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+
+.chip-grid{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light);transition:.15s}
+.chip.active{background:var(--green);border-color:var(--green);color:#fff}
+
+.radio-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.radio-opt{padding:12px;border-radius:10px;border:1.5px solid var(--border);text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light)}
+.radio-opt.active{background:var(--green);border-color:var(--green);color:#fff}
+.radio-opt.disabled{opacity:.4;cursor:not-allowed}
+
+.btn{padding:14px;border-radius:12px;border:none;cursor:pointer;font-size:16px;font-weight:700;width:100%;transition:.15s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:active{background:#0c1428}
+.btn-secondary{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:8px 14px;font-size:13px;width:auto}
+
+.slider-row{display:flex;align-items:center;gap:12px}
+.slider-row input[type=range]{flex:1}
+.slider-val{font-weight:800;color:var(--green);min-width:28px;text-align:center}
+
+/* Quiz */
+#quiz-progress{font-size:12px;color:var(--text-light);text-align:center;margin-bottom:8px}
+#quiz-progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:24px}
+#quiz-progress-fill{height:100%;background:var(--green);transition:width .2s}
+.quiz-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:40px 24px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.quiz-lang-badge{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gold);background:var(--green);padding:4px 12px;border-radius:10px;align-self:center}
+.quiz-word-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.quiz-word{font-size:32px;font-weight:800;color:var(--text)}
+.speak-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--green);padding:4px;line-height:1;flex-shrink:0}
+.speak-btn:disabled{opacity:.35;cursor:default}
+.ll-speak-btn{background:none;border:none;font-size:15px;cursor:pointer;color:var(--green);padding:0 0 0 6px;line-height:1;flex-shrink:0}
+.quiz-input{padding:14px;font-size:18px;border:2px solid var(--border);border-radius:12px;text-align:center;outline:none;font-family:inherit;width:100%}
+.quiz-input:focus{border-color:var(--green)}
+.quiz-input.correct{border-color:var(--success);background:#f0fdf4}
+.quiz-input.wrong{border-color:var(--danger);background:#fef2f2}
+.quiz-feedback{font-size:14px;font-weight:600;min-height:20px}
+.quiz-feedback.correct{color:var(--success)}
+.quiz-feedback.wrong{color:var(--danger)}
+.quiz-forms{display:none;flex-wrap:wrap;justify-content:center;gap:6px;font-size:12px}
+.quiz-forms.show{display:flex}
+.quiz-forms span{background:var(--bg);padding:4px 9px;border-radius:8px;color:var(--text-light)}
+.quiz-forms span b{color:var(--text)}
+.quiz-actions{display:flex;gap:10px}
+
+/* Ergebnis */
+.result-score{font-size:52px;font-weight:800;text-align:center;color:var(--green);margin:20px 0 6px}
+.result-sub{text-align:center;color:var(--text-light);font-size:14px;margin-bottom:20px}
+.result-list{max-height:240px;overflow-y:auto;margin-bottom:16px}
+.result-item{display:flex;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--border);font-size:13px}
+.result-item.wrong{color:var(--danger)}
+
+/* Verwaltung */
+.vk-item{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.vk-item .vk-kat{font-size:10px;font-weight:700;color:#fff;background:var(--green);padding:2px 7px;border-radius:8px;white-space:nowrap}
+.vk-kat-select{font-size:10px;font-weight:700;color:#fff;background:var(--green);padding:2px 4px;border-radius:8px;border:none;white-space:nowrap;cursor:pointer;max-width:110px}
+.kat-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.kat-row:last-child{border-bottom:none}
+.kat-row .kat-name{flex:1;font-weight:600}
+.kat-row .kat-count{font-size:11px;color:var(--text-light)}
+.kat-row .vk-del{opacity:1}
+.kat-row .vk-del.disabled{opacity:.3;cursor:not-allowed}
+.vk-item .vk-it{font-weight:700;flex:1}
+.vk-item .vk-de{color:var(--text-light);flex:1}
+.vk-del{background:none;border:none;color:var(--danger);font-size:16px;cursor:pointer}
+.form-row{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.form-row input,.form-row select{padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;outline:none;font-family:inherit;background:#fff;width:100%}
+.form-row input:focus,.form-row select:focus{border-color:var(--green)}
+
+/* FAB */
+.fab{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 20px);right:calc(50% - 240px + 20px);width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;font-size:28px;border:none;box-shadow:0 4px 14px rgba(22,33,62,0.4);cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center}
+@media (max-width:520px){.fab{right:20px}}
+
+/* Add-Modal */
+dialog{border:none;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.25);padding:0;width:340px;max-width:90vw;margin:14vh auto auto auto}
+dialog::backdrop{background:rgba(0,0,0,0.4)}
+.modal-body{padding:20px}
+.modal-title{font-size:15px;font-weight:800;margin-bottom:14px;color:var(--text)}
+.m-err{color:var(--danger);font-size:12px;min-height:16px;margin-top:6px;font-weight:600}
+.m-trial-hint{background:var(--bg);color:var(--text-light);font-size:12px;font-weight:600;padding:8px 10px;border-radius:8px;margin-bottom:12px}
+.ocr-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.ocr-row input{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;min-width:0}
+.ocr-row button{background:none;border:none;color:var(--danger);font-size:16px;cursor:pointer;padding:4px 6px}
+.modal-actions{display:flex;gap:8px;margin-top:6px}
+
+.page-hdr{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.page-hdr .back-btn{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text);padding:0 4px 0 0;line-height:1}
+.page-hdr h2{font-size:18px;font-weight:800;color:var(--text)}
+
+nav{display:flex;gap:6px;margin-top:14px}
+nav button{flex:1;padding:10px;border-radius:10px;border:none;background:#fff;box-shadow:var(--shadow);font-size:12px;font-weight:700;color:var(--text-light);cursor:pointer}
+nav button.active{background:var(--green);color:#fff}
+
+/* Lernliste */
+.ll-tabs{display:flex;gap:8px;margin-bottom:14px}
+.ll-tab{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);text-align:center;font-size:13px;font-weight:700;cursor:pointer;color:var(--text-light);background:#fff}
+.ll-tab.active{background:var(--green);border-color:var(--green);color:#fff}
+.ll-kat-title{font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.ll-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:13px}
+.ll-row .ll-it{font-weight:700;flex:1}
+.ll-row .ll-de{color:var(--text-light);flex:1;text-align:right}
+.ll-verb-card{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
+.ll-verb-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.ll-verb-hdr .ll-inf{font-size:16px;font-weight:800;color:var(--text)}
+.ll-verb-hdr .ll-mean{font-size:12px;color:var(--text-light);font-style:italic}
+.ll-forms{display:flex;flex-wrap:wrap;gap:6px}
+.ll-forms span{background:var(--bg);padding:4px 9px;border-radius:8px;font-size:12px;color:var(--text-light)}
+.ll-forms span b{color:var(--text)}
+
+#toast-container{position:fixed;top:calc(env(safe-area-inset-top) + 10px);left:50%;transform:translateX(-50%);z-index:9999}
+.toast{padding:10px 18px;border-radius:20px;color:#fff;font-size:13px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.2);margin-bottom:6px;background:var(--danger)}
+.toast.ok{background:var(--success)}
+.app-version{font-size:11px;font-weight:400;color:var(--text-light);vertical-align:middle;margin-left:4px}
+</style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+<div id="app">
+
+  <header>
+    <h1><span class="flag"></span>Vokabeltrainer <span id="app-version" class="app-version"></span></h1>
+    <div>
+      <button class="icon-btn" onclick="gotoPage('liste')" title="Lernliste">&#128214;</button>
+      <button class="icon-btn" onclick="gotoPage('verwaltung')" title="Verwaltung">&#9881;</button>
+      <div class="menu-wrap">
+        <button class="icon-btn" onclick="toggleHeaderMenu()" title="Mehr">&#8942;</button>
+        <div class="dropdown-menu" id="header-menu">
+          <div class="dropdown-item" onclick="closeHeaderMenu(); openHelpModal()">&#10067; Hilfe</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STARTSEITE -->
+  <div class="page active" id="page-start">
+    <div class="card">
+      <div class="card-title">Kategorien</div>
+      <div class="chip-grid" id="start-kategorien"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Richtung</div>
+      <div class="radio-row" id="start-richtung">
+        <div class="radio-opt active" data-dir="it-de">BE &#8594; DE</div>
+        <div class="radio-opt" data-dir="de-it">DE &#8594; BE</div>
+        <div class="radio-opt" data-dir="mix">Gemischt</div>
+        <div class="radio-opt" data-dir="konjugation">Verbformen <span id="konj-lock-start" style="display:none">&#128274;</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Anzahl Fragen</div>
+      <div class="slider-row">
+        <input type="range" id="start-anzahl" min="5" max="50" step="5" value="15">
+        <div class="slider-val" id="start-anzahl-val">15</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="startQuiz()">Training starten</button>
+  </div>
+
+  <button class="fab" id="fab-add" onclick="openAddModal()" title="Vokabel hinzufügen">&#43;</button>
+
+  <!-- QUIZ -->
+  <div class="page" id="page-quiz">
+    <div id="quiz-progress">Frage 1 / 15 &middot; Richtig: 0</div>
+    <div id="quiz-progress-bar"><div id="quiz-progress-fill" style="width:0%"></div></div>
+    <div class="quiz-card">
+      <div class="quiz-lang-badge" id="quiz-badge">Business English</div>
+      <div class="quiz-word-row"><div class="quiz-word" id="quiz-word">–</div><button class="speak-btn" id="quiz-speak-btn" onclick="speakQuizWord()" title="Aussprache anhören">&#128266;</button></div>
+      <input type="text" class="quiz-input" id="quiz-input" placeholder="Übersetzung eingeben …" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <div class="quiz-forms" id="quiz-forms"></div>
+      <div class="quiz-actions">
+        <button class="btn btn-secondary" onclick="quizAbbrechen()">Abbrechen</button>
+        <button class="btn btn-primary" id="quiz-check-btn" onclick="quizCheck()">Prüfen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div class="page" id="page-ergebnis">
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('start')" title="Zurück">&#8249;</button><h2>Ergebnis</h2></div>
+    <div class="card" style="text-align:center">
+      <div class="result-score" id="result-score">0/0</div>
+      <div class="result-sub" id="result-sub">0% richtig</div>
+    </div>
+    <div class="card" id="result-list-card" style="display:none">
+      <div class="card-title">Falsch beantwortet</div>
+      <div class="result-list" id="result-list"></div>
+    </div>
+    <button class="btn btn-primary" onclick="wiederholeFalsche()" id="btn-wiederholen" style="display:none">Falsche nochmal üben</button>
+  </div>
+
+  <!-- LERNLISTE -->
+  <div class="page" id="page-liste">
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('start')" title="Zurück">&#8249;</button><h2>Lernliste</h2></div>
+    <div class="card">
+      <div class="form-row" style="margin-bottom:0">
+        <input type="text" id="ll-suche" placeholder="&#128269; Vokabel suchen …" autocomplete="off" oninput="onLlSucheInput()">
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Kategorien</div>
+      <div class="chip-grid" id="ll-kategorien"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Richtung</div>
+      <div class="radio-row" id="ll-richtung">
+        <div class="radio-opt active" data-dir="it-de">BE &#8594; DE</div>
+        <div class="radio-opt" data-dir="de-it">DE &#8594; BE</div>
+      </div>
+    </div>
+    <div class="ll-tabs">
+      <div class="ll-tab active" data-lltab="vokabeln">Vokabeln</div>
+      <div class="ll-tab" data-lltab="konjugation">Verbformen <span id="konj-lock-ll" style="display:none">&#128274;</span></div>
+    </div>
+    <div class="card" style="flex:1;overflow-y:auto" id="ll-content"></div>
+  </div>
+
+  <!-- VERWALTUNG -->
+  <div class="page" id="page-verwaltung">
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('start')" title="Zurück">&#8249;</button><h2>Verwaltung</h2></div>
+    <button class="btn btn-primary" onclick="openAddModal()" style="margin-bottom:8px">&#43; Neue Vokabel hinzufügen</button>
+    <button class="btn btn-secondary" onclick="openKatModal()" style="margin-bottom:8px">&#43; Neue Kategorie anlegen</button>
+    <button class="btn btn-secondary" onclick="openOcrModal()" style="margin-bottom:14px">&#128248; Vokabeln aus Foto (OCR)</button>
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title">Kategorien</div>
+      <div id="kat-list"></div>
+    </div>
+    <div class="card" style="flex:1;overflow-y:auto">
+      <div class="card-title">Alle Vokabeln (<span id="vk-count">0</span>)</div>
+      <div class="form-row">
+        <input type="text" id="vk-suche" placeholder="&#128269; Vokabel suchen …" autocomplete="off" oninput="onVkSucheInput()">
+      </div>
+      <div id="vk-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LIZENZ-MODAL -->
+<dialog id="lizenz-modal">
+  <div class="modal-body">
+    <div class="modal-title">&#128274; Vollversion freischalten</div>
+    <p style="font-size:14px;line-height:1.6;margin:0 0 12px">In der Testversion sind Verbformen-Übungen, Training über 10 Vokabeln je Kategorie hinaus sowie das Speichern eigener Vokabeln/Kategorien gesperrt. Die Vollversion schaltet alles frei — einmalig 9,95&nbsp;€, kein Abo.</p>
+    <div class="modal-actions" style="margin-bottom:14px">
+      <a class="btn btn-primary" href="https://gumroad.com/l/vokabeltrainer-business-en" target="_blank" rel="noopener" style="width:100%;text-align:center;text-decoration:none;box-sizing:border-box">Jetzt kaufen (9,95&nbsp;€)</a>
+    </div>
+    <div class="form-row">
+      <input type="text" id="lizenz-code-input" placeholder="Freischalt-Code eingeben" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeLizenzModal()">Später</button>
+      <button class="btn btn-primary" onclick="pruefeLizenzCode()">Freischalten</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- HILFE-MODAL -->
+<dialog id="help-modal">
+  <div class="modal-body" style="max-height:74vh;overflow-y:auto">
+    <div class="modal-title">👋 So funktioniert's</div>
+
+    <p style="font-size:13px;line-height:1.6;margin:0 0 14px;color:var(--text-light)">
+      Diese App funktioniert wie klassische Karteikarten: du siehst ein Wort, versuchst dich an die Übersetzung zu erinnern, tippst sie ein — und lernst so mit der Zeit alle Vokabeln auswendig.
+    </p>
+
+    <p style="font-size:13px;line-height:1.6;margin:0 0 14px;color:var(--text-light)">
+      Du kannst die Antwort auch per Spracheingabe eintippen — einfach den Mikrofon-Button auf der Tastatur deines Handys drücken. Dabei findet allerdings keine Schreibprüfung statt.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🎯 Training starten</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      <b>Kategorien:</b> Auf eine Kategorie tippen wählt <i>nur diese eine</i> aus (alle anderen werden abgewählt). Nochmal draufhalten zeigt wieder alle Kategorien zusammen. So lernst du gezielt einen Themenbereich (z.B. nur "Essen") oder alles gemischt.
+    </p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      <b>Richtung:</b> Vier Modi zur Auswahl —
+      <br>• <b>Business English → Deutsch:</b> dir wird der Business-Begriff gezeigt, du tippst die deutsche Übersetzung.
+      <br>• <b>Deutsch → Business English:</b> umgekehrt, du übersetzt vom Deutschen ins Business-Englische.
+      <br>• <b>Gemischt:</b> beide Richtungen wechseln sich zufällig ab — gut für fortgeschrittenes Üben.
+      <br>• <b>Verbformen:</b> statt der Übersetzung wird eine Verbform abgefragt (z.B. "go — Simple Past" → du tippst "went"). Nur Verben mit hinterlegten Formen kommen hier vor.
+    </p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      <b>Anzahl Fragen:</b> Regler zwischen 5 und 50 Fragen pro Durchgang — je nachdem wie viel Zeit du hast.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">✏️ Während der Abfrage</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      Antwort eintippen und mit <b>Enter</b> oder dem "Prüfen"-Button bestätigen. Groß-/Kleinschreibung spielt keine Rolle. Manche Vokabeln haben mehrere richtige Antworten (z.B. Synonyme) — jede davon wird als richtig erkannt. Nach jeder Antwort siehst du sofort, ob sie stimmt, und bei Verben mit hinterlegten Formen zusätzlich alle anderen Formen als Merkhilfe.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🏁 Ergebnis</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      Am Ende siehst du deine Trefferquote und eine Liste aller falsch beantworteten Vokabeln. Über <b>"Falsche nochmal üben"</b> startest du direkt eine neue Runde nur mit genau diesen Wörtern — ideal, um Lücken gezielt zu schließen.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">📖 Lernliste</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      Alle Vokabeln zum reinen Durchlesen (ohne Abfrage), gruppiert nach Kategorie, mit demselben Kategorie-Filter und einem Richtungsumschalter wie beim Training. Der zweite Reiter "Verbformen" zeigt alle Verbformen als Übersicht. Über das <b>Suchfeld</b> oben findest du sofort jede Vokabel, egal in welcher Kategorie — die Suche hat Vorrang vor dem Kategorie-Filter.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🔊 Aussprache</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      Lautsprecher-Symbol antippen, um das Wort laut vorlesen zu lassen — nutzt die eingebauten Stimmen deines Handys, funktioniert auch offline.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">⚙ Verwaltung</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      Eigene Vokabeln über den <b>+</b>-Button hinzufügen (die App warnt schon beim Eintippen, falls das Wort bereits existiert). Über <b>"+ Neue Kategorie anlegen"</b> legst du eine leere Kategorie ganz ohne Vokabel an. Mit <b>"📷 Vokabeln aus Foto (OCR)"</b> fotografierst du eine Vokabelseite — die App erkennt den Text automatisch, du korrigierst bei Bedarf und übernimmst alle Wortpaare auf einmal in eine Kategorie. Jede Vokabel lässt sich per Dropdown einer anderen Kategorie zuordnen. Kategorien selbst lassen sich nur löschen, wenn sie leer sind (keine Vokabeln mehr enthalten) — so geht nichts versehentlich verloren.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">🔒 Testversion</p>
+    <p style="font-size:13px;line-height:1.6;margin:0 0 8px">
+      In der Testversion kannst du dir alle Vokabeln in der Lernliste ansehen, aber im Training werden nur die ersten 10 Vokabeln je Kategorie abgefragt. Verbformen-Training sowie das Speichern eigener Vokabeln und Kategorien sind ebenfalls Teil der Vollversion (einmalig 9,95&nbsp;€, kein Abo) — den Freischalt-Code erhältst du beim Kauf.
+    </p>
+
+    <p style="font-size:14px;font-weight:800;margin:14px 0 4px">📴 Offline nutzen / installieren</p>
+    <p style="font-size:13px;line-height:1.6;margin:0">
+      Am besten installierst du die App auf dem Homescreen: in Safari auf das Teilen-Symbol tippen, dann <b>"Zum Home-Bildschirm"</b> auswählen. Danach öffnet sie sich wie eine echte App — ganz ohne Browserleiste — und funktioniert komplett offline, auch unterwegs ohne Internet. Deine Vokabeln und dein Fortschritt bleiben dabei immer auf diesem Gerät gespeichert.
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="closeHelpModal()" style="width:100%">Alles klar, los geht's!</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- ADD-MODAL -->
+<dialog id="add-modal">
+  <div class="modal-body">
+    <div class="modal-title">Neue Vokabel</div>
+    <div class="m-trial-hint" id="am-trial-hint" style="display:none">&#128274; Testversion: Eingabe möglich, Speichern ist Teil der Vollversion</div>
+    <div class="form-row">
+      <input type="text" id="am-it" placeholder="Business English" autocomplete="off" autocapitalize="off" oninput="clearDuplicateHint()" onblur="checkDuplicate()">
+      <div class="m-err" id="am-dup-hint"></div>
+      <input type="text" id="am-de" placeholder="Deutsch" autocomplete="off">
+      <select id="am-kategorie-select"></select>
+    </div>
+    <div class="m-err" id="am-err"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeAddModal()">Abbrechen</button>
+      <button class="btn btn-primary" onclick="submitAddModal()">Speichern</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- KATEGORIE-MODAL -->
+<dialog id="kat-modal">
+  <div class="modal-body">
+    <div class="modal-title">Neue Kategorie</div>
+    <div class="m-trial-hint" id="km-trial-hint" style="display:none">&#128274; Testversion: Eingabe möglich, Speichern ist Teil der Vollversion</div>
+    <div class="form-row">
+      <input type="text" id="km-name" placeholder="Name der Kategorie" autocomplete="off">
+    </div>
+    <div class="m-err" id="km-err"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeKatModal()">Abbrechen</button>
+      <button class="btn btn-primary" onclick="submitKatModal()">Speichern</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- OCR-MODAL -->
+<dialog id="ocr-modal" style="width:420px">
+  <div class="modal-body" style="max-height:80vh;overflow-y:auto">
+    <div class="modal-title">&#128248; Vokabeln aus Foto</div>
+    <div class="m-trial-hint" id="ocr-trial-hint" style="display:none">&#128274; Testversion: Ausprobieren möglich, Übernehmen ist Teil der Vollversion</div>
+    <p style="font-size:12px;line-height:1.5;color:var(--text-light);margin:0 0 10px">
+      Foto von der Vokabelseite aufnehmen oder auswählen. Der erkannte Text lässt sich danach korrigieren, bevor du ihn übernimmst.
+    </p>
+    <div class="form-row">
+      <input type="file" id="ocr-file" accept="image/*" capture="environment" onchange="ocrBildGewaehlt()">
+    </div>
+    <div id="ocr-status" style="font-size:12px;color:var(--text-light);margin-bottom:8px"></div>
+    <div id="ocr-rohtext-wrap" style="display:none">
+      <div class="card-title" style="margin-top:6px">Erkannter Text (bei Bedarf korrigieren)</div>
+      <textarea id="ocr-rohtext" rows="6" style="width:100%;box-sizing:border-box;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit"></textarea>
+      <div style="font-size:11px;color:var(--text-light);margin:4px 0 10px">Pro Zeile ein Wortpaar, getrennt durch Tab, "-" oder mehrere Leerzeichen — z.B. <i>house - Haus</i></div>
+      <button class="btn btn-secondary" onclick="ocrParsen()" style="width:100%;margin-bottom:12px">In Wortpaare umwandeln</button>
+    </div>
+    <div id="ocr-kandidaten-wrap" style="display:none">
+      <div class="card-title">Kategorie für alle Wortpaare</div>
+      <div class="form-row">
+        <select id="ocr-kategorie-select"></select>
+      </div>
+      <div class="card-title">Erkannte Wortpaare (<span id="ocr-anzahl">0</span>)</div>
+      <div id="ocr-kandidaten-liste"></div>
+    </div>
+    <div class="m-err" id="ocr-err"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeOcrModal()">Schließen</button>
+      <button class="btn btn-primary" id="ocr-uebernehmen-btn" onclick="ocrAlleUebernehmen()" style="display:none">Alle übernehmen</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const SEED_VOKABELN = [
+  {"id": 1, "kategorie": "Grundlagen & Umgangsformen", "it": "nice to meet you", "de": "freut mich (geschäftlich)"},
+  {"id": 2, "kategorie": "Grundlagen & Umgangsformen", "it": "pleasure doing business with you", "de": "ein Vergnügen, mit Ihnen Geschäfte zu machen"},
+  {"id": 3, "kategorie": "Grundlagen & Umgangsformen", "it": "let me introduce myself", "de": "darf ich mich vorstellen"},
+  {"id": 4, "kategorie": "Grundlagen & Umgangsformen", "it": "here's my business card", "de": "hier ist meine Visitenkarte"},
+  {"id": 5, "kategorie": "Grundlagen & Umgangsformen", "it": "how can I help you?", "de": "wie kann ich Ihnen helfen?"},
+  {"id": 6, "kategorie": "Grundlagen & Umgangsformen", "it": "I appreciate your time", "de": "ich schätze Ihre Zeit"},
+  {"id": 7, "kategorie": "Grundlagen & Umgangsformen", "it": "thank you for your patience", "de": "danke für Ihre Geduld"},
+  {"id": 8, "kategorie": "Grundlagen & Umgangsformen", "it": "I look forward to working with you", "de": "ich freue mich auf die Zusammenarbeit"},
+  {"id": 9, "kategorie": "Grundlagen & Umgangsformen", "it": "could we schedule a call?", "de": "könnten wir ein Telefonat vereinbaren?"},
+  {"id": 10, "kategorie": "Grundlagen & Umgangsformen", "it": "are you available on...?", "de": "haben Sie am ... Zeit?"},
+  {"id": 11, "kategorie": "Grundlagen & Umgangsformen", "it": "I'm afraid that doesn't work for me", "de": "das passt mir leider nicht"},
+  {"id": 12, "kategorie": "Grundlagen & Umgangsformen", "it": "let's touch base next week", "de": "lassen Sie uns nächste Woche abstimmen"},
+  {"id": 13, "kategorie": "Grundlagen & Umgangsformen", "it": "keep me in the loop", "de": "halten Sie mich auf dem Laufenden"},
+  {"id": 14, "kategorie": "Grundlagen & Umgangsformen", "it": "I'll get back to you", "de": "ich melde mich bei Ihnen"},
+  {"id": 15, "kategorie": "Grundlagen & Umgangsformen", "it": "as per our conversation", "de": "wie besprochen"},
+  {"id": 16, "kategorie": "Grundlagen & Umgangsformen", "it": "to the best of my knowledge", "de": "meines Wissens nach"},
+  {"id": 17, "kategorie": "Grundlagen & Umgangsformen", "it": "I'll follow up on this", "de": "ich werde das nachverfolgen"},
+  {"id": 18, "kategorie": "Grundlagen & Umgangsformen", "it": "please find attached", "de": "im Anhang finden Sie"},
+  {"id": 19, "kategorie": "Grundlagen & Umgangsformen", "it": "on short notice", "de": "kurzfristig"},
+  {"id": 20, "kategorie": "Grundlagen & Umgangsformen", "it": "out of office", "de": "außer Haus / abwesend"},
+  {"id": 21, "kategorie": "Grundlagen & Umgangsformen", "it": "point of contact", "de": "Ansprechpartner"},
+  {"id": 22, "kategorie": "Grundlagen & Umgangsformen", "it": "stakeholder", "de": "Interessenvertreter / Stakeholder"},
+  {"id": 23, "kategorie": "Grundlagen & Umgangsformen", "it": "corporate culture", "de": "Unternehmenskultur"},
+  {"id": 24, "kategorie": "Grundlagen & Umgangsformen", "it": "code of conduct", "de": "Verhaltenskodex"},
+  {"id": 25, "kategorie": "Grundlagen & Umgangsformen", "it": "networking", "de": "Networking / Kontaktpflege"},
+  {"id": 26, "kategorie": "Grundlagen & Umgangsformen", "it": "elevator pitch", "de": "Kurzpräsentation / Elevator Pitch"},
+  {"id": 27, "kategorie": "Grundlagen & Umgangsformen", "it": "work-life balance", "de": "Work-Life-Balance"},
+  {"id": 28, "kategorie": "Grundlagen & Umgangsformen", "it": "headquarters", "de": "Hauptsitz"},
+  {"id": 29, "kategorie": "Grundlagen & Umgangsformen", "it": "branch office", "de": "Zweigstelle"},
+  {"id": 30, "kategorie": "Grundlagen & Umgangsformen", "it": "subsidiary", "de": "Tochtergesellschaft"},
+  {"id": 31, "kategorie": "Grundlagen & Umgangsformen", "it": "headcount", "de": "Personalstärke / Mitarbeiterzahl"},
+  {"id": 32, "kategorie": "Grundlagen & Umgangsformen", "it": "onboarding", "de": "Einarbeitung"},
+  {"id": 33, "kategorie": "Grundlagen & Umgangsformen", "it": "business trip", "de": "Geschäftsreise"},
+  {"id": 34, "kategorie": "Grundlagen & Umgangsformen", "it": "conference", "de": "Konferenz"},
+  {"id": 35, "kategorie": "Grundlagen & Umgangsformen", "it": "trade fair", "de": "Messe"},
+  {"id": 36, "kategorie": "Grundlagen & Umgangsformen", "it": "client", "de": "Kunde (B2B)"},
+  {"id": 37, "kategorie": "Grundlagen & Umgangsformen", "it": "vendor", "de": "Lieferant / Anbieter"},
+  {"id": 38, "kategorie": "Grundlagen & Umgangsformen", "it": "competitor", "de": "Wettbewerber"},
+  {"id": 39, "kategorie": "Grundlagen & Umgangsformen", "it": "industry", "de": "Branche"},
+  {"id": 40, "kategorie": "Grundlagen & Umgangsformen", "it": "market share", "de": "Marktanteil"},
+  {"id": 41, "kategorie": "Grundlagen & Umgangsformen", "it": "corporate policy", "de": "Unternehmensrichtlinie"},
+  {"id": 42, "kategorie": "Grundlagen & Umgangsformen", "it": "confidentiality agreement", "de": "Vertraulichkeitsvereinbarung"},
+  {"id": 43, "kategorie": "Grundlagen & Umgangsformen", "it": "due diligence", "de": "Sorgfaltsprüfung"},
+  {"id": 44, "kategorie": "Grundlagen & Umgangsformen", "it": "work ethic", "de": "Arbeitsmoral"},
+  {"id": 45, "kategorie": "Grundlagen & Umgangsformen", "it": "professional development", "de": "berufliche Weiterentwicklung"},
+  {"id": 46, "kategorie": "Meetings", "it": "agenda", "de": "Tagesordnung"},
+  {"id": 47, "kategorie": "Meetings", "it": "minutes (of the meeting)", "de": "Protokoll"},
+  {"id": 48, "kategorie": "Meetings", "it": "to chair a meeting", "de": "eine Besprechung leiten"},
+  {"id": 49, "kategorie": "Meetings", "it": "action items", "de": "Maßnahmenliste / To-dos"},
+  {"id": 50, "kategorie": "Meetings", "it": "to table an issue", "de": "ein Thema vertagen"},
+  {"id": 51, "kategorie": "Meetings", "it": "follow-up meeting", "de": "Folgetermin"},
+  {"id": 52, "kategorie": "Meetings", "it": "to reschedule", "de": "verschieben"},
+  {"id": 53, "kategorie": "Meetings", "it": "conference call", "de": "Telefonkonferenz"},
+  {"id": 54, "kategorie": "Meetings", "it": "video call", "de": "Videoanruf"},
+  {"id": 55, "kategorie": "Meetings", "it": "to dial in", "de": "sich einwählen"},
+  {"id": 56, "kategorie": "Meetings", "it": "breakout session", "de": "Kleingruppensitzung"},
+  {"id": 57, "kategorie": "Meetings", "it": "to brainstorm", "de": "brainstormen"},
+  {"id": 58, "kategorie": "Meetings", "it": "to reach a consensus", "de": "einen Konsens erzielen"},
+  {"id": 59, "kategorie": "Meetings", "it": "to table a motion", "de": "einen Antrag stellen"},
+  {"id": 60, "kategorie": "Meetings", "it": "quorum", "de": "Beschlussfähigkeit"},
+  {"id": 61, "kategorie": "Meetings", "it": "to adjourn", "de": "vertagen / beenden"},
+  {"id": 62, "kategorie": "Meetings", "it": "stand-up meeting", "de": "Stehmeeting"},
+  {"id": 63, "kategorie": "Meetings", "it": "kick-off meeting", "de": "Auftakttreffen"},
+  {"id": 64, "kategorie": "Meetings", "it": "to circulate the agenda", "de": "die Tagesordnung verteilen"},
+  {"id": 65, "kategorie": "Meetings", "it": "to take the floor", "de": "das Wort ergreifen"},
+  {"id": 66, "kategorie": "Meetings", "it": "to interrupt", "de": "unterbrechen"},
+  {"id": 67, "kategorie": "Meetings", "it": "to second a motion", "de": "einen Antrag unterstützen"},
+  {"id": 68, "kategorie": "Meetings", "it": "to vote on", "de": "abstimmen über"},
+  {"id": 69, "kategorie": "Meetings", "it": "unanimous decision", "de": "einstimmige Entscheidung"},
+  {"id": 70, "kategorie": "Meetings", "it": "to postpone", "de": "verschieben"},
+  {"id": 71, "kategorie": "Meetings", "it": "attendee", "de": "Teilnehmer"},
+  {"id": 72, "kategorie": "Meetings", "it": "to chime in", "de": "sich einbringen"},
+  {"id": 73, "kategorie": "Meetings", "it": "off the record", "de": "inoffiziell / nicht protokolliert"},
+  {"id": 74, "kategorie": "Meetings", "it": "to wrap up", "de": "abschließen"},
+  {"id": 75, "kategorie": "Meetings", "it": "recap", "de": "Zusammenfassung"},
+  {"id": 76, "kategorie": "Meetings", "it": "to bring up a point", "de": "einen Punkt ansprechen"},
+  {"id": 77, "kategorie": "Meetings", "it": "to get sidetracked", "de": "vom Thema abkommen"},
+  {"id": 78, "kategorie": "Meetings", "it": "time slot", "de": "Zeitfenster"},
+  {"id": 79, "kategorie": "Meetings", "it": "to run over time", "de": "die Zeit überziehen"},
+  {"id": 80, "kategorie": "Meetings", "it": "conference room", "de": "Konferenzraum"},
+  {"id": 81, "kategorie": "Meetings", "it": "remote meeting", "de": "Meeting aus der Ferne"},
+  {"id": 82, "kategorie": "Meetings", "it": "in-person meeting", "de": "Präsenztreffen"},
+  {"id": 83, "kategorie": "Meetings", "it": "to loop someone in", "de": "jemanden hinzuziehen"},
+  {"id": 84, "kategorie": "Meetings", "it": "briefing", "de": "Kurzbesprechung"},
+  {"id": 85, "kategorie": "Meetings", "it": "debriefing", "de": "Nachbesprechung"},
+  {"id": 86, "kategorie": "Meetings", "it": "minutes taker", "de": "Protokollant"},
+  {"id": 87, "kategorie": "Meetings", "it": "open floor", "de": "offene Diskussionsrunde"},
+  {"id": 88, "kategorie": "Meetings", "it": "sidebar conversation", "de": "Nebengespräch"},
+  {"id": 89, "kategorie": "Meetings", "it": "to convene", "de": "einberufen"},
+  {"id": 90, "kategorie": "Verhandlungen", "it": "to negotiate", "de": "verhandeln"},
+  {"id": 91, "kategorie": "Verhandlungen", "it": "counteroffer", "de": "Gegenangebot"},
+  {"id": 92, "kategorie": "Verhandlungen", "it": "to reach a deal", "de": "eine Einigung erzielen"},
+  {"id": 93, "kategorie": "Verhandlungen", "it": "to make a concession", "de": "ein Zugeständnis machen"},
+  {"id": 94, "kategorie": "Verhandlungen", "it": "bottom line", "de": "unterste Grenze / Kernaussage"},
+  {"id": 95, "kategorie": "Verhandlungen", "it": "win-win situation", "de": "Win-Win-Situation"},
+  {"id": 96, "kategorie": "Verhandlungen", "it": "to bargain", "de": "feilschen"},
+  {"id": 97, "kategorie": "Verhandlungen", "it": "leverage", "de": "Verhandlungsmacht"},
+  {"id": 98, "kategorie": "Verhandlungen", "it": "to close the deal", "de": "den Deal abschließen"},
+  {"id": 99, "kategorie": "Verhandlungen", "it": "to walk away from the table", "de": "vom Verhandlungstisch aufstehen"},
+  {"id": 100, "kategorie": "Verhandlungen", "it": "terms and conditions", "de": "Geschäftsbedingungen"},
+  {"id": 101, "kategorie": "Verhandlungen", "it": "to sign off on", "de": "absegnen"},
+  {"id": 102, "kategorie": "Verhandlungen", "it": "non-disclosure agreement", "de": "Verschwiegenheitsvereinbarung"},
+  {"id": 103, "kategorie": "Verhandlungen", "it": "to draft a contract", "de": "einen Vertrag entwerfen"},
+  {"id": 104, "kategorie": "Verhandlungen", "it": "binding agreement", "de": "verbindliche Vereinbarung"},
+  {"id": 105, "kategorie": "Verhandlungen", "it": "to breach a contract", "de": "einen Vertrag brechen"},
+  {"id": 106, "kategorie": "Verhandlungen", "it": "to renegotiate", "de": "nachverhandeln"},
+  {"id": 107, "kategorie": "Verhandlungen", "it": "deadlock", "de": "Sackgasse (Verhandlung)"},
+  {"id": 108, "kategorie": "Verhandlungen", "it": "to compromise", "de": "einen Kompromiss finden"},
+  {"id": 109, "kategorie": "Verhandlungen", "it": "to haggle over price", "de": "über den Preis feilschen"},
+  {"id": 110, "kategorie": "Verhandlungen", "it": "fine print", "de": "Kleingedrucktes"},
+  {"id": 111, "kategorie": "Verhandlungen", "it": "to sweeten the deal", "de": "das Angebot attraktiver machen"},
+  {"id": 112, "kategorie": "Verhandlungen", "it": "opening offer", "de": "Eröffnungsangebot"},
+  {"id": 113, "kategorie": "Verhandlungen", "it": "to stall negotiations", "de": "Verhandlungen verzögern"},
+  {"id": 114, "kategorie": "Verhandlungen", "it": "mutual agreement", "de": "gegenseitiges Einverständnis"},
+  {"id": 115, "kategorie": "Verhandlungen", "it": "arbitration", "de": "Schiedsverfahren"},
+  {"id": 116, "kategorie": "Verhandlungen", "it": "mediator", "de": "Vermittler"},
+  {"id": 117, "kategorie": "Verhandlungen", "it": "to lock in a price", "de": "einen Preis fixieren"},
+  {"id": 118, "kategorie": "Verhandlungen", "it": "exclusivity clause", "de": "Exklusivitätsklausel"},
+  {"id": 119, "kategorie": "Verhandlungen", "it": "escrow", "de": "Treuhandkonto"},
+  {"id": 120, "kategorie": "Verhandlungen", "it": "to finalize the contract", "de": "den Vertrag finalisieren"},
+  {"id": 121, "kategorie": "Verhandlungen", "it": "letter of intent", "de": "Absichtserklärung"},
+  {"id": 122, "kategorie": "Verhandlungen", "it": "to sign on the dotted line", "de": "unterschreiben"},
+  {"id": 123, "kategorie": "Verhandlungen", "it": "handshake deal", "de": "Handschlag-Abkommen"},
+  {"id": 124, "kategorie": "Verhandlungen", "it": "to hammer out details", "de": "Details ausarbeiten"},
+  {"id": 125, "kategorie": "Verhandlungen", "it": "stalemate", "de": "Patt-Situation"},
+  {"id": 126, "kategorie": "Verhandlungen", "it": "negotiating table", "de": "Verhandlungstisch"},
+  {"id": 127, "kategorie": "Verhandlungen", "it": "leverage point", "de": "Verhandlungshebel"},
+  {"id": 128, "kategorie": "Verhandlungen", "it": "to give ground", "de": "nachgeben"},
+  {"id": 129, "kategorie": "Finanzen & Kennzahlen", "it": "revenue", "de": "Umsatz"},
+  {"id": 130, "kategorie": "Finanzen & Kennzahlen", "it": "profit margin", "de": "Gewinnmarge"},
+  {"id": 131, "kategorie": "Finanzen & Kennzahlen", "it": "expenses", "de": "Ausgaben"},
+  {"id": 132, "kategorie": "Finanzen & Kennzahlen", "it": "net income", "de": "Reingewinn"},
+  {"id": 133, "kategorie": "Finanzen & Kennzahlen", "it": "gross income", "de": "Bruttoeinkommen"},
+  {"id": 134, "kategorie": "Finanzen & Kennzahlen", "it": "balance sheet", "de": "Bilanz"},
+  {"id": 135, "kategorie": "Finanzen & Kennzahlen", "it": "cash flow", "de": "Cashflow / Zahlungsfluss"},
+  {"id": 136, "kategorie": "Finanzen & Kennzahlen", "it": "budget", "de": "Budget"},
+  {"id": 137, "kategorie": "Finanzen & Kennzahlen", "it": "forecast", "de": "Prognose"},
+  {"id": 138, "kategorie": "Finanzen & Kennzahlen", "it": "fiscal year", "de": "Geschäftsjahr"},
+  {"id": 139, "kategorie": "Finanzen & Kennzahlen", "it": "quarterly report", "de": "Quartalsbericht"},
+  {"id": 140, "kategorie": "Finanzen & Kennzahlen", "it": "return on investment", "de": "Kapitalrendite"},
+  {"id": 141, "kategorie": "Finanzen & Kennzahlen", "it": "break-even point", "de": "Gewinnschwelle"},
+  {"id": 142, "kategorie": "Finanzen & Kennzahlen", "it": "overhead costs", "de": "Gemeinkosten"},
+  {"id": 143, "kategorie": "Finanzen & Kennzahlen", "it": "depreciation", "de": "Abschreibung"},
+  {"id": 144, "kategorie": "Finanzen & Kennzahlen", "it": "liabilities", "de": "Verbindlichkeiten"},
+  {"id": 145, "kategorie": "Finanzen & Kennzahlen", "it": "assets", "de": "Vermögenswerte"},
+  {"id": 146, "kategorie": "Finanzen & Kennzahlen", "it": "equity", "de": "Eigenkapital"},
+  {"id": 147, "kategorie": "Finanzen & Kennzahlen", "it": "shareholder", "de": "Aktionär"},
+  {"id": 148, "kategorie": "Finanzen & Kennzahlen", "it": "dividend", "de": "Dividende"},
+  {"id": 149, "kategorie": "Finanzen & Kennzahlen", "it": "stock price", "de": "Aktienkurs"},
+  {"id": 150, "kategorie": "Finanzen & Kennzahlen", "it": "market capitalization", "de": "Marktkapitalisierung"},
+  {"id": 151, "kategorie": "Finanzen & Kennzahlen", "it": "audit", "de": "Prüfung / Audit"},
+  {"id": 152, "kategorie": "Finanzen & Kennzahlen", "it": "tax deduction", "de": "Steuerabzug"},
+  {"id": 153, "kategorie": "Finanzen & Kennzahlen", "it": "invoice", "de": "Rechnung"},
+  {"id": 154, "kategorie": "Finanzen & Kennzahlen", "it": "accounts payable", "de": "Verbindlichkeiten aus Lieferungen"},
+  {"id": 155, "kategorie": "Finanzen & Kennzahlen", "it": "accounts receivable", "de": "Forderungen"},
+  {"id": 156, "kategorie": "Finanzen & Kennzahlen", "it": "to cut costs", "de": "Kosten senken"},
+  {"id": 157, "kategorie": "Finanzen & Kennzahlen", "it": "to break even", "de": "die Gewinnschwelle erreichen"},
+  {"id": 158, "kategorie": "Finanzen & Kennzahlen", "it": "KPI (key performance indicator)", "de": "Kennzahl / KPI"},
+  {"id": 159, "kategorie": "Finanzen & Kennzahlen", "it": "to underperform", "de": "die Erwartungen nicht erfüllen"},
+  {"id": 160, "kategorie": "Finanzen & Kennzahlen", "it": "to outperform", "de": "die Erwartungen übertreffen"},
+  {"id": 161, "kategorie": "Finanzen & Kennzahlen", "it": "write-off", "de": "Abschreibung (Verlust)"},
+  {"id": 162, "kategorie": "Finanzen & Kennzahlen", "it": "capital expenditure", "de": "Investitionsausgaben"},
+  {"id": 163, "kategorie": "Finanzen & Kennzahlen", "it": "loan", "de": "Darlehen"},
+  {"id": 164, "kategorie": "Finanzen & Kennzahlen", "it": "interest rate", "de": "Zinssatz"},
+  {"id": 165, "kategorie": "Finanzen & Kennzahlen", "it": "credit line", "de": "Kreditlinie"},
+  {"id": 166, "kategorie": "Finanzen & Kennzahlen", "it": "solvency", "de": "Zahlungsfähigkeit"},
+  {"id": 167, "kategorie": "Finanzen & Kennzahlen", "it": "bankruptcy", "de": "Insolvenz"},
+  {"id": 168, "kategorie": "Finanzen & Kennzahlen", "it": "merger", "de": "Fusion"},
+  {"id": 169, "kategorie": "Finanzen & Kennzahlen", "it": "acquisition", "de": "Übernahme"},
+  {"id": 170, "kategorie": "Finanzen & Kennzahlen", "it": "valuation", "de": "Bewertung"},
+  {"id": 171, "kategorie": "Finanzen & Kennzahlen", "it": "venture capital", "de": "Risikokapital"},
+  {"id": 172, "kategorie": "Finanzen & Kennzahlen", "it": "cost-benefit analysis", "de": "Kosten-Nutzen-Analyse"},
+  {"id": 173, "kategorie": "Finanzen & Kennzahlen", "it": "procurement", "de": "Beschaffung"},
+  {"id": 174, "kategorie": "Finanzen & Kennzahlen", "it": "supply chain", "de": "Lieferkette"},
+  {"id": 175, "kategorie": "Präsentationen", "it": "slide deck", "de": "Foliensatz"},
+  {"id": 176, "kategorie": "Präsentationen", "it": "to give a presentation", "de": "eine Präsentation halten"},
+  {"id": 177, "kategorie": "Präsentationen", "it": "key takeaway", "de": "wichtigste Erkenntnis"},
+  {"id": 178, "kategorie": "Präsentationen", "it": "to make a point", "de": "einen Punkt verdeutlichen"},
+  {"id": 179, "kategorie": "Präsentationen", "it": "handout", "de": "Handout / Unterlage"},
+  {"id": 180, "kategorie": "Präsentationen", "it": "visual aid", "de": "visuelles Hilfsmittel"},
+  {"id": 181, "kategorie": "Präsentationen", "it": "to pitch an idea", "de": "eine Idee präsentieren"},
+  {"id": 182, "kategorie": "Präsentationen", "it": "audience", "de": "Publikum"},
+  {"id": 183, "kategorie": "Präsentationen", "it": "Q&A session", "de": "Fragerunde"},
+  {"id": 184, "kategorie": "Präsentationen", "it": "to rehearse", "de": "proben"},
+  {"id": 185, "kategorie": "Präsentationen", "it": "bullet point", "de": "Stichpunkt"},
+  {"id": 186, "kategorie": "Präsentationen", "it": "executive summary", "de": "Zusammenfassung für die Führungsebene"},
+  {"id": 187, "kategorie": "Präsentationen", "it": "to walk through", "de": "durchgehen (erklären)"},
+  {"id": 188, "kategorie": "Präsentationen", "it": "to highlight", "de": "hervorheben"},
+  {"id": 189, "kategorie": "Präsentationen", "it": "body language", "de": "Körpersprache"},
+  {"id": 190, "kategorie": "Präsentationen", "it": "to engage the audience", "de": "das Publikum einbeziehen"},
+  {"id": 191, "kategorie": "Präsentationen", "it": "to wrap up a presentation", "de": "eine Präsentation abschließen"},
+  {"id": 192, "kategorie": "Präsentationen", "it": "talking points", "de": "Gesprächspunkte"},
+  {"id": 193, "kategorie": "Präsentationen", "it": "to keep it concise", "de": "sich kurz fassen"},
+  {"id": 194, "kategorie": "Präsentationen", "it": "opening statement", "de": "Eröffnungsstatement"},
+  {"id": 195, "kategorie": "Präsentationen", "it": "closing remarks", "de": "Schlussbemerkungen"},
+  {"id": 196, "kategorie": "Präsentationen", "it": "to field questions", "de": "Fragen beantworten"},
+  {"id": 197, "kategorie": "Präsentationen", "it": "flip chart", "de": "Flipchart"},
+  {"id": 198, "kategorie": "Präsentationen", "it": "to project confidence", "de": "Selbstsicherheit ausstrahlen"},
+  {"id": 199, "kategorie": "Präsentationen", "it": "rehearsal", "de": "Probe"},
+  {"id": 200, "kategorie": "Präsentationen", "it": "to lose one's train of thought", "de": "den Faden verlieren"},
+  {"id": 201, "kategorie": "Präsentationen", "it": "to read the room", "de": "die Stimmung erfassen"},
+  {"id": 202, "kategorie": "Präsentationen", "it": "storyboard", "de": "Storyboard"},
+  {"id": 203, "kategorie": "Präsentationen", "it": "dry run", "de": "Generalprobe"},
+  {"id": 204, "kategorie": "Präsentationen", "it": "to fine-tune", "de": "feinabstimmen"},
+  {"id": 205, "kategorie": "Präsentationen", "it": "pitch deck", "de": "Pitch-Unterlagen"},
+  {"id": 206, "kategorie": "Präsentationen", "it": "to captivate the audience", "de": "das Publikum fesseln"},
+  {"id": 207, "kategorie": "Präsentationen", "it": "visual clutter", "de": "visuelle Unordnung"},
+  {"id": 208, "kategorie": "Präsentationen", "it": "takeaway message", "de": "Kernbotschaft"},
+  {"id": 209, "kategorie": "Präsentationen", "it": "to summarize", "de": "zusammenfassen"},
+  {"id": 210, "kategorie": "Präsentationen", "it": "supporting data", "de": "unterstützende Daten"},
+  {"id": 211, "kategorie": "Präsentationen", "it": "to back up a claim", "de": "eine Aussage belegen"},
+  {"id": 212, "kategorie": "Präsentationen", "it": "rebuttal", "de": "Widerlegung"},
+  {"id": 213, "kategorie": "Präsentationen", "it": "to field a tough question", "de": "eine schwierige Frage beantworten"},
+  {"id": 214, "kategorie": "E-Mail & Korrespondenz", "it": "dear Sir or Madam", "de": "Sehr geehrte Damen und Herren"},
+  {"id": 215, "kategorie": "E-Mail & Korrespondenz", "it": "best regards", "de": "mit freundlichen Grüßen"},
+  {"id": 216, "kategorie": "E-Mail & Korrespondenz", "it": "kind regards", "de": "freundliche Grüße"},
+  {"id": 217, "kategorie": "E-Mail & Korrespondenz", "it": "to reply all", "de": "allen antworten"},
+  {"id": 218, "kategorie": "E-Mail & Korrespondenz", "it": "to cc someone", "de": "jemanden in Kopie setzen"},
+  {"id": 219, "kategorie": "E-Mail & Korrespondenz", "it": "to bcc someone", "de": "jemanden in Blindkopie setzen"},
+  {"id": 220, "kategorie": "E-Mail & Korrespondenz", "it": "subject line", "de": "Betreffzeile"},
+  {"id": 221, "kategorie": "E-Mail & Korrespondenz", "it": "attachment", "de": "Anhang"},
+  {"id": 222, "kategorie": "E-Mail & Korrespondenz", "it": "to forward an email", "de": "eine E-Mail weiterleiten"},
+  {"id": 223, "kategorie": "E-Mail & Korrespondenz", "it": "out-of-office reply", "de": "Abwesenheitsnachricht"},
+  {"id": 224, "kategorie": "E-Mail & Korrespondenz", "it": "as discussed", "de": "wie besprochen"},
+  {"id": 225, "kategorie": "E-Mail & Korrespondenz", "it": "please advise", "de": "bitte um Rückmeldung"},
+  {"id": 226, "kategorie": "E-Mail & Korrespondenz", "it": "at your earliest convenience", "de": "so bald wie möglich"},
+  {"id": 227, "kategorie": "E-Mail & Korrespondenz", "it": "to follow up", "de": "nachfassen"},
+  {"id": 228, "kategorie": "E-Mail & Korrespondenz", "it": "to circle back", "de": "später darauf zurückkommen"},
+  {"id": 229, "kategorie": "E-Mail & Korrespondenz", "it": "I hope this email finds you well", "de": "ich hoffe, es geht Ihnen gut"},
+  {"id": 230, "kategorie": "E-Mail & Korrespondenz", "it": "further to my last email", "de": "anknüpfend an meine letzte E-Mail"},
+  {"id": 231, "kategorie": "E-Mail & Korrespondenz", "it": "to loop in", "de": "hinzuziehen (per Mail)"},
+  {"id": 232, "kategorie": "E-Mail & Korrespondenz", "it": "disclaimer", "de": "Haftungsausschluss"},
+  {"id": 233, "kategorie": "E-Mail & Korrespondenz", "it": "signature block", "de": "Signatur"},
+  {"id": 234, "kategorie": "E-Mail & Korrespondenz", "it": "read receipt", "de": "Lesebestätigung"},
+  {"id": 235, "kategorie": "E-Mail & Korrespondenz", "it": "to draft an email", "de": "eine E-Mail entwerfen"},
+  {"id": 236, "kategorie": "E-Mail & Korrespondenz", "it": "to proofread", "de": "Korrektur lesen"},
+  {"id": 237, "kategorie": "E-Mail & Korrespondenz", "it": "formal tone", "de": "formeller Ton"},
+  {"id": 238, "kategorie": "E-Mail & Korrespondenz", "it": "informal tone", "de": "informeller Ton"},
+  {"id": 239, "kategorie": "E-Mail & Korrespondenz", "it": "to escalate an issue", "de": "ein Problem eskalieren"},
+  {"id": 240, "kategorie": "E-Mail & Korrespondenz", "it": "memo", "de": "Mitteilung / Memo"},
+  {"id": 241, "kategorie": "E-Mail & Korrespondenz", "it": "to flag an issue", "de": "ein Problem markieren"},
+  {"id": 242, "kategorie": "E-Mail & Korrespondenz", "it": "courtesy copy", "de": "Höflichkeitskopie"},
+  {"id": 243, "kategorie": "E-Mail & Korrespondenz", "it": "email thread", "de": "E-Mail-Verlauf"},
+  {"id": 244, "kategorie": "E-Mail & Korrespondenz", "it": "to archive an email", "de": "eine E-Mail archivieren"},
+  {"id": 245, "kategorie": "E-Mail & Korrespondenz", "it": "spam filter", "de": "Spamfilter"},
+  {"id": 246, "kategorie": "E-Mail & Korrespondenz", "it": "auto-reply", "de": "automatische Antwort"},
+  {"id": 247, "kategorie": "E-Mail & Korrespondenz", "it": "to clarify", "de": "klären / präzisieren"},
+  {"id": 248, "kategorie": "E-Mail & Korrespondenz", "it": "as per your request", "de": "wie von Ihnen gewünscht"},
+  {"id": 249, "kategorie": "E-Mail & Korrespondenz", "it": "please find enclosed", "de": "anbei finden Sie"},
+  {"id": 250, "kategorie": "E-Mail & Korrespondenz", "it": "I would like to confirm", "de": "ich möchte bestätigen"},
+  {"id": 251, "kategorie": "E-Mail & Korrespondenz", "it": "to acknowledge receipt", "de": "den Empfang bestätigen"},
+  {"id": 252, "kategorie": "E-Mail & Korrespondenz", "it": "pending your approval", "de": "vorbehaltlich Ihrer Zustimmung"},
+  {"id": 253, "kategorie": "E-Mail & Korrespondenz", "it": "to touch base", "de": "sich kurz austauschen"},
+  {"id": 254, "kategorie": "E-Mail & Korrespondenz", "it": "correspondence", "de": "Schriftverkehr"},
+  {"id": 255, "kategorie": "Management & Führung", "it": "line manager", "de": "direkter Vorgesetzter"},
+  {"id": 256, "kategorie": "Management & Führung", "it": "direct report", "de": "unterstellter Mitarbeiter"},
+  {"id": 257, "kategorie": "Management & Führung", "it": "to delegate", "de": "delegieren"},
+  {"id": 258, "kategorie": "Management & Führung", "it": "to empower", "de": "befähigen / stärken"},
+  {"id": 259, "kategorie": "Management & Führung", "it": "leadership style", "de": "Führungsstil"},
+  {"id": 260, "kategorie": "Management & Führung", "it": "performance review", "de": "Leistungsbeurteilung"},
+  {"id": 261, "kategorie": "Management & Führung", "it": "feedback loop", "de": "Feedback-Schleife"},
+  {"id": 262, "kategorie": "Management & Führung", "it": "to mentor", "de": "mentorieren / anleiten"},
+  {"id": 263, "kategorie": "Management & Führung", "it": "succession planning", "de": "Nachfolgeplanung"},
+  {"id": 264, "kategorie": "Management & Führung", "it": "to onboard", "de": "einarbeiten"},
+  {"id": 265, "kategorie": "Management & Führung", "it": "team building", "de": "Teambildung"},
+  {"id": 266, "kategorie": "Management & Führung", "it": "to micromanage", "de": "kleinlich führen"},
+  {"id": 267, "kategorie": "Management & Führung", "it": "accountability", "de": "Verantwortlichkeit"},
+  {"id": 268, "kategorie": "Management & Führung", "it": "to hold accountable", "de": "zur Rechenschaft ziehen"},
+  {"id": 269, "kategorie": "Management & Führung", "it": "chain of command", "de": "Befehlskette / Hierarchie"},
+  {"id": 270, "kategorie": "Management & Führung", "it": "organizational chart", "de": "Organigramm"},
+  {"id": 271, "kategorie": "Management & Führung", "it": "to streamline processes", "de": "Prozesse straffen"},
+  {"id": 272, "kategorie": "Management & Führung", "it": "change management", "de": "Veränderungsmanagement"},
+  {"id": 273, "kategorie": "Management & Führung", "it": "to foster collaboration", "de": "Zusammenarbeit fördern"},
+  {"id": 274, "kategorie": "Management & Führung", "it": "talent acquisition", "de": "Talentgewinnung"},
+  {"id": 275, "kategorie": "Management & Führung", "it": "employee retention", "de": "Mitarbeiterbindung"},
+  {"id": 276, "kategorie": "Management & Führung", "it": "to set expectations", "de": "Erwartungen festlegen"},
+  {"id": 277, "kategorie": "Management & Führung", "it": "to give constructive feedback", "de": "konstruktives Feedback geben"},
+  {"id": 278, "kategorie": "Management & Führung", "it": "middle management", "de": "mittleres Management"},
+  {"id": 279, "kategorie": "Management & Führung", "it": "C-suite", "de": "Geschäftsführungsebene"},
+  {"id": 280, "kategorie": "Management & Führung", "it": "to lead by example", "de": "mit gutem Beispiel vorangehen"},
+  {"id": 281, "kategorie": "Management & Führung", "it": "corporate governance", "de": "Unternehmensführung"},
+  {"id": 282, "kategorie": "Management & Führung", "it": "to drive results", "de": "Ergebnisse erzielen"},
+  {"id": 283, "kategorie": "Management & Führung", "it": "to align on goals", "de": "sich auf Ziele einigen"},
+  {"id": 284, "kategorie": "Management & Führung", "it": "performance metrics", "de": "Leistungskennzahlen"},
+  {"id": 285, "kategorie": "Management & Führung", "it": "to coach an employee", "de": "einen Mitarbeiter coachen"},
+  {"id": 286, "kategorie": "Management & Führung", "it": "to conduct a review", "de": "eine Bewertung durchführen"},
+  {"id": 287, "kategorie": "Management & Führung", "it": "promotion", "de": "Beförderung"},
+  {"id": 288, "kategorie": "Management & Führung", "it": "demotion", "de": "Degradierung"},
+  {"id": 289, "kategorie": "Management & Führung", "it": "to restructure", "de": "umstrukturieren"},
+  {"id": 290, "kategorie": "Management & Führung", "it": "layoff", "de": "Entlassung (betriebsbedingt)"},
+  {"id": 291, "kategorie": "Management & Führung", "it": "severance package", "de": "Abfindungspaket"},
+  {"id": 292, "kategorie": "Management & Führung", "it": "to upskill", "de": "weiterqualifizieren"},
+  {"id": 293, "kategorie": "Management & Führung", "it": "to reskill", "de": "umschulen"},
+  {"id": 294, "kategorie": "Management & Führung", "it": "talent pipeline", "de": "Talentpool"},
+  {"id": 295, "kategorie": "Management & Führung", "it": "to champion an initiative", "de": "eine Initiative vorantreiben"},
+  {"id": 296, "kategorie": "Management & Führung", "it": "executive sponsor", "de": "verantwortlicher Entscheidungsträger"},
+  {"id": 297, "kategorie": "Management & Führung", "it": "to build consensus", "de": "Konsens schaffen"},
+  {"id": 298, "kategorie": "Management & Führung", "it": "top-down approach", "de": "Top-Down-Ansatz"},
+  {"id": 299, "kategorie": "Management & Führung", "it": "bottom-up approach", "de": "Bottom-Up-Ansatz"},
+  {"id": 300, "kategorie": "Projektmanagement", "it": "milestone", "de": "Meilenstein"},
+  {"id": 301, "kategorie": "Projektmanagement", "it": "deliverable", "de": "Arbeitsergebnis / Liefergegenstand"},
+  {"id": 302, "kategorie": "Projektmanagement", "it": "scope", "de": "Umfang"},
+  {"id": 303, "kategorie": "Projektmanagement", "it": "scope creep", "de": "Umfangsausweitung"},
+  {"id": 304, "kategorie": "Projektmanagement", "it": "stakeholder buy-in", "de": "Zustimmung der Beteiligten"},
+  {"id": 305, "kategorie": "Projektmanagement", "it": "project charter", "de": "Projektauftrag"},
+  {"id": 306, "kategorie": "Projektmanagement", "it": "timeline", "de": "Zeitplan"},
+  {"id": 307, "kategorie": "Projektmanagement", "it": "critical path", "de": "kritischer Pfad"},
+  {"id": 308, "kategorie": "Projektmanagement", "it": "risk assessment", "de": "Risikobewertung"},
+  {"id": 309, "kategorie": "Projektmanagement", "it": "contingency plan", "de": "Notfallplan"},
+  {"id": 310, "kategorie": "Projektmanagement", "it": "to allocate tasks", "de": "Aufgaben zuweisen"},
+  {"id": 311, "kategorie": "Projektmanagement", "it": "dependencies", "de": "Abhängigkeiten"},
+  {"id": 312, "kategorie": "Projektmanagement", "it": "sprint", "de": "Sprint (agil)"},
+  {"id": 313, "kategorie": "Projektmanagement", "it": "backlog", "de": "Rückstand / Backlog"},
+  {"id": 314, "kategorie": "Projektmanagement", "it": "to prioritize", "de": "priorisieren"},
+  {"id": 315, "kategorie": "Projektmanagement", "it": "kanban board", "de": "Kanban-Board"},
+  {"id": 316, "kategorie": "Projektmanagement", "it": "status update", "de": "Statusbericht"},
+  {"id": 317, "kategorie": "Projektmanagement", "it": "to fall behind schedule", "de": "in Verzug geraten"},
+  {"id": 318, "kategorie": "Projektmanagement", "it": "to be on track", "de": "im Zeitplan liegen"},
+  {"id": 319, "kategorie": "Projektmanagement", "it": "resource allocation", "de": "Ressourcenzuteilung"},
+  {"id": 320, "kategorie": "Projektmanagement", "it": "project lead", "de": "Projektleiter"},
+  {"id": 321, "kategorie": "Projektmanagement", "it": "cross-functional team", "de": "funktionsübergreifendes Team"},
+  {"id": 322, "kategorie": "Projektmanagement", "it": "gantt chart", "de": "Gantt-Diagramm"},
+  {"id": 323, "kategorie": "Projektmanagement", "it": "project scope statement", "de": "Leistungsbeschreibung"},
+  {"id": 324, "kategorie": "Projektmanagement", "it": "change request", "de": "Änderungsantrag"},
+  {"id": 325, "kategorie": "Projektmanagement", "it": "quality assurance", "de": "Qualitätssicherung"},
+  {"id": 326, "kategorie": "Projektmanagement", "it": "to finalize deliverables", "de": "Ergebnisse fertigstellen"},
+  {"id": 327, "kategorie": "Projektmanagement", "it": "project closure", "de": "Projektabschluss"},
+  {"id": 328, "kategorie": "Projektmanagement", "it": "lessons learned", "de": "gewonnene Erkenntnisse"},
+  {"id": 329, "kategorie": "Projektmanagement", "it": "iteration", "de": "Iteration"},
+  {"id": 330, "kategorie": "Projektmanagement", "it": "minimum viable product", "de": "minimal funktionsfähiges Produkt"},
+  {"id": 331, "kategorie": "Projektmanagement", "it": "agile methodology", "de": "agile Methodik"},
+  {"id": 332, "kategorie": "Projektmanagement", "it": "waterfall methodology", "de": "Wasserfallmethode"},
+  {"id": 333, "kategorie": "Projektmanagement", "it": "retrospective", "de": "Retrospektive"},
+  {"id": 334, "kategorie": "Projektmanagement", "it": "burn rate", "de": "Verbrauchsrate"},
+  {"id": 335, "kategorie": "Projektmanagement", "it": "to escalate a risk", "de": "ein Risiko eskalieren"},
+  {"id": 336, "kategorie": "Projektmanagement", "it": "to greenlight a project", "de": "ein Projekt freigeben"},
+  {"id": 337, "kategorie": "Projektmanagement", "it": "project kickoff", "de": "Projektstart"},
+  {"id": 338, "kategorie": "Projektmanagement", "it": "handover", "de": "Übergabe"},
+  {"id": 339, "kategorie": "Projektmanagement", "it": "to sign off on deliverables", "de": "Ergebnisse abnehmen"},
+  {"id": 340, "kategorie": "Projektmanagement", "it": "bottleneck", "de": "Engpass"},
+  {"id": 341, "kategorie": "Projektmanagement", "it": "workaround", "de": "Notlösung / Workaround"},
+  {"id": 342, "kategorie": "Projektmanagement", "it": "roadmap", "de": "Fahrplan / Roadmap"},
+  {"id": 343, "kategorie": "Projektmanagement", "it": "buffer time", "de": "Pufferzeit"},
+  {"id": 344, "kategorie": "Verben", "it": "negotiate", "de": "verhandeln", "formen": {"base": "negotiate", "past": "negotiated", "participle": "negotiated"}},
+  {"id": 345, "kategorie": "Verben", "it": "delegate", "de": "delegieren", "formen": {"base": "delegate", "past": "delegated", "participle": "delegated"}},
+  {"id": 346, "kategorie": "Verben", "it": "implement", "de": "umsetzen", "formen": {"base": "implement", "past": "implemented", "participle": "implemented"}},
+  {"id": 347, "kategorie": "Verben", "it": "allocate", "de": "zuteilen", "formen": {"base": "allocate", "past": "allocated", "participle": "allocated"}},
+  {"id": 348, "kategorie": "Verben", "it": "streamline", "de": "straffen", "formen": {"base": "streamline", "past": "streamlined", "participle": "streamlined"}},
+  {"id": 349, "kategorie": "Verben", "it": "outsource", "de": "auslagern", "formen": {"base": "outsource", "past": "outsourced", "participle": "outsourced"}},
+  {"id": 350, "kategorie": "Verben", "it": "forecast", "de": "prognostizieren", "formen": {"base": "forecast", "past": "forecast", "participle": "forecast"}},
+  {"id": 351, "kategorie": "Verben", "it": "leverage", "de": "nutzen (Ressourcen)", "formen": {"base": "leverage", "past": "leveraged", "participle": "leveraged"}},
+  {"id": 352, "kategorie": "Verben", "it": "optimize", "de": "optimieren", "formen": {"base": "optimize", "past": "optimized", "participle": "optimized"}},
+  {"id": 353, "kategorie": "Verben", "it": "escalate", "de": "eskalieren", "formen": {"base": "escalate", "past": "escalated", "participle": "escalated"}},
+  {"id": 354, "kategorie": "Verben", "it": "finalize", "de": "finalisieren", "formen": {"base": "finalize", "past": "finalized", "participle": "finalized"}},
+  {"id": 355, "kategorie": "Verben", "it": "draft", "de": "entwerfen", "formen": {"base": "draft", "past": "drafted", "participle": "drafted"}},
+  {"id": 356, "kategorie": "Verben", "it": "approve", "de": "genehmigen", "formen": {"base": "approve", "past": "approved", "participle": "approved"}},
+  {"id": 357, "kategorie": "Verben", "it": "postpone", "de": "verschieben", "formen": {"base": "postpone", "past": "postponed", "participle": "postponed"}},
+  {"id": 358, "kategorie": "Verben", "it": "prioritize", "de": "priorisieren", "formen": {"base": "prioritize", "past": "prioritized", "participle": "prioritized"}},
+  {"id": 359, "kategorie": "Verben", "it": "collaborate", "de": "zusammenarbeiten", "formen": {"base": "collaborate", "past": "collaborated", "participle": "collaborated"}},
+  {"id": 360, "kategorie": "Verben", "it": "acquire", "de": "erwerben", "formen": {"base": "acquire", "past": "acquired", "participle": "acquired"}},
+  {"id": 361, "kategorie": "Verben", "it": "merge", "de": "fusionieren", "formen": {"base": "merge", "past": "merged", "participle": "merged"}},
+  {"id": 362, "kategorie": "Verben", "it": "restructure", "de": "umstrukturieren", "formen": {"base": "restructure", "past": "restructured", "participle": "restructured"}},
+  {"id": 363, "kategorie": "Verben", "it": "downsize", "de": "verkleinern (Personal)", "formen": {"base": "downsize", "past": "downsized", "participle": "downsized"}},
+  {"id": 364, "kategorie": "Verben", "it": "comply (with)", "de": "einhalten", "formen": {"base": "comply", "past": "complied", "participle": "complied"}},
+  {"id": 365, "kategorie": "Verben", "it": "audit", "de": "prüfen", "formen": {"base": "audit", "past": "audited", "participle": "audited"}},
+  {"id": 366, "kategorie": "Verben", "it": "invest", "de": "investieren", "formen": {"base": "invest", "past": "invested", "participle": "invested"}},
+  {"id": 367, "kategorie": "Verben", "it": "divest", "de": "veräußern", "formen": {"base": "divest", "past": "divested", "participle": "divested"}},
+  {"id": 368, "kategorie": "Verben", "it": "launch", "de": "einführen (Produkt)", "formen": {"base": "launch", "past": "launched", "participle": "launched"}},
+  {"id": 369, "kategorie": "Verben", "it": "pitch", "de": "präsentieren (Idee)", "formen": {"base": "pitch", "past": "pitched", "participle": "pitched"}},
+  {"id": 370, "kategorie": "Verben", "it": "close (a deal)", "de": "abschließen", "formen": {"base": "close", "past": "closed", "participle": "closed"}},
+  {"id": 371, "kategorie": "Verben", "it": "renew (a contract)", "de": "verlängern", "formen": {"base": "renew", "past": "renewed", "participle": "renewed"}},
+  {"id": 372, "kategorie": "Verben", "it": "terminate", "de": "kündigen (Vertrag)", "formen": {"base": "terminate", "past": "terminated", "participle": "terminated"}},
+  {"id": 373, "kategorie": "Verben", "it": "onboard", "de": "einarbeiten", "formen": {"base": "onboard", "past": "onboarded", "participle": "onboarded"}},
+  {"id": 374, "kategorie": "Verben", "it": "mentor", "de": "mentorieren", "formen": {"base": "mentor", "past": "mentored", "participle": "mentored"}},
+  {"id": 375, "kategorie": "Verben", "it": "supervise", "de": "beaufsichtigen", "formen": {"base": "supervise", "past": "supervised", "participle": "supervised"}},
+  {"id": 376, "kategorie": "Verben", "it": "oversee", "de": "überwachen", "formen": {"base": "oversee", "past": "oversaw", "participle": "overseen"}},
+  {"id": 377, "kategorie": "Verben", "it": "monitor", "de": "überwachen (laufend)", "formen": {"base": "monitor", "past": "monitored", "participle": "monitored"}},
+  {"id": 378, "kategorie": "Verben", "it": "evaluate", "de": "bewerten", "formen": {"base": "evaluate", "past": "evaluated", "participle": "evaluated"}},
+  {"id": 379, "kategorie": "Verben", "it": "analyze", "de": "analysieren", "formen": {"base": "analyze", "past": "analyzed", "participle": "analyzed"}},
+  {"id": 380, "kategorie": "Verben", "it": "budget", "de": "budgetieren", "formen": {"base": "budget", "past": "budgeted", "participle": "budgeted"}},
+  {"id": 381, "kategorie": "Verben", "it": "network", "de": "netzwerken", "formen": {"base": "network", "past": "networked", "participle": "networked"}},
+  {"id": 382, "kategorie": "Verben", "it": "brief (someone)", "de": "briefen", "formen": {"base": "brief", "past": "briefed", "participle": "briefed"}},
+  {"id": 383, "kategorie": "Verben", "it": "debrief", "de": "nachbesprechen", "formen": {"base": "debrief", "past": "debriefed", "participle": "debriefed"}},
+  {"id": 384, "kategorie": "Verben", "it": "liaise", "de": "Kontakt halten", "formen": {"base": "liaise", "past": "liaised", "participle": "liaised"}},
+  {"id": 385, "kategorie": "Verben", "it": "coordinate", "de": "koordinieren", "formen": {"base": "coordinate", "past": "coordinated", "participle": "coordinated"}},
+  {"id": 386, "kategorie": "Verben", "it": "facilitate", "de": "moderieren / erleichtern", "formen": {"base": "facilitate", "past": "facilitated", "participle": "facilitated"}},
+  {"id": 387, "kategorie": "Verben", "it": "spearhead", "de": "vorantreiben (Projekt)", "formen": {"base": "spearhead", "past": "spearheaded", "participle": "spearheaded"}},
+  {"id": 388, "kategorie": "Verben", "it": "undertake", "de": "übernehmen (Aufgabe)", "formen": {"base": "undertake", "past": "undertook", "participle": "undertaken"}},
+  {"id": 389, "kategorie": "Verben", "it": "execute", "de": "ausführen", "formen": {"base": "execute", "past": "executed", "participle": "executed"}},
+  {"id": 390, "kategorie": "Verben", "it": "formalize", "de": "formalisieren", "formen": {"base": "formalize", "past": "formalized", "participle": "formalized"}},
+  {"id": 391, "kategorie": "Verben", "it": "authorize", "de": "autorisieren", "formen": {"base": "authorize", "past": "authorized", "participle": "authorized"}},
+  {"id": 392, "kategorie": "Verben", "it": "endorse", "de": "befürworten", "formen": {"base": "endorse", "past": "endorsed", "participle": "endorsed"}},
+  {"id": 393, "kategorie": "Verben", "it": "consolidate", "de": "konsolidieren", "formen": {"base": "consolidate", "past": "consolidated", "participle": "consolidated"}},
+  {"id": 394, "kategorie": "Verben", "it": "diversify", "de": "diversifizieren", "formen": {"base": "diversify", "past": "diversified", "participle": "diversified"}}
+];
+
+const APP_VERSION = '1.9';
+const LS_KEY = 'vokabeltrainer_biz_vokabeln';
+const LS_INSTALL_KEY = 'vokabeltrainer_biz_install_datum';
+const LS_LIZENZ_KEY = 'vokabeltrainer_biz_lizenz';
+const LS_LETZTE_KAT_KEY = 'vokabeltrainer_biz_letzte_kategorie';
+const TESTPHASE_TAGE = 14;
+const TRIAL_LIMIT_PRO_KATEGORIE = 10;
+// TODO Klaus: echten Gumroad-Produkt-Permalink eintragen, sobald das Produkt angelegt ist.
+const GUMROAD_PERMALINK = 'vokabeltrainer-business-en';
+// Master-Code fuer Klaus selbst (Eigennutzung/Tests), umgeht die Gumroad-Pruefung komplett.
+const MASTER_CODE = 'ktpunkt-master-2026';
+
+// ── LIZENZ / TESTPHASE ────────────────────────────────────────────────────────
+function pruefeBestandsnutzer() {
+  if (localStorage.getItem(LS_INSTALL_KEY)) return;
+  const hatteSchonDaten = !!localStorage.getItem(LS_KEY);
+  localStorage.setItem(LS_INSTALL_KEY, String(Date.now()));
+  if (hatteSchonDaten) {
+    localStorage.setItem(LS_LIZENZ_KEY, JSON.stringify({ freigeschaltet: true, grund: 'bestandsnutzer' }));
+  }
+}
+
+function istFreigeschaltet() {
+  try { return !!JSON.parse(localStorage.getItem(LS_LIZENZ_KEY) || '{}').freigeschaltet; }
+  catch (e) { return false; }
+}
+
+function tageSeitInstall() {
+  const installDatum = parseInt(localStorage.getItem(LS_INSTALL_KEY), 10) || Date.now();
+  return Math.floor((Date.now() - installDatum) / 86400000);
+}
+
+function updateLizenzUI() {
+  const frei = istFreigeschaltet();
+  document.getElementById('konj-lock-start').style.display = frei ? 'none' : 'inline';
+  document.getElementById('konj-lock-ll').style.display = frei ? 'none' : 'inline';
+}
+
+function openLizenzModal() {
+  document.getElementById('lizenz-modal').showModal();
+}
+
+function closeLizenzModal() {
+  document.getElementById('lizenz-modal').close();
+}
+
+function pruefeTestphase() {
+  if (!istFreigeschaltet() && tageSeitInstall() >= TESTPHASE_TAGE) {
+    openLizenzModal();
+  }
+}
+
+function trialBegrenzterPool(pool) {
+  const byKat = {};
+  pool.forEach(v => { (byKat[v.kategorie] = byKat[v.kategorie] || []).push(v); });
+  return Object.values(byKat).flatMap(liste =>
+    liste.slice().sort((a, b) => a.id - b.id).slice(0, TRIAL_LIMIT_PRO_KATEGORIE)
+  );
+}
+
+async function pruefeLizenzCode() {
+  const input = document.getElementById('lizenz-code-input');
+  const code = input.value.trim();
+  if (!code) { toast('Bitte Code eingeben'); return; }
+  if (code.toLowerCase() === MASTER_CODE.toLowerCase()) {
+    localStorage.setItem(LS_LIZENZ_KEY, JSON.stringify({ freigeschaltet: true, grund: 'master' }));
+    toast('Freigeschaltet! Viel Erfolg beim Lernen 🎉', 'ok');
+    closeLizenzModal();
+    updateLizenzUI();
+    return;
+  }
+  try {
+    const resp = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ product_permalink: GUMROAD_PERMALINK, license_key: code })
+    });
+    const data = await resp.json();
+    if (data.success) {
+      localStorage.setItem(LS_LIZENZ_KEY, JSON.stringify({ freigeschaltet: true, code }));
+      toast('Freigeschaltet! Viel Erfolg beim Lernen 🎉', 'ok');
+      closeLizenzModal();
+      updateLizenzUI();
+    } else {
+      toast('Code ungültig — bitte prüfen');
+    }
+  } catch (e) {
+    toast('Prüfung fehlgeschlagen — Internetverbindung nötig');
+  }
+}
+
+const S = { vokabeln: [], kategorien: [], selectedKat: new Set(), richtung: 'it-de', anzahl: 15,
+            quizList: [], quizIndex: 0, richtig: 0, falscheListe: [], llTab: 'vokabeln', llRichtung: 'it-de',
+            llSuche: '', vkSuche: '', ocrKandidaten: [] };
+
+function sucheTreffer(v, suche) {
+  const s = suche.trim().toLowerCase();
+  if (!s) return true;
+  return v.it.toLowerCase().includes(s) || v.de.toLowerCase().includes(s);
+}
+
+// ── Lokale Speicherung (funktioniert komplett offline, keine Serverabhängigkeit) ──
+function lsRepairFormen(list) {
+  const seedByKey = new Map(SEED_VOKABELN.filter(v => v.formen).map(v => [vokabelKey(v), v.formen]));
+  let geaendert = false;
+  const repariert = list.map(v => {
+    if (!v.formen && seedByKey.has(vokabelKey(v))) { geaendert = true; return { ...v, formen: seedByKey.get(vokabelKey(v)) }; }
+    return v;
+  });
+  if (geaendert) lsSave(repariert);
+  return repariert;
+}
+
+function lsLoad() {
+  const raw = localStorage.getItem(LS_KEY);
+  if (!raw) {
+    localStorage.setItem(LS_KEY, JSON.stringify(SEED_VOKABELN));
+    return JSON.parse(JSON.stringify(SEED_VOKABELN));
+  }
+  try { return lsRepairFormen(JSON.parse(raw)); } catch(e) { return JSON.parse(JSON.stringify(SEED_VOKABELN)); }
+}
+function lsSave(list) { localStorage.setItem(LS_KEY, JSON.stringify(list)); }
+
+const LS_KAT_EXTRA_KEY = 'vokabeltrainer_biz_kategorien_extra';
+function lsKategorienExtraLoad() {
+  try { return JSON.parse(localStorage.getItem(LS_KAT_EXTRA_KEY) || '[]'); } catch(e) { return []; }
+}
+function lsKategorienExtraAdd(name) {
+  const list = lsKategorienExtraLoad();
+  if (!list.includes(name)) { list.push(name); localStorage.setItem(LS_KAT_EXTRA_KEY, JSON.stringify(list)); }
+}
+function lsKategorien(list) {
+  return [...new Set([...list.map(v => v.kategorie), ...lsKategorienExtraLoad()])].sort();
+}
+function lsUpdateKategorie(id, neueKategorie) {
+  const list = lsLoad();
+  const v = list.find(x => x.id === id);
+  if (v) { v.kategorie = neueKategorie; lsSave(list); }
+}
+
+function lsAdd({kategorie, it, de}) {
+  const list = lsLoad();
+  const neueId = Math.max(0, ...list.map(v => v.id)) + 1;
+  const eintrag = { id: neueId, kategorie, it, de };
+  list.push(eintrag);
+  lsSave(list);
+  return eintrag;
+}
+function lsDelete(id) {
+  const list = lsLoad().filter(v => v.id !== id);
+  lsSave(list);
+}
+
+// ── SPRACHAUSGABE (Web Speech API, kostenlos, funktioniert offline mit Handy-eigenen Stimmen) ──
+// iOS lädt die Stimmenliste asynchron nach — deshalb schon beim Start einmal abrufen
+// und auf 'voiceschanged' warten, damit der erste Tap auf den Lautsprecher nicht leer läuft.
+function initSpeech() {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
+function speak(text, lang) {
+  if (!('speechSynthesis' in window) || !text) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+}
+function speakQuizWord() {
+  if (S.quizSpeak) speak(S.quizSpeak.text, S.quizSpeak.lang);
+}
+function escJs(s) {
+  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+function toast(msg, type='err') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast' + (type === 'ok' ? ' ok' : ''); t.textContent = msg; c.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function gotoPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('fab-add').style.display = (name === 'start' || name === 'verwaltung') ? 'flex' : 'none';
+  if (name === 'verwaltung') renderVerwaltung();
+  if (name === 'start') renderStart();
+  if (name === 'liste') renderLernliste();
+}
+
+async function appInit() {
+  document.getElementById('app-version').textContent = 'v' + APP_VERSION;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(reg => reg.update()).catch(()=>{});
+    let refreshingNachUpdate = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshingNachUpdate) return;
+      refreshingNachUpdate = true;
+      window.location.reload();
+    });
+  }
+  initSpeech();
+  pruefeBestandsnutzer();
+  S.vokabeln = lsLoad();
+  S.kategorien = lsKategorien(S.vokabeln);
+  S.selectedKat = new Set(S.kategorien);
+  renderStart();
+  updateLizenzUI();
+  pruefeTestphase();
+
+  document.getElementById('start-anzahl').addEventListener('input', e => {
+    document.getElementById('start-anzahl-val').textContent = e.target.value;
+  });
+  document.querySelectorAll('#start-richtung .radio-opt').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.dataset.dir === 'konjugation' && !istFreigeschaltet()) { openLizenzModal(); return; }
+      document.querySelectorAll('#start-richtung .radio-opt').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      S.richtung = el.dataset.dir;
+    });
+  });
+  document.getElementById('quiz-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') quizCheck();
+  });
+  document.querySelectorAll('.ll-tab').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.dataset.lltab === 'konjugation' && !istFreigeschaltet()) { openLizenzModal(); return; }
+      document.querySelectorAll('.ll-tab').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      S.llTab = el.dataset.lltab;
+      renderLernliste();
+    });
+  });
+  document.querySelectorAll('#ll-richtung .radio-opt').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('#ll-richtung .radio-opt').forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+      S.llRichtung = el.dataset.dir;
+      renderLernliste();
+    });
+  });
+}
+
+// ── LERNLISTE ─────────────────────────────────────────────────────────────────
+function renderLernlisteKategorien() {
+  const wrap = document.getElementById('ll-kategorien');
+  wrap.innerHTML = S.kategorien.map(k =>
+    `<div class="chip ${S.selectedKat.has(k)?'active':''}" data-kat="${k}">${k}</div>`
+  ).join('');
+  wrap.querySelectorAll('.chip').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.dataset.kat;
+      const alleAusgewaehlt = S.selectedKat.size === S.kategorien.length;
+      if (alleAusgewaehlt) {
+        S.selectedKat = new Set([k]);
+      } else if (S.selectedKat.size === 1 && S.selectedKat.has(k)) {
+        S.selectedKat = new Set(S.kategorien);
+      } else if (S.selectedKat.has(k)) {
+        S.selectedKat.delete(k);
+      } else {
+        S.selectedKat.add(k);
+      }
+      renderLernliste();
+    });
+  });
+}
+
+function onLlSucheInput() {
+  S.llSuche = document.getElementById('ll-suche').value;
+  renderLernliste();
+}
+
+function renderLernliste() {
+  renderLernlisteKategorien();
+  const sucheAktiv = !!S.llSuche.trim();
+  document.getElementById('ll-kategorien').parentElement.style.opacity = sucheAktiv ? '0.4' : '1';
+  document.getElementById('ll-richtung').parentElement.style.opacity = sucheAktiv ? '0.4' : '1';
+  const content = document.getElementById('ll-content');
+  const gefiltert = sucheAktiv
+    ? S.vokabeln.filter(v => sucheTreffer(v, S.llSuche))
+    : S.vokabeln.filter(v => S.selectedKat.has(v.kategorie));
+  if (S.llTab === 'vokabeln') {
+    const byKat = {};
+    gefiltert.forEach(v => { (byKat[v.kategorie] = byKat[v.kategorie] || []).push(v); });
+    const kats = Object.keys(byKat).sort();
+    if (!kats.length) {
+      content.innerHTML = `<p style="color:var(--text-light);font-size:13px;padding:10px 0">${sucheAktiv ? 'Keine Treffer für die Suche' : 'Keine Vokabeln in den gewählten Kategorien'}</p>`;
+      return;
+    }
+    content.innerHTML = kats.map(k => {
+      const items = [...byKat[k]].sort((a,b) => a.it.localeCompare(b.it));
+      return `<div class="ll-kat-title">${k}</div>` + items.map(v => {
+        const itSpan = `<span class="ll-it">${v.it}<button class="ll-speak-btn" onclick="speak('${escJs(v.it)}','en-US')" title="Aussprache anhören">&#128266;</button></span>`;
+        const deSpan = `<span class="ll-de">${v.de}</span>`;
+        return `<div class="ll-row">${S.llRichtung === 'de-it' ? deSpan + itSpan : itSpan + deSpan}</div>`;
+      }).join('');
+    }).join('');
+  } else {
+    const verben = gefiltert.filter(v => v.formen).sort((a,b) => a.it.localeCompare(b.it));
+    if (!verben.length) {
+      content.innerHTML = `<p style="color:var(--text-light);font-size:13px;padding:10px 0">${sucheAktiv ? 'Keine Treffer für die Suche' : 'Keine Verben mit Verbformen in den gewählten Kategorien'}</p>`;
+      return;
+    }
+    content.innerHTML = verben.map(v => `
+      <div class="ll-verb-card">
+        <div class="ll-verb-hdr"><span class="ll-inf">${v.it}</span><span class="ll-mean">${v.de}</span></div>
+        <div class="ll-forms">${formenText(v.formen)}</div>
+      </div>`).join('');
+  }
+}
+
+function renderStart() {
+  const wrap = document.getElementById('start-kategorien');
+  wrap.innerHTML = S.kategorien.map(k =>
+    `<div class="chip ${S.selectedKat.has(k)?'active':''}" data-kat="${k}">${k}</div>`
+  ).join('');
+  wrap.querySelectorAll('.chip').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.dataset.kat;
+      const alleAusgewaehlt = S.selectedKat.size === S.kategorien.length;
+      if (alleAusgewaehlt) {
+        // Filter: aus "alle ausgewählt" isoliert ein Klick genau diese eine Kategorie
+        S.selectedKat = new Set([k]);
+      } else if (S.selectedKat.size === 1 && S.selectedKat.has(k)) {
+        // Erneuter Klick auf die einzige aktive Kategorie -> zurück zu "alle"
+        S.selectedKat = new Set(S.kategorien);
+      } else if (S.selectedKat.has(k)) {
+        S.selectedKat.delete(k);
+      } else {
+        S.selectedKat.add(k);
+      }
+      renderStart();
+    });
+  });
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function normalize(s) {
+  return (s || '').toLowerCase().trim()
+    .replace(/[^\w\s\/]/g, '').trim();
+}
+
+function antwortRichtig(eingabe, loesung) {
+  const varianten = loesung.split(/[/,]/).map(v => normalize(v));
+  return varianten.includes(normalize(eingabe));
+}
+
+const PERSON_LABEL = { base:'Grundform', past:'Simple Past', participle:'Past Participle' };
+const PERSONEN = ['base','past','participle'];
+const ABFRAGBARE_FORMEN = ['past','participle'];
+
+function startQuiz(liste = null) {
+  const anzahl = parseInt(document.getElementById('start-anzahl').value);
+  let basisPool = liste || S.vokabeln.filter(v => S.selectedKat.has(v.kategorie));
+
+  if (!liste && !istFreigeschaltet()) {
+    const vorher = basisPool.length;
+    basisPool = trialBegrenzterPool(basisPool);
+    if (basisPool.length < vorher) {
+      toast(`🔒 Testversion: Training auf ${TRIAL_LIMIT_PRO_KATEGORIE} Vokabeln je Kategorie begrenzt`);
+    }
+  }
+
+  if (S.richtung === 'konjugation' && !liste) {
+    basisPool = basisPool.filter(v => v.formen);
+    if (!basisPool.length) { toast('Keine Verben mit Verbformen in dieser Auswahl'); return; }
+    let pool = shuffle(basisPool).slice(0, anzahl);
+    // ggf. mit Wiederholung auffüllen, falls weniger Verben als gewünschte Fragenzahl
+    while (pool.length < anzahl && basisPool.length) {
+      pool.push(basisPool[Math.floor(Math.random() * basisPool.length)]);
+    }
+    S.quizList = pool.map(v => {
+      const person = ABFRAGBARE_FORMEN[Math.floor(Math.random() * ABFRAGBARE_FORMEN.length)];
+      return { ...v, dir: 'konjugation', person, correctForm: v.formen[person] };
+    });
+  } else {
+    let pool = shuffle(basisPool).slice(0, liste ? basisPool.length : anzahl);
+    S.quizList = pool.map(v => {
+      let dir = S.richtung === 'konjugation' ? 'it-de' : S.richtung;
+      if (dir === 'mix') dir = Math.random() < 0.5 ? 'it-de' : 'de-it';
+      return { ...v, dir };
+    });
+  }
+
+  if (!S.quizList.length) { toast('Keine Vokabeln in den gewählten Kategorien'); return; }
+  S.quizIndex = 0;
+  S.richtig = 0;
+  S.falscheListe = [];
+  gotoPage('quiz');
+  zeigeQuizFrage();
+}
+
+function formenText(formen) {
+  return PERSONEN.map(p => `<span><b>${PERSON_LABEL[p]}</b> ${formen[p]}</span>`).join('');
+}
+
+function zeigeQuizFrage() {
+  const item = S.quizList[S.quizIndex];
+  let frage, badge;
+  if (item.dir === 'konjugation') {
+    frage = `${item.it} — ${PERSON_LABEL[item.person]}`;
+    badge = 'Verbformen';
+    S.quizSpeak = { text: item.it, lang: 'en-US' };
+  } else {
+    frage = item.dir === 'it-de' ? item.it : item.de;
+    badge = item.dir === 'it-de' ? 'Business English → Deutsch' : 'Deutsch → Business English';
+    S.quizSpeak = item.dir === 'it-de' ? { text: item.it, lang: 'en-US' } : { text: item.de, lang: 'de-DE' };
+  }
+  document.getElementById('quiz-badge').textContent = badge;
+  document.getElementById('quiz-word').textContent = frage;
+  speak(S.quizSpeak.text, S.quizSpeak.lang);
+  const inp = document.getElementById('quiz-input');
+  inp.value = ''; inp.className = 'quiz-input'; inp.disabled = false;
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  const formsEl = document.getElementById('quiz-forms');
+  formsEl.className = 'quiz-forms'; formsEl.innerHTML = '';
+  document.getElementById('quiz-check-btn').textContent = 'Prüfen';
+  document.getElementById('quiz-check-btn').onclick = quizCheck;
+
+  const pct = Math.round((S.quizIndex / S.quizList.length) * 100);
+  document.getElementById('quiz-progress-fill').style.width = pct + '%';
+  document.getElementById('quiz-progress').textContent =
+    `Frage ${S.quizIndex+1} / ${S.quizList.length} · Richtig: ${S.richtig}`;
+
+  setTimeout(() => inp.focus(), 50);
+}
+
+function quizCheck() {
+  const item = S.quizList[S.quizIndex];
+  const loesung = item.dir === 'konjugation' ? item.correctForm
+                : item.dir === 'it-de' ? item.de : item.it;
+  const inp = document.getElementById('quiz-input');
+  const eingabe = inp.value;
+  const ok = antwortRichtig(eingabe, loesung);
+
+  inp.disabled = true;
+  inp.className = 'quiz-input ' + (ok ? 'correct' : 'wrong');
+  const fb = document.getElementById('quiz-feedback');
+  if (ok) {
+    S.richtig++;
+    fb.textContent = '✓ Richtig!';
+    fb.className = 'quiz-feedback correct';
+  } else {
+    fb.textContent = `✗ Richtig wäre: ${loesung}`;
+    fb.className = 'quiz-feedback wrong';
+    S.falscheListe.push(item);
+  }
+
+  // Alle Formen als Zusatzinfo zeigen (nicht im Verbformen-Modus, da redundant)
+  if (item.dir !== 'konjugation' && item.formen) {
+    const formsEl = document.getElementById('quiz-forms');
+    formsEl.innerHTML = formenText(item.formen);
+    formsEl.classList.add('show');
+  }
+
+  document.getElementById('quiz-check-btn').textContent =
+    S.quizIndex + 1 < S.quizList.length ? 'Weiter' : 'Ergebnis';
+  document.getElementById('quiz-check-btn').onclick = quizNext;
+}
+
+function quizNext() {
+  S.quizIndex++;
+  if (S.quizIndex >= S.quizList.length) {
+    zeigeErgebnis();
+  } else {
+    zeigeQuizFrage();
+  }
+}
+
+function quizAbbrechen() {
+  if (confirm('Training abbrechen?')) gotoPage('start');
+}
+
+function zeigeErgebnis() {
+  gotoPage('ergebnis');
+  const total = S.quizList.length;
+  const pct = total ? Math.round((S.richtig / total) * 100) : 0;
+  document.getElementById('result-score').textContent = `${S.richtig}/${total}`;
+  document.getElementById('result-sub').textContent = `${pct}% richtig`;
+
+  const listCard = document.getElementById('result-list-card');
+  const btnWied = document.getElementById('btn-wiederholen');
+  if (S.falscheListe.length) {
+    listCard.style.display = 'block';
+    btnWied.style.display = 'block';
+    document.getElementById('result-list').innerHTML = S.falscheListe.map(v =>
+      v.dir === 'konjugation'
+        ? `<div class="result-item wrong"><span>${v.it} (${PERSON_LABEL[v.person]})</span><span>${v.correctForm}</span></div>`
+        : `<div class="result-item wrong"><span>${v.it}</span><span>${v.de}</span></div>`
+    ).join('');
+  } else {
+    listCard.style.display = 'none';
+    btnWied.style.display = 'none';
+  }
+}
+
+function wiederholeFalsche() {
+  startQuiz(S.falscheListe);
+}
+
+// ── VERWALTUNG ──────────────────────────────────────────────────────────────
+function onVkSucheInput() {
+  S.vkSuche = document.getElementById('vk-suche').value;
+  renderVerwaltung();
+}
+
+function renderVerwaltung() {
+  renderKategorienListe();
+
+  document.getElementById('vk-count').textContent = S.vokabeln.length;
+  const list = document.getElementById('vk-list');
+  const gefiltert = S.vkSuche.trim() ? S.vokabeln.filter(v => sucheTreffer(v, S.vkSuche)) : S.vokabeln;
+  const sorted = [...gefiltert].sort((a,b) => a.kategorie.localeCompare(b.kategorie) || a.it.localeCompare(b.it));
+  const katOptions = k => S.kategorien.map(x => `<option value="${x}" ${x===k?'selected':''}>${x}</option>`).join('');
+  list.innerHTML = sorted.map(v => `
+    <div class="vk-item">
+      <select class="vk-kat-select" onchange="changeVokabelKategorie(${v.id}, this.value)">${katOptions(v.kategorie)}</select>
+      <span class="vk-it">${v.it}</span>
+      <span class="vk-de">${v.de}</span>
+      <button class="vk-del" onclick="deleteVokabel(${v.id})" title="Löschen">&#128465;</button>
+    </div>`).join('') || `<p style="color:var(--text-light);font-size:13px;padding:10px 0">${S.vkSuche.trim() ? 'Keine Treffer für die Suche' : 'Noch keine Vokabeln'}</p>`;
+}
+
+function renderKategorienListe() {
+  const wrap = document.getElementById('kat-list');
+  const sorted = [...S.kategorien].sort();
+  wrap.innerHTML = sorted.map(k => {
+    const anzahl = S.vokabeln.filter(v => v.kategorie === k).length;
+    return `
+    <div class="kat-row">
+      <span class="kat-name">${k}</span>
+      <span class="kat-count">${anzahl} Vokabel(n)</span>
+      <button class="vk-del" onclick="deleteKategorie('${k}', ${anzahl})" title="Kategorie löschen">&#128465;</button>
+    </div>`;
+  }).join('') || '<p style="color:var(--text-light);font-size:13px;padding:10px 0">Keine Kategorien</p>';
+}
+
+function deleteKategorie(kat, anzahl) {
+  const frage = anzahl > 0
+    ? `Kategorie "${kat}" UND alle ${anzahl} enthaltenen Vokabel(n) unwiderruflich löschen?`
+    : `Kategorie "${kat}" löschen?`;
+  if (!confirm(frage)) return;
+  if (anzahl > 0) {
+    const rest = lsLoad().filter(v => v.kategorie !== kat);
+    lsSave(rest);
+    S.vokabeln = rest;
+  }
+  const extra = lsKategorienExtraLoad().filter(k => k !== kat);
+  localStorage.setItem(LS_KAT_EXTRA_KEY, JSON.stringify(extra));
+  S.kategorien = lsKategorien(S.vokabeln);
+  S.selectedKat.delete(kat);
+  renderVerwaltung();
+  toast(anzahl > 0 ? `Kategorie "${kat}" und ${anzahl} Vokabel(n) gelöscht` : `Kategorie "${kat}" gelöscht`, 'ok');
+}
+
+function changeVokabelKategorie(id, neueKategorie) {
+  lsUpdateKategorie(id, neueKategorie);
+  S.vokabeln = lsLoad();
+  S.kategorien = lsKategorien(S.vokabeln);
+  renderVerwaltung();
+  toast(`Kategorie geändert zu "${neueKategorie}"`, 'ok');
+}
+
+// ── ADD-MODAL (Schnellzugriff per FAB oder aus Verwaltung) ───────────────────
+function openAddModal() {
+  const sel = document.getElementById('am-kategorie-select');
+  sel.innerHTML = S.kategorien.map(k => `<option value="${k}">${k}</option>`).join('');
+  const letzteKat = localStorage.getItem(LS_LETZTE_KAT_KEY);
+  if (letzteKat && S.kategorien.includes(letzteKat)) sel.value = letzteKat;
+  document.getElementById('am-it').value = '';
+  document.getElementById('am-de').value = '';
+  document.getElementById('am-err').textContent = '';
+  document.getElementById('am-dup-hint').textContent = '';
+  document.getElementById('am-trial-hint').style.display = istFreigeschaltet() ? 'none' : 'block';
+  document.getElementById('add-modal').showModal();
+  if (!istFreigeschaltet()) { openLizenzModal(); return; }
+  setTimeout(() => document.getElementById('am-it').focus(), 50);
+}
+
+function closeAddModal() {
+  document.getElementById('add-modal').close();
+}
+
+function checkDuplicate() {
+  const it = document.getElementById('am-it').value.trim();
+  const hintEl = document.getElementById('am-dup-hint');
+  if (!it) { hintEl.textContent = ''; return; }
+  const vorhanden = lsLoad().find(v => v.it.trim().toLowerCase() === it.toLowerCase());
+  hintEl.textContent = vorhanden ? `⚠ "${it}" existiert bereits (${vorhanden.kategorie}: ${vorhanden.de})` : '';
+}
+
+function clearDuplicateHint() {
+  document.getElementById('am-dup-hint').textContent = '';
+}
+
+function submitAddModal() {
+  if (!istFreigeschaltet()) { closeAddModal(); openLizenzModal(); return; }
+  const errEl = document.getElementById('am-err');
+  errEl.textContent = '';
+  const kategorie = document.getElementById('am-kategorie-select').value;
+  const it = document.getElementById('am-it').value.trim();
+  const de = document.getElementById('am-de').value.trim();
+
+  if (!kategorie) { errEl.textContent = 'Bitte Kategorie angeben'; return; }
+  if (!it || !de) { errEl.textContent = 'Bitte Business English und Deutsch ausfüllen'; return; }
+
+  const vorhanden = lsLoad().find(v => v.it.trim().toLowerCase() === it.toLowerCase());
+  if (vorhanden) {
+    errEl.textContent = `"${it}" existiert bereits (${vorhanden.kategorie}: ${vorhanden.de})`;
+    return;
+  }
+
+  lsAdd({ kategorie, it, de });
+  S.vokabeln = lsLoad();
+  S.kategorien = lsKategorien(S.vokabeln);
+  S.selectedKat.add(kategorie);
+  localStorage.setItem(LS_LETZTE_KAT_KEY, kategorie);
+  closeAddModal();
+  toast(`"${it}" hinzugefügt`, 'ok');
+
+  const activePage = document.querySelector('.page.active').id;
+  if (activePage === 'page-verwaltung') renderVerwaltung();
+  if (activePage === 'page-start') renderStart();
+}
+
+// ── KATEGORIE-MODAL ───────────────────────────────────────────────────────
+function openKatModal() {
+  document.getElementById('km-name').value = '';
+  document.getElementById('km-err').textContent = '';
+  document.getElementById('km-trial-hint').style.display = istFreigeschaltet() ? 'none' : 'block';
+  document.getElementById('kat-modal').showModal();
+  if (!istFreigeschaltet()) { openLizenzModal(); return; }
+  setTimeout(() => document.getElementById('km-name').focus(), 50);
+}
+
+function closeKatModal() {
+  document.getElementById('kat-modal').close();
+}
+
+function submitKatModal() {
+  if (!istFreigeschaltet()) { closeKatModal(); openLizenzModal(); return; }
+  const errEl = document.getElementById('km-err');
+  const name = document.getElementById('km-name').value.trim();
+  if (!name) { errEl.textContent = 'Bitte Namen angeben'; return; }
+  if (S.kategorien.some(k => k.toLowerCase() === name.toLowerCase())) {
+    errEl.textContent = `Kategorie "${name}" existiert bereits`;
+    return;
+  }
+  lsKategorienExtraAdd(name);
+  S.kategorien = lsKategorien(S.vokabeln);
+  S.selectedKat.add(name);
+  closeKatModal();
+  toast(`Kategorie "${name}" angelegt`, 'ok');
+  const p = document.querySelector('.page.active').id;
+  if (p === 'page-verwaltung') renderVerwaltung();
+  if (p === 'page-start') renderStart();
+}
+
+// ── OCR-MODAL (Vokabeln aus Foto) ─────────────────────────────────────────
+function openOcrModal() {
+  document.getElementById('ocr-file').value = '';
+  document.getElementById('ocr-status').textContent = '';
+  document.getElementById('ocr-err').textContent = '';
+  document.getElementById('ocr-rohtext').value = '';
+  document.getElementById('ocr-rohtext-wrap').style.display = 'none';
+  document.getElementById('ocr-kandidaten-wrap').style.display = 'none';
+  document.getElementById('ocr-uebernehmen-btn').style.display = 'none';
+  document.getElementById('ocr-trial-hint').style.display = istFreigeschaltet() ? 'none' : 'block';
+  S.ocrKandidaten = [];
+  document.getElementById('ocr-modal').showModal();
+  if (!istFreigeschaltet()) openLizenzModal();
+}
+
+function closeOcrModal() {
+  document.getElementById('ocr-modal').close();
+}
+
+function ocrBildGewaehlt() {
+  const fileInp = document.getElementById('ocr-file');
+  const file = fileInp.files[0];
+  if (!file) return;
+  const statusEl = document.getElementById('ocr-status');
+  const errEl = document.getElementById('ocr-err');
+  errEl.textContent = '';
+  document.getElementById('ocr-rohtext-wrap').style.display = 'none';
+  document.getElementById('ocr-kandidaten-wrap').style.display = 'none';
+  document.getElementById('ocr-uebernehmen-btn').style.display = 'none';
+  statusEl.textContent = '⏳ Text wird erkannt …';
+
+  const reader = new FileReader();
+  reader.onload = async () => {
+    try {
+      const res = await fetch('/api/ocr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: reader.result })
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'OCR fehlgeschlagen');
+      statusEl.textContent = '';
+      document.getElementById('ocr-rohtext').value = data.text.trim();
+      document.getElementById('ocr-rohtext-wrap').style.display = 'block';
+    } catch (e) {
+      statusEl.textContent = '';
+      errEl.textContent = `Fehler bei der Texterkennung: ${e.message}`;
+    }
+  };
+  reader.onerror = () => { statusEl.textContent = ''; errEl.textContent = 'Bild konnte nicht gelesen werden'; };
+  reader.readAsDataURL(file);
+}
+
+function ocrZeileTrennen(zeile) {
+  const trenner = [/\t+/, / - /, / – /, / — /, /\s{2,}/, /:/, /-/, /–/, /—/];
+  for (const t of trenner) {
+    const teile = zeile.split(t).map(s => s.trim()).filter(Boolean);
+    if (teile.length === 2) return { it: teile[0], de: teile[1] };
+  }
+  return { it: zeile.trim(), de: '' };
+}
+
+function ocrParsen() {
+  const zeilen = document.getElementById('ocr-rohtext').value.split('\n').map(z => z.trim()).filter(Boolean);
+  if (!zeilen.length) { document.getElementById('ocr-err').textContent = 'Kein Text zum Umwandeln vorhanden'; return; }
+  S.ocrKandidaten = zeilen.map(ocrZeileTrennen);
+  document.getElementById('ocr-err').textContent = '';
+  ocrRenderKandidaten();
+  document.getElementById('ocr-kandidaten-wrap').style.display = 'block';
+  document.getElementById('ocr-uebernehmen-btn').style.display = istFreigeschaltet() ? 'inline-block' : 'none';
+}
+
+function ocrRenderKandidaten() {
+  const sel = document.getElementById('ocr-kategorie-select');
+  sel.innerHTML = S.kategorien.map(k => `<option value="${k}">${k}</option>`).join('');
+  const letzteKat = localStorage.getItem(LS_LETZTE_KAT_KEY);
+  if (letzteKat && S.kategorien.includes(letzteKat)) sel.value = letzteKat;
+
+  document.getElementById('ocr-anzahl').textContent = S.ocrKandidaten.length;
+  document.getElementById('ocr-kandidaten-liste').innerHTML = S.ocrKandidaten.map((k, i) => `
+    <div class="ocr-row">
+      <input type="text" value="${(k.it || '').replace(/"/g, '&quot;')}" placeholder="Fremdwort" oninput="ocrUpdateKandidat(${i},'it',this.value)">
+      <input type="text" value="${(k.de || '').replace(/"/g, '&quot;')}" placeholder="Deutsch" oninput="ocrUpdateKandidat(${i},'de',this.value)">
+      <button onclick="ocrEntferneKandidat(${i})" title="Entfernen">&#10005;</button>
+    </div>
+  `).join('');
+}
+
+function ocrUpdateKandidat(i, feld, wert) {
+  if (S.ocrKandidaten[i]) S.ocrKandidaten[i][feld] = wert;
+}
+
+function ocrEntferneKandidat(i) {
+  S.ocrKandidaten.splice(i, 1);
+  ocrRenderKandidaten();
+}
+
+function ocrAlleUebernehmen() {
+  if (!istFreigeschaltet()) { closeOcrModal(); openLizenzModal(); return; }
+  const kategorie = document.getElementById('ocr-kategorie-select').value;
+  const errEl = document.getElementById('ocr-err');
+  if (!kategorie) { errEl.textContent = 'Bitte Kategorie wählen'; return; }
+
+  let hinzugefuegt = 0, duplikate = 0, leer = 0;
+  S.ocrKandidaten.forEach(k => {
+    const it = (k.it || '').trim(), de = (k.de || '').trim();
+    if (!it || !de) { leer++; return; }
+    const vorhanden = lsLoad().find(v => v.it.trim().toLowerCase() === it.toLowerCase());
+    if (vorhanden) { duplikate++; return; }
+    lsAdd({ kategorie, it, de });
+    hinzugefuegt++;
+  });
+
+  S.vokabeln = lsLoad();
+  S.kategorien = lsKategorien(S.vokabeln);
+  S.selectedKat.add(kategorie);
+  localStorage.setItem(LS_LETZTE_KAT_KEY, kategorie);
+  closeOcrModal();
+
+  let msg = `${hinzugefuegt} Vokabeln hinzugefügt`;
+  if (duplikate) msg += `, ${duplikate} Duplikate übersprungen`;
+  if (leer) msg += `, ${leer} unvollständige Zeilen übersprungen`;
+  toast(msg, hinzugefuegt ? 'ok' : undefined);
+
+  const p = document.querySelector('.page.active').id;
+  if (p === 'page-verwaltung') renderVerwaltung();
+  if (p === 'page-start') renderStart();
+}
+
+function openHelpModal() {
+  document.getElementById('help-modal').showModal();
+}
+
+function closeHelpModal() {
+  document.getElementById('help-modal').close();
+}
+
+function toggleHeaderMenu() {
+  document.getElementById('header-menu').classList.toggle('open');
+}
+
+function closeHeaderMenu() {
+  document.getElementById('header-menu').classList.remove('open');
+}
+
+document.addEventListener('click', (e) => {
+  const wrap = document.querySelector('.menu-wrap');
+  if (wrap && !wrap.contains(e.target)) closeHeaderMenu();
+});
+
+function vokabelKey(v) {
+  return `${v.kategorie}|${v.it}|${v.de}`.toLowerCase().trim();
+}
+
+function deleteVokabel(id) {
+  if (!confirm('Vokabel löschen?')) return;
+  lsDelete(id);
+  S.vokabeln = lsLoad();
+  S.kategorien = lsKategorien(S.vokabeln);
+  renderVerwaltung();
+}
+
+appInit().catch(e => console.error(e));
+</script>
+</body>
+</html>
