@@ -124,8 +124,33 @@ dialog::backdrop{background:rgba(0,0,0,0.4)}
 .ocr-row button{background:none;border:none;color:var(--danger);font-size:16px;cursor:pointer;padding:4px 6px}
 .modal-actions{display:flex;gap:8px;margin-top:6px}
 
-.page-hdr{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.page-hdr .back-btn{background:none;border:none;font-size:24px;cursor:pointer;color:var(--text);padding:0 4px 0 0;line-height:1}
+.page-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.page-hdr .back-btn{background:#fff;border:1px solid var(--border);font-size:18px;cursor:pointer;color:var(--text);padding:0;width:32px;height:32px;border-radius:var(--radius);box-shadow:var(--shadow);line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* -- STARTSEITE / HOME-SPLASH (eigenes Premium-Design, keine Kugeln/Cursive) -- */
+#page-home{justify-content:center}
+.home-hero{text-align:center;padding:8px 4px 4px}
+.home-badge{width:84px;height:84px;margin:0 auto 16px;border-radius:var(--radius);background:linear-gradient(135deg,var(--green),#0a1024);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(22,33,62,.35);border:1.5px solid var(--gold)}
+.home-badge-text{font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:1px}
+.home-title{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:23px;line-height:1.3;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.home-title-accent{display:block;font-size:14px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-top:6px}
+.home-tagline{font-size:12.5px;font-weight:600;color:var(--text-light);margin-top:12px;font-style:italic}
+
+.home-buttons{display:flex;gap:14px;margin-top:32px}
+.home-btn{flex:1;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;transition:transform .12s;box-shadow:var(--shadow)}
+.home-btn:active{transform:scale(.97)}
+.home-btn-icon{width:44px;height:44px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center}
+.home-btn-liste .home-btn-icon{background:var(--green)}
+.home-btn-quiz .home-btn-icon{background:var(--gold)}
+.home-btn-icon svg{width:22px;height:22px}
+.home-btn-label{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:14px;color:var(--text);text-transform:uppercase;letter-spacing:.6px}
+.home-btn-sub{font-size:10.5px;font-weight:600;color:var(--text-light);text-align:center;line-height:1.35}
+
+/* Quiz-Hero, im Business-Look (flach, Gold-Rahmen statt Farbverlauf) */
+.quiz-hero{background:var(--green);border-radius:var(--radius);padding:20px;text-align:center;color:#fff;margin-bottom:16px;border:1.5px solid var(--gold)}
+.quiz-hero-icon{font-size:26px;line-height:1;margin-bottom:4px}
+.quiz-hero-sub{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--gold)}
+.btn-quiz-start{background:var(--green);color:var(--gold);border:1.5px solid var(--gold)}
 .page-hdr h2{font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:var(--text)}
 
 nav{display:flex;gap:6px;margin-top:14px}
@@ -175,7 +200,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
       <div class="header-tagline">English for your business</div>
     </div>
     <div>
-      <button class="icon-btn" onclick="gotoPage('liste')" title="Lernliste">&#128214;</button>
+      <button class="icon-btn" onclick="gotoPage('liste')" title="Lernbox">&#128214;</button>
       <button class="icon-btn" onclick="gotoPage('verwaltung')" title="Verwaltung">&#9881;</button>
       <div class="menu-wrap">
         <button class="icon-btn" onclick="toggleHeaderMenu()" title="Mehr">&#8942;</button>
@@ -186,8 +211,46 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
     </div>
   </header>
 
-  <!-- STARTSEITE -->
-  <div class="page active" id="page-start">
+  <!-- STARTSEITE (Home-Splash mit 2 Startbuttons) -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="home-badge"><span class="home-badge-text">BE</span></div>
+      <div class="home-title">Vokabeltrainer<span class="home-title-accent">Business English</span></div>
+      <div class="home-tagline">Vokabular f&uuml;r Meetings, Verhandlungen &amp; F&uuml;hrung</div>
+    </div>
+    <div class="home-buttons">
+      <button class="home-btn home-btn-liste" onclick="gotoPage('liste')">
+        <div class="home-btn-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <rect x="3" y="4" width="18" height="16" rx="2" stroke="#C6A15B" stroke-width="1.6"/>
+            <line x1="7" y1="9" x2="17" y2="9" stroke="#C6A15B" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="7" y1="13" x2="14" y2="13" stroke="#C6A15B" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="home-btn-label">Lernbox</div>
+        <div class="home-btn-sub">Vokabular durchsehen</div>
+      </button>
+      <button class="home-btn home-btn-quiz" onclick="gotoPage('start')">
+        <div class="home-btn-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <circle cx="12" cy="12" r="8" stroke="#16213E" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="4" stroke="#16213E" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="1" fill="#16213E"/>
+          </svg>
+        </div>
+        <div class="home-btn-label">Quiz</div>
+        <div class="home-btn-sub">Wissen testen</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- QUIZ-SETUP (Folgeseite) -->
+  <div class="page" id="page-start">
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('home')" title="Zur&uuml;ck">&#8249;</button><h2>Quiz</h2></div>
+    <div class="quiz-hero">
+      <div class="quiz-hero-icon">&#127919;</div>
+      <div class="quiz-hero-sub">Vokabular abfragen &amp; Fortschritt testen</div>
+    </div>
     <div class="card">
       <div class="card-title">Kategorien</div>
       <div class="chip-grid" id="start-kategorien"></div>
@@ -208,7 +271,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
         <div class="slider-val" id="start-anzahl-val">15</div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="startQuiz()">Training starten</button>
+    <button class="btn btn-quiz-start" onclick="startQuiz()">Training starten</button>
   </div>
 
   <button class="fab" id="fab-add" onclick="openAddModal()" title="Vokabel hinzufügen">&#43;</button>
@@ -246,7 +309,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
 
   <!-- LERNLISTE -->
   <div class="page" id="page-liste">
-    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('start')" title="Zurück">&#8249;</button><h2>Lernliste</h2></div>
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('home')" title="Zurück">&#8249;</button><h2>Lernbox</h2></div>
     <div class="card">
       <div class="form-row" style="margin-bottom:0">
         <input type="text" id="ll-suche" placeholder="&#128269; Vokabel suchen …" autocomplete="off" oninput="onLlSucheInput()">
@@ -272,7 +335,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
 
   <!-- VERWALTUNG -->
   <div class="page" id="page-verwaltung">
-    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('start')" title="Zurück">&#8249;</button><h2>Verwaltung</h2></div>
+    <div class="page-hdr"><button class="back-btn" onclick="gotoPage('home')" title="Zurück">&#8249;</button><h2>Verwaltung</h2></div>
     <button class="btn btn-primary" onclick="openAddModal()" style="margin-bottom:8px">&#43; Neue Vokabel hinzufügen</button>
     <button class="btn btn-secondary" onclick="openKatModal()" style="margin-bottom:8px">&#43; Neue Kategorie anlegen</button>
     <button class="btn btn-secondary" onclick="openOcrModal()" style="margin-bottom:14px">&#128248; Vokabeln aus Foto (OCR)</button>
@@ -1031,7 +1094,7 @@ function toast(msg, type='err') {
 function gotoPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('fab-add').style.display = (name === 'start' || name === 'verwaltung') ? 'flex' : 'none';
+  document.getElementById('fab-add').style.display = (name === 'start' || name === 'liste' || name === 'verwaltung') ? 'flex' : 'none';
   if (name === 'verwaltung') renderVerwaltung();
   if (name === 'start') renderStart();
   if (name === 'liste') renderLernliste();
@@ -1054,6 +1117,8 @@ async function appInit() {
   S.kategorien = lsKategorien(S.vokabeln);
   S.selectedKat = new Set(S.kategorien);
   renderStart();
+  renderLernliste();
+  document.getElementById('fab-add').style.display = 'none';
   updateLizenzUI();
   pruefeTestphase();
 
@@ -1137,7 +1202,7 @@ function renderLernliste() {
       return;
     }
     content.innerHTML = kats.map(k => {
-      const items = [...byKat[k]].sort((a,b) => a.it.localeCompare(b.it));
+      const items = [...byKat[k]].sort((a,b) => S.llRichtung === 'de-it' ? a.de.localeCompare(b.de) : a.it.localeCompare(b.it));
       return `<div class="ll-kat-title">${k}</div>` + items.map(v => {
         const itSpan = `<span class="ll-it">${v.it}<button class="ll-speak-btn" onclick="speak('${escJs(v.it)}','en-US')" title="Aussprache anhören">&#128266;</button></span>`;
         const deSpan = `<span class="ll-de">${v.de}</span>`;
