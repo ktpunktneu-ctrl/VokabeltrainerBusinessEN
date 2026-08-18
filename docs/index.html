@@ -280,6 +280,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
         <div class="slider-val" id="start-anzahl-val">15</div>
       </div>
     </div>
+    <div class="m-trial-hint" id="srs-faellig-hinweis"></div>
     <button class="btn btn-quiz-start" onclick="startQuiz()">Training starten</button>
   </div>
 
@@ -292,12 +293,14 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
     <div class="quiz-card">
       <div class="quiz-lang-badge" id="quiz-badge">Business English</div>
       <div class="quiz-word-row"><div class="quiz-word" id="quiz-word">–</div><button class="speak-btn" id="quiz-speak-btn" onclick="speakQuizWord()" title="Aussprache anhören">&#128266;</button></div>
+      <div id="quiz-langer-hinweis" style="display:none;font-size:12px;color:var(--text-muted);margin:-4px 0 8px;text-align:center">Längerer Eintrag – schätz dich selbst ein, statt abzutippen</div>
       <input type="text" class="quiz-input" id="quiz-input" placeholder="Übersetzung eingeben …" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
       <div class="quiz-reaction" id="quiz-reaction"></div>
       <div class="quiz-feedback" id="quiz-feedback"></div>
       <div class="quiz-forms" id="quiz-forms"></div>
       <div class="quiz-actions">
         <button class="btn btn-secondary" onclick="quizAbbrechen()">Abbrechen</button>
+        <button class="btn btn-secondary" id="quiz-selfassess-wrong-btn" onclick="quizSelfAssess(false)" style="display:none">&#8635; Nochmal üben</button>
         <button class="btn btn-primary" id="quiz-check-btn" onclick="quizCheck()">Prüfen</button>
       </div>
     </div>
@@ -1051,13 +1054,112 @@ function lsRepairFormen(list) {
   return repariert;
 }
 
+// ── SPACED REPETITION (Leitner-System) ──────────────────────────────────────
+// box 1-5, je höher desto seltener fällig. Falsch beantwortet -> zurück auf Box 1.
+const SRS_MAX_BOX = 5;
+const SRS_INTERVALL_TAGE = { 1: 1, 2: 2, 3: 4, 4: 7, 5: 14 };
+
+function heutigesDatumIso() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function datumPlusTageIso(basisIso, tage) {
+  const [y, m, tag] = basisIso.split('-').map(Number);
+  const d = new Date(y, m - 1, tag);
+  d.setDate(d.getDate() + tage);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function lsRepairSrs(list) {
+  const heute = heutigesDatumIso();
+  let geaendert = false;
+  const repariert = list.map(v => {
+    if (v.box === undefined || v.faelligAm === undefined) {
+      geaendert = true;
+      return { ...v, box: v.box || 1, faelligAm: v.faelligAm || heute };
+    }
+    return v;
+  });
+  if (geaendert) lsSave(repariert);
+  return repariert;
+}
+function lsUpdateSrs(id, ok) {
+  const list = lsLoad();
+  const v = list.find(x => x.id === id);
+  if (!v) return;
+  v.box = ok ? Math.min((v.box || 1) + 1, SRS_MAX_BOX) : 1;
+  v.faelligAm = datumPlusTageIso(heutigesDatumIso(), SRS_INTERVALL_TAGE[v.box]);
+  lsSave(list);
+}
+function anzahlFaellig(liste) {
+  const heute = heutigesDatumIso();
+  return liste.filter(v => (v.faelligAm || heute) <= heute).length;
+}
+
+// ── SPACED REPETITION PRO VERBFORM ──────────────────────────────────────────
+function lsRepairFormenSrs(list) {
+  const heute = heutigesDatumIso();
+  let geaendert = false;
+  const repariert = list.map(v => {
+    if (!v.formen) return v;
+    const neu = { ...(v.formenSrs || {}) };
+    let lokalGeaendert = !v.formenSrs;
+    ABFRAGBARE_FORMEN.forEach(k => {
+      if (!neu[k] || neu[k].box === undefined || neu[k].faelligAm === undefined) {
+        neu[k] = { box: (neu[k] && neu[k].box) || 1, faelligAm: (neu[k] && neu[k].faelligAm) || heute };
+        lokalGeaendert = true;
+      }
+    });
+    if (lokalGeaendert) { geaendert = true; return { ...v, formenSrs: neu }; }
+    return v;
+  });
+  if (geaendert) lsSave(repariert);
+  return repariert;
+}
+function formSrsEintrag(v, formKey) {
+  const heute = heutigesDatumIso();
+  return (v.formenSrs && v.formenSrs[formKey]) || { box: 1, faelligAm: heute };
+}
+function lsUpdateFormSrs(id, formKey, ok) {
+  const list = lsLoad();
+  const v = list.find(x => x.id === id);
+  if (!v) return;
+  if (!v.formenSrs) v.formenSrs = {};
+  const bisher = v.formenSrs[formKey] || { box: 1 };
+  const neueBox = ok ? Math.min((bisher.box || 1) + 1, SRS_MAX_BOX) : 1;
+  v.formenSrs[formKey] = { box: neueBox, faelligAm: datumPlusTageIso(heutigesDatumIso(), SRS_INTERVALL_TAGE[neueBox]) };
+  lsSave(list);
+}
+function faelligeFormenZuerst(basisPool, formKeysFn) {
+  const heute = heutigesDatumIso();
+  const paare = [];
+  basisPool.forEach(v => formKeysFn(v).forEach(formKey => {
+    const eintrag = formSrsEintrag(v, formKey);
+    paare.push({ v, formKey, faelligAm: eintrag.faelligAm || heute });
+  }));
+  const faellig = shuffle(paare.filter(p => p.faelligAm <= heute));
+  const nichtFaellig = shuffle(paare.filter(p => p.faelligAm > heute))
+    .sort((a, b) => a.faelligAm.localeCompare(b.faelligAm));
+  return [...faellig, ...nichtFaellig];
+}
+function anzahlFaelligFormen(basisPool, formKeysFn) {
+  const heute = heutigesDatumIso();
+  let n = 0;
+  basisPool.forEach(v => formKeysFn(v).forEach(formKey => {
+    if ((formSrsEintrag(v, formKey).faelligAm || heute) <= heute) n++;
+  }));
+  return n;
+}
+
 function lsLoad() {
   const raw = localStorage.getItem(LS_KEY);
+  let list;
   if (!raw) {
-    localStorage.setItem(LS_KEY, JSON.stringify(SEED_VOKABELN));
-    return JSON.parse(JSON.stringify(SEED_VOKABELN));
+    list = JSON.parse(JSON.stringify(SEED_VOKABELN));
+    localStorage.setItem(LS_KEY, JSON.stringify(list));
+  } else {
+    try { list = lsRepairFormen(JSON.parse(raw)); } catch(e) { list = JSON.parse(JSON.stringify(SEED_VOKABELN)); }
   }
-  try { return lsRepairFormen(JSON.parse(raw)); } catch(e) { return JSON.parse(JSON.stringify(SEED_VOKABELN)); }
+  return lsRepairFormenSrs(lsRepairSrs(list));
 }
 function lsSave(list) { localStorage.setItem(LS_KEY, JSON.stringify(list)); }
 
@@ -1166,6 +1268,7 @@ async function appInit() {
       document.querySelectorAll('#start-richtung .radio-opt').forEach(x => x.classList.remove('active'));
       el.classList.add('active');
       S.richtung = el.dataset.dir;
+      aktualisiereFaelligHinweis();
     });
   });
   document.getElementById('quiz-input').addEventListener('keydown', e => {
@@ -1262,7 +1365,18 @@ function renderLernliste() {
   }
 }
 
+function aktualisiereFaelligHinweis() {
+  const pool = S.vokabeln.filter(v => S.selectedKat.has(v.kategorie));
+  const faellig = S.richtung === 'konjugation'
+    ? anzahlFaelligFormen(pool.filter(v => v.formen), () => ABFRAGBARE_FORMEN)
+    : anzahlFaellig(pool);
+  document.getElementById('srs-faellig-hinweis').textContent = faellig > 0
+    ? `📅 ${faellig} Karte${faellig === 1 ? '' : 'n'} heute zur Wiederholung fällig`
+    : '✓ Keine Wiederholung fällig — alle Karten aktuell';
+}
+
 function renderStart() {
+  aktualisiereFaelligHinweis();
   const wrap = document.getElementById('start-kategorien');
   wrap.innerHTML = S.kategorien.map(k =>
     `<div class="chip ${S.selectedKat.has(k)?'active':''}" data-kat="${k}">${k}</div>`
@@ -1296,6 +1410,16 @@ function shuffle(arr) {
   return a;
 }
 
+// Fällige/überfällige Karten zuerst (zufällig untereinander gemischt), danach
+// die noch nicht fälligen, sortiert nach frühester Fälligkeit zuerst.
+function faelligeZuerst(pool) {
+  const heute = heutigesDatumIso();
+  const faellig = shuffle(pool.filter(v => (v.faelligAm || heute) <= heute));
+  const nichtFaellig = shuffle(pool.filter(v => (v.faelligAm || heute) > heute))
+    .sort((a, b) => (a.faelligAm || '').localeCompare(b.faelligAm || ''));
+  return [...faellig, ...nichtFaellig];
+}
+
 function normalize(s) {
   return (s || '').toLowerCase().trim()
     .replace(/[^\w\s\/]/g, '').trim();
@@ -1304,6 +1428,13 @@ function normalize(s) {
 function antwortRichtig(eingabe, loesung) {
   const varianten = loesung.split(/[/,]/).map(v => normalize(v));
   return varianten.includes(normalize(eingabe));
+}
+
+// Ab dieser Wortanzahl (z.B. Redewendungen/Umgangssprache) ist exaktes Abtippen
+// unrealistisch - dort wird auf Selbsteinschaetzung statt Freitext-Abfrage umgeschaltet.
+const QUIZ_LANG_WORTGRENZE = 3;
+function istLangerEintrag(text) {
+  return (text || '').trim().split(/\s+/).length > QUIZ_LANG_WORTGRENZE;
 }
 
 const PERSON_LABEL = { base:'Grundform', past:'Simple Past', participle:'Past Participle' };
@@ -1325,17 +1456,16 @@ function startQuiz(liste = null) {
   if (S.richtung === 'konjugation' && !liste) {
     basisPool = basisPool.filter(v => v.formen);
     if (!basisPool.length) { toast('Keine Verben mit Verbformen in dieser Auswahl'); return; }
-    let pool = shuffle(basisPool).slice(0, anzahl);
-    // ggf. mit Wiederholung auffüllen, falls weniger Verben als gewünschte Fragenzahl
-    while (pool.length < anzahl && basisPool.length) {
-      pool.push(basisPool[Math.floor(Math.random() * basisPool.length)]);
+    // Pool auf einzelne (Wort,Form)-Paare auflösen, fällige Paare zuerst — dieselbe
+    // Vokabel kann dadurch mit mehreren fälligen Formen im selben Durchlauf mehrfach vorkommen.
+    let paare = faelligeFormenZuerst(basisPool, () => ABFRAGBARE_FORMEN).slice(0, anzahl);
+    while (paare.length < anzahl && basisPool.length) {
+      const v = basisPool[Math.floor(Math.random() * basisPool.length)];
+      paare.push({ v, formKey: ABFRAGBARE_FORMEN[Math.floor(Math.random() * ABFRAGBARE_FORMEN.length)] });
     }
-    S.quizList = pool.map(v => {
-      const person = ABFRAGBARE_FORMEN[Math.floor(Math.random() * ABFRAGBARE_FORMEN.length)];
-      return { ...v, dir: 'konjugation', person, correctForm: v.formen[person] };
-    });
+    S.quizList = paare.map(p => ({ ...p.v, dir: 'konjugation', person: p.formKey, correctForm: p.v.formen[p.formKey] }));
   } else {
-    let pool = shuffle(basisPool).slice(0, liste ? basisPool.length : anzahl);
+    let pool = (liste ? shuffle(basisPool) : faelligeZuerst(basisPool)).slice(0, liste ? basisPool.length : anzahl);
     S.quizList = pool.map(v => {
       let dir = S.richtung === 'konjugation' ? 'it-de' : S.richtung;
       if (dir === 'mix') dir = Math.random() < 0.5 ? 'it-de' : 'de-it';
@@ -1423,23 +1553,64 @@ function zeigeQuizFrage() {
   document.getElementById('quiz-badge').textContent = badge;
   document.getElementById('quiz-word').textContent = frage;
   speak(S.quizSpeak.text, S.quizSpeak.lang);
+
+  const loesung = item.dir === 'konjugation' ? item.correctForm
+                : item.dir === 'it-de' ? item.de : item.it;
+  const langerModus = item.dir !== 'konjugation' && istLangerEintrag(loesung);
+
   const inp = document.getElementById('quiz-input');
   inp.value = ''; inp.className = 'quiz-input'; inp.disabled = false;
+  inp.style.display = langerModus ? 'none' : '';
+  document.getElementById('quiz-langer-hinweis').style.display = langerModus ? 'block' : 'none';
+  document.getElementById('quiz-selfassess-wrong-btn').style.display = 'none';
   document.getElementById('quiz-feedback').textContent = '';
   document.getElementById('quiz-feedback').className = 'quiz-feedback';
   const reactionEl = document.getElementById('quiz-reaction');
   reactionEl.textContent = ''; reactionEl.className = 'quiz-reaction';
   const formsEl = document.getElementById('quiz-forms');
   formsEl.className = 'quiz-forms'; formsEl.innerHTML = '';
-  document.getElementById('quiz-check-btn').textContent = 'Prüfen';
-  document.getElementById('quiz-check-btn').onclick = quizCheck;
+  document.getElementById('quiz-check-btn').textContent = langerModus ? 'Antwort anzeigen' : 'Prüfen';
+  document.getElementById('quiz-check-btn').onclick = langerModus ? quizRevealLang : quizCheck;
 
   const pct = Math.round((S.quizIndex / S.quizList.length) * 100);
   document.getElementById('quiz-progress-fill').style.width = pct + '%';
   document.getElementById('quiz-progress').textContent =
     `Frage ${S.quizIndex+1} / ${S.quizList.length} · Richtig: ${S.richtig}`;
 
-  setTimeout(() => inp.focus(), 50);
+  if (!langerModus) setTimeout(() => inp.focus(), 50);
+}
+
+function quizAuswerten(item, loesung, ok) {
+  const fb = document.getElementById('quiz-feedback');
+  if (ok) {
+    S.richtig++;
+    fb.textContent = '';
+    fb.className = 'quiz-feedback';
+  } else {
+    fb.textContent = `Richtig wäre: ${loesung}`;
+    fb.className = 'quiz-feedback wrong';
+    S.falscheListe.push(item);
+  }
+  if (item.dir === 'konjugation') {
+    lsUpdateFormSrs(item.id, item.person, ok);
+  } else {
+    lsUpdateSrs(item.id, ok);
+  }
+  S.vokabeln = lsLoad();
+  zeigeQuizReaktion(ok);
+  spieleQuizSound(ok);
+
+  // Alle Formen als Zusatzinfo zeigen (nicht im Verbformen-Modus, da redundant)
+  if (item.dir !== 'konjugation' && item.formen) {
+    const formsEl = document.getElementById('quiz-forms');
+    formsEl.innerHTML = formenText(item.formen);
+    formsEl.classList.add('show');
+  }
+
+  document.getElementById('quiz-selfassess-wrong-btn').style.display = 'none';
+  document.getElementById('quiz-check-btn').textContent =
+    S.quizIndex + 1 < S.quizList.length ? 'Weiter' : 'Ergebnis';
+  document.getElementById('quiz-check-btn').onclick = quizNext;
 }
 
 function quizCheck() {
@@ -1452,29 +1623,26 @@ function quizCheck() {
 
   inp.disabled = true;
   inp.className = 'quiz-input ' + (ok ? 'correct' : 'wrong');
+  quizAuswerten(item, loesung, ok);
+}
+
+// Selbsteinschaetzungs-Modus fuer lange Eintraege (Redewendungen/Umgangssprache):
+// Antwort wird angezeigt statt abgefragt, Nutzer bewertet sich selbst ehrlich.
+function quizRevealLang() {
+  const item = S.quizList[S.quizIndex];
+  const loesung = item.dir === 'it-de' ? item.de : item.it;
   const fb = document.getElementById('quiz-feedback');
-  if (ok) {
-    S.richtig++;
-    fb.textContent = '';
-    fb.className = 'quiz-feedback';
-  } else {
-    fb.textContent = `Richtig wäre: ${loesung}`;
-    fb.className = 'quiz-feedback wrong';
-    S.falscheListe.push(item);
-  }
-  zeigeQuizReaktion(ok);
-  spieleQuizSound(ok);
+  fb.textContent = loesung;
+  fb.className = 'quiz-feedback';
+  document.getElementById('quiz-check-btn').textContent = '✓ Kenne ich';
+  document.getElementById('quiz-check-btn').onclick = () => quizSelfAssess(true);
+  document.getElementById('quiz-selfassess-wrong-btn').style.display = '';
+}
 
-  // Alle Formen als Zusatzinfo zeigen (nicht im Verbformen-Modus, da redundant)
-  if (item.dir !== 'konjugation' && item.formen) {
-    const formsEl = document.getElementById('quiz-forms');
-    formsEl.innerHTML = formenText(item.formen);
-    formsEl.classList.add('show');
-  }
-
-  document.getElementById('quiz-check-btn').textContent =
-    S.quizIndex + 1 < S.quizList.length ? 'Weiter' : 'Ergebnis';
-  document.getElementById('quiz-check-btn').onclick = quizNext;
+function quizSelfAssess(ok) {
+  const item = S.quizList[S.quizIndex];
+  const loesung = item.dir === 'it-de' ? item.de : item.it;
+  quizAuswerten(item, loesung, ok);
 }
 
 function quizNext() {
