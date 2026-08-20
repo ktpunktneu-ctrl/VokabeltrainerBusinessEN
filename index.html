@@ -136,10 +136,10 @@ dialog::backdrop{background:rgba(0,0,0,0.4)}
 /* -- STARTSEITE / HOME-SPLASH (eigenes Premium-Design, keine Kugeln/Cursive) -- */
 #page-home{justify-content:center}
 .home-hero{text-align:center;padding:8px 4px 4px}
-.home-badge{width:84px;height:84px;margin:0 auto 16px;border-radius:var(--radius);background:linear-gradient(135deg,var(--green),#0a1024);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(22,33,62,.35);border:1.5px solid var(--gold)}
-.home-badge-text{font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:700;color:var(--gold);letter-spacing:1px}
 .home-title{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:23px;line-height:1.3;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.home-title-rule{width:44px;height:1.5px;background:var(--gold);margin:12px auto}
 .home-title-accent{display:block;font-size:14px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;margin-top:6px}
+.home-title-accent-standalone{margin-top:0}
 .home-tagline{font-size:12.5px;font-weight:600;color:var(--text-light);margin-top:12px;font-style:italic}
 
 .home-buttons{display:flex;gap:14px;margin-top:32px}
@@ -223,8 +223,9 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
   <!-- STARTSEITE (Home-Splash mit 2 Startbuttons) -->
   <div class="page active" id="page-home">
     <div class="home-hero">
-      <div class="home-badge"><span class="home-badge-text">BE</span></div>
-      <div class="home-title">Vokabeltrainer<span class="home-title-accent">Business English</span></div>
+      <div class="home-title">Vokabeltrainer</div>
+      <div class="home-title-rule"></div>
+      <div class="home-title-accent home-title-accent-standalone">Business English</div>
       <div class="home-tagline">Vokabular f&uuml;r Meetings, Verhandlungen &amp; F&uuml;hrung</div>
     </div>
     <div class="home-buttons">
@@ -284,7 +285,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
     <button class="btn btn-quiz-start" onclick="startQuiz()">Training starten</button>
   </div>
 
-  <button class="fab" id="fab-add" onclick="openAddModal()" title="Vokabel hinzufügen">&#43;</button>
+  <button class="fab" id="fab-add" onclick="handleFabAdd()" title="Vokabel hinzufügen">&#43;</button>
 
   <!-- QUIZ -->
   <div class="page" id="page-quiz">
@@ -484,6 +485,7 @@ nav button.active{background:var(--green);border-color:var(--green);color:var(--
     <div class="form-row">
       <input type="text" id="em-it" placeholder="Business English" autocomplete="off" autocapitalize="off">
       <input type="text" id="em-de" placeholder="Deutsch" autocomplete="off">
+      <select id="em-kategorie-select"></select>
     </div>
     <div class="m-err" id="em-err"></div>
     <div class="modal-actions">
@@ -1036,10 +1038,15 @@ const S = { vokabeln: [], kategorien: [], selectedKat: new Set(), richtung: 'it-
             quizList: [], quizIndex: 0, richtig: 0, falscheListe: [], llTab: 'vokabeln', llRichtung: 'it-de',
             llSuche: '', vkSuche: '', ocrKandidaten: [], editId: null };
 
+const SUCHE_ARTIKEL = new Set(['the', 'a', 'an', 'der', 'die', 'das', 'den', 'dem', 'des']);
 function sucheTreffer(v, suche) {
   const s = suche.trim().toLowerCase();
   if (!s) return true;
-  return v.it.toLowerCase().includes(s) || v.de.toLowerCase().includes(s);
+  const it = v.it.toLowerCase(), de = v.de.toLowerCase();
+  const alleWorte = s.split(/\s+/).filter(Boolean);
+  const worte = alleWorte.filter(w => !SUCHE_ARTIKEL.has(w));
+  const suchworte = worte.length ? worte : alleWorte;
+  return suchworte.every(w => it.includes(w) || de.includes(w));
 }
 
 // ── Lokale Speicherung (funktioniert komplett offline, keine Serverabhängigkeit) ──
@@ -1192,10 +1199,10 @@ function lsDelete(id) {
   const list = lsLoad().filter(v => v.id !== id);
   lsSave(list);
 }
-function lsUpdateWort(id, it, de) {
+function lsUpdateWort(id, it, de, kategorie) {
   const list = lsLoad();
   const v = list.find(x => x.id === id);
-  if (v) { v.it = it; v.de = de; lsSave(list); }
+  if (v) { v.it = it; v.de = de; if (kategorie) v.kategorie = kategorie; lsSave(list); }
 }
 
 // ── SPRACHAUSGABE (Web Speech API, kostenlos, funktioniert offline mit Handy-eigenen Stimmen) ──
@@ -1274,6 +1281,15 @@ async function appInit() {
   document.getElementById('quiz-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') quizCheck();
   });
+  document.getElementById('am-it').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitAddModal();
+  });
+  document.getElementById('am-de').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitAddModal();
+  });
+  document.getElementById('km-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitKatModal();
+  });
   document.querySelectorAll('.ll-tab').forEach(el => {
     el.addEventListener('click', () => {
       if (el.dataset.lltab === 'konjugation' && !istFreigeschaltet()) { openLizenzModal(); return; }
@@ -1336,7 +1352,9 @@ function renderLernliste() {
     gefiltert.forEach(v => { (byKat[v.kategorie] = byKat[v.kategorie] || []).push(v); });
     const kats = Object.keys(byKat).sort();
     if (!kats.length) {
-      content.innerHTML = `<p style="color:var(--text-light);font-size:13px;padding:10px 0">${sucheAktiv ? 'Keine Treffer für die Suche' : 'Keine Vokabeln in den gewählten Kategorien'}</p>`;
+      content.innerHTML = sucheAktiv
+        ? `<p style="color:var(--text-light);font-size:13px;padding:10px 0">Keine Treffer für "${S.llSuche.trim()}" — <a href="#" onclick="openAddModalMitSuche();return false" style="color:var(--gold);font-weight:600">neu anlegen &#43;</a></p>`
+        : `<p style="color:var(--text-light);font-size:13px;padding:10px 0">Keine Vokabeln in den gewählten Kategorien</p>`;
       return;
     }
     content.innerHTML = kats.map(k => {
@@ -1750,6 +1768,20 @@ function changeVokabelKategorie(id, neueKategorie) {
 }
 
 // ── ADD-MODAL (Schnellzugriff per FAB oder aus Verwaltung) ───────────────────
+function handleFabAdd() {
+  const aufLernbox = document.querySelector('.page.active').id === 'page-liste';
+  if (aufLernbox && S.llSuche.trim()) openAddModalMitSuche();
+  else openAddModal();
+}
+
+function openAddModalMitSuche() {
+  const suche = S.llSuche.trim();
+  openAddModal();
+  document.getElementById('am-it').value = suche;
+  checkDuplicate();
+  setTimeout(() => document.getElementById('am-de').focus(), 60);
+}
+
 function openAddModal() {
   const sel = document.getElementById('am-kategorie-select');
   sel.innerHTML = S.kategorien.map(k => `<option value="${k}">${k}</option>`).join('');
@@ -1767,6 +1799,7 @@ function openAddModal() {
 
 function closeAddModal() {
   document.getElementById('add-modal').close();
+  document.activeElement.blur();
 }
 
 function checkDuplicate() {
@@ -1809,6 +1842,11 @@ function submitAddModal() {
   const activePage = document.querySelector('.page.active').id;
   if (activePage === 'page-verwaltung') renderVerwaltung();
   if (activePage === 'page-start') renderStart();
+  if (activePage === 'page-liste') {
+    S.llSuche = '';
+    document.getElementById('ll-suche').value = '';
+    renderLernliste();
+  }
 }
 
 // ── KATEGORIE-MODAL ───────────────────────────────────────────────────────
@@ -1823,6 +1861,7 @@ function openKatModal() {
 
 function closeKatModal() {
   document.getElementById('kat-modal').close();
+  document.activeElement.blur();
 }
 
 function submitKatModal() {
@@ -2011,6 +2050,9 @@ function openEditModal(id) {
   S.editId = id;
   document.getElementById('em-it').value = v.it;
   document.getElementById('em-de').value = v.de;
+  const sel = document.getElementById('em-kategorie-select');
+  sel.innerHTML = S.kategorien.map(k => `<option value="${k}">${k}</option>`).join('');
+  sel.value = v.kategorie;
   document.getElementById('em-err').textContent = '';
   document.getElementById('edit-modal').showModal();
   setTimeout(() => document.getElementById('em-it').focus(), 50);
@@ -2018,14 +2060,17 @@ function openEditModal(id) {
 
 function closeEditModal() {
   document.getElementById('edit-modal').close();
+  document.activeElement.blur();
 }
 
 function submitEditModal() {
   const errEl = document.getElementById('em-err');
   const it = document.getElementById('em-it').value.trim();
   const de = document.getElementById('em-de').value.trim();
+  const kategorie = document.getElementById('em-kategorie-select').value;
   if (!it || !de) { errEl.textContent = 'Bitte beide Felder ausfüllen'; return; }
-  lsUpdateWort(S.editId, it, de);
+  if (!kategorie) { errEl.textContent = 'Bitte Kategorie angeben'; return; }
+  lsUpdateWort(S.editId, it, de, kategorie);
   S.vokabeln = lsLoad();
   closeEditModal();
   toast(`"${it}" aktualisiert`, 'ok');
